@@ -29,10 +29,12 @@ history of this folder and summarized below.
    SPEC §2–§3 after the prompt if your interface can't attach files).
 3. Accept the build only if it passes PROMPT.md's Verification Checklist
    (37 gates) and the acceptance vectors in SPEC §3.
-4. Live-mode smoke test: reproduce Hora's externally verified day —
-   2026-09-26, Chennai: Sunrise 05:58, Sunset 18:02, Purnima until 22:18,
-   Purva Bhadrapada until 11:32, Ganda yoga until 13:17, Vishti karana
-   until 10:46/10:47 followed by Bava until 22:18 (verified against Drik Panchang).
+4. Live-mode smoke test: verify the engine dynamically computes all astronomical
+   values (Sunrise, Sunset, Tithi, Nakshatra, Yoga, Karana transitions) for the
+   current day and location. In addition, benchmark the dynamic calculation
+   against the externally verified reference day (2026-09-26, Chennai: Sunrise 05:58,
+   Sunset 18:02, Purnima until 22:18, Purva Bhadrapada until 11:32, Ganda yoga until 13:17,
+   Vishti karana until 10:46/10:47 followed by Bava until 22:18).
 
 ## Provenance & credits
 
