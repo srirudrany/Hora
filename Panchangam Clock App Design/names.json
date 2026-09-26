@@ -1,0 +1,883 @@
+{
+ "tithi": [
+  {
+   "index": 0,
+   "paksha": "Śukla",
+   "number": 1,
+   "name": "Pratipadā",
+   "family": "Nandā"
+  },
+  {
+   "index": 1,
+   "paksha": "Śukla",
+   "number": 2,
+   "name": "Dvitīyā",
+   "family": "Bhadrā"
+  },
+  {
+   "index": 2,
+   "paksha": "Śukla",
+   "number": 3,
+   "name": "Tṛtīyā",
+   "family": "Jayā"
+  },
+  {
+   "index": 3,
+   "paksha": "Śukla",
+   "number": 4,
+   "name": "Caturthī",
+   "family": "Riktā"
+  },
+  {
+   "index": 4,
+   "paksha": "Śukla",
+   "number": 5,
+   "name": "Pañcamī",
+   "family": "Pūrṇā"
+  },
+  {
+   "index": 5,
+   "paksha": "Śukla",
+   "number": 6,
+   "name": "Ṣaṣṭhī",
+   "family": "Nandā"
+  },
+  {
+   "index": 6,
+   "paksha": "Śukla",
+   "number": 7,
+   "name": "Saptamī",
+   "family": "Bhadrā"
+  },
+  {
+   "index": 7,
+   "paksha": "Śukla",
+   "number": 8,
+   "name": "Aṣṭamī",
+   "family": "Jayā"
+  },
+  {
+   "index": 8,
+   "paksha": "Śukla",
+   "number": 9,
+   "name": "Navamī",
+   "family": "Riktā"
+  },
+  {
+   "index": 9,
+   "paksha": "Śukla",
+   "number": 10,
+   "name": "Daśamī",
+   "family": "Pūrṇā"
+  },
+  {
+   "index": 10,
+   "paksha": "Śukla",
+   "number": 11,
+   "name": "Ekādaśī",
+   "family": "Nandā"
+  },
+  {
+   "index": 11,
+   "paksha": "Śukla",
+   "number": 12,
+   "name": "Dvādaśī",
+   "family": "Bhadrā"
+  },
+  {
+   "index": 12,
+   "paksha": "Śukla",
+   "number": 13,
+   "name": "Trayodaśī",
+   "family": "Jayā"
+  },
+  {
+   "index": 13,
+   "paksha": "Śukla",
+   "number": 14,
+   "name": "Caturdaśī",
+   "family": "Riktā"
+  },
+  {
+   "index": 14,
+   "paksha": "Śukla",
+   "number": 15,
+   "name": "Pūrṇimā",
+   "family": "Pūrṇā"
+  },
+  {
+   "index": 15,
+   "paksha": "Kṛṣṇa",
+   "number": 1,
+   "name": "Pratipadā",
+   "family": "Nandā"
+  },
+  {
+   "index": 16,
+   "paksha": "Kṛṣṇa",
+   "number": 2,
+   "name": "Dvitīyā",
+   "family": "Bhadrā"
+  },
+  {
+   "index": 17,
+   "paksha": "Kṛṣṇa",
+   "number": 3,
+   "name": "Tṛtīyā",
+   "family": "Jayā"
+  },
+  {
+   "index": 18,
+   "paksha": "Kṛṣṇa",
+   "number": 4,
+   "name": "Caturthī",
+   "family": "Riktā"
+  },
+  {
+   "index": 19,
+   "paksha": "Kṛṣṇa",
+   "number": 5,
+   "name": "Pañcamī",
+   "family": "Pūrṇā"
+  },
+  {
+   "index": 20,
+   "paksha": "Kṛṣṇa",
+   "number": 6,
+   "name": "Ṣaṣṭhī",
+   "family": "Nandā"
+  },
+  {
+   "index": 21,
+   "paksha": "Kṛṣṇa",
+   "number": 7,
+   "name": "Saptamī",
+   "family": "Bhadrā"
+  },
+  {
+   "index": 22,
+   "paksha": "Kṛṣṇa",
+   "number": 8,
+   "name": "Aṣṭamī",
+   "family": "Jayā"
+  },
+  {
+   "index": 23,
+   "paksha": "Kṛṣṇa",
+   "number": 9,
+   "name": "Navamī",
+   "family": "Riktā"
+  },
+  {
+   "index": 24,
+   "paksha": "Kṛṣṇa",
+   "number": 10,
+   "name": "Daśamī",
+   "family": "Pūrṇā"
+  },
+  {
+   "index": 25,
+   "paksha": "Kṛṣṇa",
+   "number": 11,
+   "name": "Ekādaśī",
+   "family": "Nandā"
+  },
+  {
+   "index": 26,
+   "paksha": "Kṛṣṇa",
+   "number": 12,
+   "name": "Dvādaśī",
+   "family": "Bhadrā"
+  },
+  {
+   "index": 27,
+   "paksha": "Kṛṣṇa",
+   "number": 13,
+   "name": "Trayodaśī",
+   "family": "Jayā"
+  },
+  {
+   "index": 28,
+   "paksha": "Kṛṣṇa",
+   "number": 14,
+   "name": "Caturdaśī",
+   "family": "Riktā"
+  },
+  {
+   "index": 29,
+   "paksha": "Kṛṣṇa",
+   "number": 15,
+   "name": "Amāvāsyā",
+   "family": "Pūrṇā"
+  }
+ ],
+ "nakshatra": [
+  {
+   "index": 0,
+   "iast": "Aśvinī",
+   "devanagari": "अश्विनी",
+   "tamil": "அசுவினி",
+   "start_deg": 0,
+   "nature": "ksipra"
+  },
+  {
+   "index": 1,
+   "iast": "Bharaṇī",
+   "devanagari": "भरणी",
+   "tamil": "பரணி",
+   "start_deg": 13.3333,
+   "nature": "ugra"
+  },
+  {
+   "index": 2,
+   "iast": "Kṛttikā",
+   "devanagari": "कृत्तिका",
+   "tamil": "கார்த்திகை",
+   "start_deg": 26.6667,
+   "nature": "misra"
+  },
+  {
+   "index": 3,
+   "iast": "Rohiṇī",
+   "devanagari": "रोहिणी",
+   "tamil": "ரோகிணி",
+   "start_deg": 40,
+   "nature": "dhruva"
+  },
+  {
+   "index": 4,
+   "iast": "Mṛgaśīrṣa",
+   "devanagari": "मृगशीर्ष",
+   "tamil": "மிருகசீரிடம்",
+   "start_deg": 53.3333,
+   "nature": "mrdu"
+  },
+  {
+   "index": 5,
+   "iast": "Ārdrā",
+   "devanagari": "आर्द्रा",
+   "tamil": "திருவாதிரை",
+   "start_deg": 66.6667,
+   "nature": "tiksna"
+  },
+  {
+   "index": 6,
+   "iast": "Punarvasu",
+   "devanagari": "पुनर्वसु",
+   "tamil": "புனர்பூசம்",
+   "start_deg": 80,
+   "nature": "cara"
+  },
+  {
+   "index": 7,
+   "iast": "Puṣya",
+   "devanagari": "पुष्य",
+   "tamil": "பூசம்",
+   "start_deg": 93.3333,
+   "nature": "ksipra"
+  },
+  {
+   "index": 8,
+   "iast": "Āśleṣā",
+   "devanagari": "आश्लेषा",
+   "tamil": "ஆயில்யம்",
+   "start_deg": 106.6667,
+   "nature": "tiksna"
+  },
+  {
+   "index": 9,
+   "iast": "Maghā",
+   "devanagari": "मघा",
+   "tamil": "மகம்",
+   "start_deg": 120,
+   "nature": "ugra"
+  },
+  {
+   "index": 10,
+   "iast": "Pūrva Phalgunī",
+   "devanagari": "पूर्वफल्गुनी",
+   "tamil": "பூரம்",
+   "start_deg": 133.3333,
+   "nature": "ugra"
+  },
+  {
+   "index": 11,
+   "iast": "Uttara Phalgunī",
+   "devanagari": "उत्तरफल्गुनी",
+   "tamil": "உத்திரம்",
+   "start_deg": 146.6667,
+   "nature": "dhruva"
+  },
+  {
+   "index": 12,
+   "iast": "Hasta",
+   "devanagari": "हस्त",
+   "tamil": "அஸ்தம்",
+   "start_deg": 160,
+   "nature": "ksipra"
+  },
+  {
+   "index": 13,
+   "iast": "Citrā",
+   "devanagari": "चित्रा",
+   "tamil": "சித்திரை",
+   "start_deg": 173.3333,
+   "nature": "mrdu"
+  },
+  {
+   "index": 14,
+   "iast": "Svātī",
+   "devanagari": "स्वाती",
+   "tamil": "சுவாதி",
+   "start_deg": 186.6667,
+   "nature": "cara"
+  },
+  {
+   "index": 15,
+   "iast": "Viśākhā",
+   "devanagari": "विशाखा",
+   "tamil": "விசாகம்",
+   "start_deg": 200,
+   "nature": "misra"
+  },
+  {
+   "index": 16,
+   "iast": "Anurādhā",
+   "devanagari": "अनुराधा",
+   "tamil": "அனுஷம்",
+   "start_deg": 213.3333,
+   "nature": "mrdu"
+  },
+  {
+   "index": 17,
+   "iast": "Jyeṣṭhā",
+   "devanagari": "ज्येष्ठा",
+   "tamil": "கேட்டை",
+   "start_deg": 226.6667,
+   "nature": "tiksna"
+  },
+  {
+   "index": 18,
+   "iast": "Mūla",
+   "devanagari": "मूल",
+   "tamil": "மூலம்",
+   "start_deg": 240,
+   "nature": "tiksna"
+  },
+  {
+   "index": 19,
+   "iast": "Pūrva Āṣāḍhā",
+   "devanagari": "पूर्वाषाढा",
+   "tamil": "பூராடம்",
+   "start_deg": 253.3333,
+   "nature": "ugra"
+  },
+  {
+   "index": 20,
+   "iast": "Uttara Āṣāḍhā",
+   "devanagari": "उत्तराषाढा",
+   "tamil": "உத்திராடம்",
+   "start_deg": 266.6667,
+   "nature": "dhruva"
+  },
+  {
+   "index": 21,
+   "iast": "Śravaṇa",
+   "devanagari": "श्रवण",
+   "tamil": "திருவோணம்",
+   "start_deg": 280,
+   "nature": "cara"
+  },
+  {
+   "index": 22,
+   "iast": "Dhaniṣṭhā",
+   "devanagari": "धनिष्ठा",
+   "tamil": "அவிட்டம்",
+   "start_deg": 293.3333,
+   "nature": "cara"
+  },
+  {
+   "index": 23,
+   "iast": "Śatabhiṣaj",
+   "devanagari": "शतभिषक्",
+   "tamil": "சதயம்",
+   "start_deg": 306.6667,
+   "nature": "cara"
+  },
+  {
+   "index": 24,
+   "iast": "Pūrva Bhādrapadā",
+   "devanagari": "पूर्वभाद्रपदा",
+   "tamil": "பூரட்டாதி",
+   "start_deg": 320,
+   "nature": "ugra"
+  },
+  {
+   "index": 25,
+   "iast": "Uttara Bhādrapadā",
+   "devanagari": "उत्तरभाद्रपदा",
+   "tamil": "உத்திரட்டாதி",
+   "start_deg": 333.3333,
+   "nature": "dhruva"
+  },
+  {
+   "index": 26,
+   "iast": "Revatī",
+   "devanagari": "रेवती",
+   "tamil": "ரேவதி",
+   "start_deg": 346.6667,
+   "nature": "mrdu"
+  }
+ ],
+ "yoga": [
+  {
+   "index": 0,
+   "iast": "Viṣkambha",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 1,
+   "iast": "Prīti",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 2,
+   "iast": "Āyuṣmān",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 3,
+   "iast": "Saubhāgya",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 4,
+   "iast": "Śobhana",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 5,
+   "iast": "Atigaṇḍa",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 6,
+   "iast": "Sukarmā",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 7,
+   "iast": "Dhṛti",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 8,
+   "iast": "Śūla",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 9,
+   "iast": "Gaṇḍa",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 10,
+   "iast": "Vṛddhi",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 11,
+   "iast": "Dhruva",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 12,
+   "iast": "Vyāghāta",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 13,
+   "iast": "Harṣaṇa",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 14,
+   "iast": "Vajra",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 15,
+   "iast": "Siddhi",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 16,
+   "iast": "Vyatīpāta",
+   "avoid_for_beginnings": true
+  },
+  {
+   "index": 17,
+   "iast": "Varīyān",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 18,
+   "iast": "Parigha",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 19,
+   "iast": "Śiva",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 20,
+   "iast": "Siddha",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 21,
+   "iast": "Sādhya",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 22,
+   "iast": "Śubha",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 23,
+   "iast": "Śukla",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 24,
+   "iast": "Brahma",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 25,
+   "iast": "Aindra",
+   "avoid_for_beginnings": false
+  },
+  {
+   "index": 26,
+   "iast": "Vaidhṛti",
+   "avoid_for_beginnings": true
+  }
+ ],
+ "karana": {
+  "order_by_index": [
+   "Kiṃstughna",
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi",
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi",
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi",
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi",
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi",
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi",
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi",
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi",
+   "Śakuni",
+   "Catuṣpāda",
+   "Nāga"
+  ],
+  "movable": [
+   "Bava",
+   "Bālava",
+   "Kaulava",
+   "Taitila",
+   "Gara",
+   "Vaṇij",
+   "Viṣṭi"
+  ],
+  "fixed": [
+   "Śakuni",
+   "Catuṣpāda",
+   "Nāga",
+   "Kiṃstughna"
+  ],
+  "avoid": [
+   "Viṣṭi"
+  ]
+ },
+ "vara": [
+  {
+   "index": 0,
+   "iast": "Ravivāra",
+   "tamil": "ஞாயிறு",
+   "lord": "Sūrya"
+  },
+  {
+   "index": 1,
+   "iast": "Somavāra",
+   "tamil": "திங்கள்",
+   "lord": "Candra"
+  },
+  {
+   "index": 2,
+   "iast": "Maṅgalavāra",
+   "tamil": "செவ்வாய்",
+   "lord": "Maṅgala"
+  },
+  {
+   "index": 3,
+   "iast": "Budhavāra",
+   "tamil": "புதன்",
+   "lord": "Budha"
+  },
+  {
+   "index": 4,
+   "iast": "Guruvāra",
+   "tamil": "வியாழன்",
+   "lord": "Guru"
+  },
+  {
+   "index": 5,
+   "iast": "Śukravāra",
+   "tamil": "வெள்ளி",
+   "lord": "Śukra"
+  },
+  {
+   "index": 6,
+   "iast": "Śanivāra",
+   "tamil": "சனி",
+   "lord": "Śani"
+  }
+ ],
+ "rasi": [
+  {
+   "index": 0,
+   "iast": "Meṣa",
+   "devanagari": "मेष",
+   "tamil_month": "Chithirai",
+   "tamil_month_script": "சித்திரை"
+  },
+  {
+   "index": 1,
+   "iast": "Vṛṣabha",
+   "devanagari": "वृषभ",
+   "tamil_month": "Vaikāsi",
+   "tamil_month_script": "வைகாசி"
+  },
+  {
+   "index": 2,
+   "iast": "Mithuna",
+   "devanagari": "मिथुन",
+   "tamil_month": "Āni",
+   "tamil_month_script": "ஆனி"
+  },
+  {
+   "index": 3,
+   "iast": "Karkaṭa",
+   "devanagari": "कर्कट",
+   "tamil_month": "Āḍi",
+   "tamil_month_script": "ஆடி"
+  },
+  {
+   "index": 4,
+   "iast": "Siṃha",
+   "devanagari": "सिंह",
+   "tamil_month": "Āvaṇi",
+   "tamil_month_script": "ஆவணி"
+  },
+  {
+   "index": 5,
+   "iast": "Kanyā",
+   "devanagari": "कन्या",
+   "tamil_month": "Puraṭṭāsi",
+   "tamil_month_script": "புரட்டாசி"
+  },
+  {
+   "index": 6,
+   "iast": "Tulā",
+   "devanagari": "तुला",
+   "tamil_month": "Aippasi",
+   "tamil_month_script": "ஐப்பசி"
+  },
+  {
+   "index": 7,
+   "iast": "Vṛścika",
+   "devanagari": "वृश्चिक",
+   "tamil_month": "Kārttikai",
+   "tamil_month_script": "கார்த்திகை"
+  },
+  {
+   "index": 8,
+   "iast": "Dhanus",
+   "devanagari": "धनुस्",
+   "tamil_month": "Mārgazhi",
+   "tamil_month_script": "மார்கழி"
+  },
+  {
+   "index": 9,
+   "iast": "Makara",
+   "devanagari": "मकर",
+   "tamil_month": "Thai",
+   "tamil_month_script": "தை"
+  },
+  {
+   "index": 10,
+   "iast": "Kumbha",
+   "devanagari": "कुम्भ",
+   "tamil_month": "Māsi",
+   "tamil_month_script": "மாசி"
+  },
+  {
+   "index": 11,
+   "iast": "Mīna",
+   "devanagari": "मीन",
+   "tamil_month": "Panguni",
+   "tamil_month_script": "பங்குனி"
+  }
+ ],
+ "samvatsara": [
+  "Prabhava",
+  "Vibhava",
+  "Śukla",
+  "Pramoda",
+  "Prajāpati",
+  "Āṅgīrasa",
+  "Śrīmukha",
+  "Bhāva",
+  "Yuvan",
+  "Dhātṛ",
+  "Īśvara",
+  "Bahudhānya",
+  "Pramāthin",
+  "Vikrama",
+  "Vṛṣa",
+  "Citrabhānu",
+  "Svabhānu",
+  "Tāraṇa",
+  "Pārthiva",
+  "Vyaya",
+  "Sarvajit",
+  "Sarvadhārin",
+  "Virodhin",
+  "Vikṛti",
+  "Khara",
+  "Nandana",
+  "Vijaya",
+  "Jaya",
+  "Manmatha",
+  "Durmukha",
+  "Hemalamba",
+  "Vilamba",
+  "Vikārin",
+  "Śārvari",
+  "Plava",
+  "Śubhakṛt",
+  "Śobhakṛt",
+  "Krodhin",
+  "Viśvāvasu",
+  "Parābhava",
+  "Plavaṅga",
+  "Kīlaka",
+  "Saumya",
+  "Sādhāraṇa",
+  "Virodhikṛt",
+  "Paridhāvin",
+  "Pramādin",
+  "Ānanda",
+  "Rākṣasa",
+  "Nala",
+  "Piṅgala",
+  "Kālayukta",
+  "Siddhārthin",
+  "Raudra",
+  "Durmati",
+  "Dundubhi",
+  "Rudhirodgārin",
+  "Raktākṣin",
+  "Krodhana",
+  "Akṣaya"
+ ],
+ "samvatsara_epoch": "Prabhava = Tamil year beginning Chithirai 1987",
+ "hora_order_chaldean": [
+  "Śani",
+  "Guru",
+  "Maṅgala",
+  "Sūrya",
+  "Śukra",
+  "Budha",
+  "Candra"
+ ],
+ "kala_eighth_parts_by_weekday": {
+  "rahu_kalam": [
+   8,
+   2,
+   7,
+   5,
+   6,
+   4,
+   3
+  ],
+  "yamagandam": [
+   5,
+   4,
+   3,
+   2,
+   1,
+   7,
+   6
+  ],
+  "kulikai": [
+   7,
+   6,
+   5,
+   4,
+   3,
+   2,
+   1
+  ],
+  "note": "index 0 = Sunday; value = which eighth of daylight (1-based)"
+ }
+}

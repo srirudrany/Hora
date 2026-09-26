@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Tiro+Tamil&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<script src="./panchanga.js"></script>
+<script src="./sky-scene.js"></script>
+<style>html,body{margin:0;height:100%;background:#04060D;color:#EFE8D8}*{box-sizing:border-box}a{color:#F3D491}a:hover{color:#E3AE4A}button{font:inherit;color:inherit}</style>
+</helmet>
+<div ref="{{ rootRef }}" style="position:relative;width:100%;height:{{ rootH }};min-height:520px;overflow:hidden;background:#04060D;font-family:'Noto Sans',sans-serif;color:#EFE8D8;user-select:none;-webkit-font-smoothing:antialiased">
+  <div ref="{{ sceneRef }}" style="position:absolute;inset:0"></div>
+
+  <sc-if value="{{ notReady }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;pointer-events:none">
+      <div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:40px;color:#F3D491">कालचक्र</div>
+      <div style="font:600 12px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#8A91B0">{{ loadMsg }}</div>
+    </div>
+  </sc-if>
+
+  <div ref="{{ warpRef }}" style="position:absolute;inset:0;pointer-events:none;opacity:0;background:repeating-conic-gradient(from 0deg at 50% 50%, rgba(243,212,145,0) 0deg 2.6deg, rgba(243,212,145,0.16) 2.6deg 3deg);-webkit-mask-image:radial-gradient(circle at 50% 50%, transparent 18%, #000 75%);mask-image:radial-gradient(circle at 50% 50%, transparent 18%, #000 75%)"></div>
+
+  <sc-if value="{{ showFrame }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;inset:14px;pointer-events:none">
+      <div style="position:absolute;left:0;top:0;width:26px;height:26px;border-left:1.5px solid rgba(227,174,74,0.6);border-top:1.5px solid rgba(227,174,74,0.6)"></div>
+      <div style="position:absolute;right:0;top:0;width:26px;height:26px;border-right:1.5px solid rgba(227,174,74,0.6);border-top:1.5px solid rgba(227,174,74,0.6)"></div>
+      <div style="position:absolute;left:0;bottom:0;width:26px;height:26px;border-left:1.5px solid rgba(227,174,74,0.6);border-bottom:1.5px solid rgba(227,174,74,0.6)"></div>
+      <div style="position:absolute;right:0;bottom:0;width:26px;height:26px;border-right:1.5px solid rgba(227,174,74,0.6);border-bottom:1.5px solid rgba(227,174,74,0.6)"></div>
+    </div>
+  </sc-if>
+
+  <div ref="{{ tagSunRef }}" style="position:absolute;left:0;top:0;opacity:0;pointer-events:none;transition:opacity .35s">
+    <div style="display:flex;align-items:center;gap:8px;transform:translate(14px,-50%)">
+      <div style="width:18px;height:1px;background:#E3AE4A"></div>
+      <div style="display:flex;flex-direction:column;white-space:nowrap"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:16px;color:#F3D491;text-shadow:0 1px 8px #000">Sūrya</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ sunTag }}</span></div>
+    </div>
+  </div>
+  <div ref="{{ tagMoonRef }}" style="position:absolute;left:0;top:0;opacity:0;pointer-events:none;transition:opacity .35s">
+    <div style="display:flex;align-items:center;gap:8px;transform:translate(14px,-50%)">
+      <div style="width:18px;height:1px;background:#CBD5DE"></div>
+      <div style="display:flex;flex-direction:column;white-space:nowrap"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:16px;color:#EFE8D8;text-shadow:0 1px 8px #000">Candra</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ moonTag }}</span></div>
+    </div>
+  </div>
+  <div ref="{{ tagNakRef }}" style="position:absolute;left:0;top:0;opacity:0;pointer-events:none;transition:opacity .35s">
+    <div style="display:flex;align-items:center;gap:8px;transform:translate(-50%,-150%);white-space:nowrap;padding:3px 9px;border-radius:999px;border:1px solid rgba(227,174,74,0.35);background:rgba(8,11,24,0.7);font:600 10px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">Nakṣatra <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:14px;letter-spacing:0;text-transform:none;color:#F3D491">{{ nakName }}</span></div>
+  </div>
+
+  <div ref="{{ retRef }}" style="position:absolute;left:0;top:0;opacity:0;pointer-events:none;transition:opacity .3s">
+    <div style="position:absolute;left:-34px;top:-34px;width:68px;height:68px">
+      <div style="position:absolute;left:0;top:0;width:14px;height:14px;border-left:2px solid #F3D491;border-top:2px solid #F3D491"></div>
+      <div style="position:absolute;right:0;top:0;width:14px;height:14px;border-right:2px solid #F3D491;border-top:2px solid #F3D491"></div>
+      <div style="position:absolute;left:0;bottom:0;width:14px;height:14px;border-left:2px solid #F3D491;border-bottom:2px solid #F3D491"></div>
+      <div style="position:absolute;right:0;bottom:0;width:14px;height:14px;border-right:2px solid #F3D491;border-bottom:2px solid #F3D491"></div>
+    </div>
+    <div style="position:absolute;left:44px;top:-30px;display:flex;flex-direction:column;gap:1px;white-space:nowrap">
+      <span style="font:600 10px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#E3AE4A">Lock</span>
+      <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:20px;line-height:1.1;color:#EFE8D8;text-shadow:0 1px 10px #000">{{ retName }}</span>
+      <span style="font:500 12px 'IBM Plex Mono',monospace;color:#8A91B0">{{ retSub }}</span>
+    </div>
+  </div>
+
+  <sc-if value="{{ warpLabelOn }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:600 12px 'Noto Sans';letter-spacing:.22em;text-transform:uppercase;color:#F3D491;pointer-events:none;text-shadow:0 0 12px rgba(227,174,74,.6)">{{ warpLabel }}</div>
+  </sc-if>
+
+  <div style="position:absolute;top:18px;left:{{ padX }};right:{{ padX }};display:flex;justify-content:space-between;align-items:flex-start;gap:16px;pointer-events:none">
+    <div style="display:flex;flex-direction:column;gap:12px;pointer-events:auto">
+      <sc-if value="{{ showTag }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:24px;color:#EFE8D8;text-shadow:0 1px 8px #000;display:flex;gap:10px;align-items:baseline"><b style="font-style:normal;color:#E3AE4A;font-weight:400">९</b>Kālacakra<span style="font-style:normal;color:#8A91B0;font-size:20px">कालचक्र</span></div>
+      </sc-if>
+      <div style="display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(8,11,24,0.78);border:1px solid rgba(138,145,176,0.22);width:max-content">
+        <sc-for list="{{ dirs }}" as="d" hint-placeholder-count="3">
+          <button onClick="{{ d.onClick }}" style="appearance:none;border:0;cursor:pointer;padding:6px 13px;border-radius:999px;background:{{ d.bg }};color:{{ d.fg }};font:600 11px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;display:flex;gap:7px;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-weight:500;opacity:.7">{{ d.key }}</span>{{ d.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ showTopRead }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right;pointer-events:auto;text-shadow:0 1px 10px #000">
+        <div style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:24px;color:#F3D491">{{ vara }}</span><span style="font-family:'Tiro Tamil',serif;font-size:17px;color:#8A91B0">{{ varaTa }}</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;font-size:34px;line-height:1;color:#EFE8D8;letter-spacing:-.01em">{{ nzA }}<span style="color:#E3AE4A;padding:0 2px">:</span>{{ nzB }}</div>
+        <div style="font-size:12px;color:#8A91B0">nāḻigai since sunrise · <b style="color:#EFE8D8;font-family:'IBM Plex Mono',monospace;font-weight:500">{{ civil }}</b></div>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ liftClock }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:{{ cpL }};right:{{ cpR }};top:{{ cpT }};bottom:{{ cpB }};width:{{ cpW }};overflow:auto;zoom:{{ cpZ }};display:grid;gap:4px;align-content:start;scrollbar-width:none">
+      <div style="display:flex;gap:14px;align-items:baseline"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:40px;color:#F3D491">{{ vara }}</span><span style="font-family:'Tiro Tamil',serif;font-size:28px;color:#8A91B0">{{ varaTa }}</span></div>
+      <div style="font-size:17px">{{ sub }}</div>
+      <div style="font-size:15px;color:#8A91B0">{{ place }}</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;font-size:64px;line-height:1;margin-top:12px;color:#EFE8D8;letter-spacing:-.01em">{{ nzA }}<span style="color:#E3AE4A;padding:0 2px">:</span>{{ nzB }}</div>
+      <div style="font-size:14px;color:#8A91B0;letter-spacing:.02em;margin-bottom:10px">nāḻigai : vināḻigai since sunrise · <b style="color:#EFE8D8;font-family:'IBM Plex Mono',monospace;font-weight:500">{{ civil }}</b></div>
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:104px 1fr;gap:0 12px;padding:7px 12px;border-radius:10px;background:rgba(8,11,24,0.55);border:1px solid {{ r.bd }}">
+          <div style="font:600 13px/28px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0;grid-row:span 2">{{ r.k }}</div>
+          <div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:25px;line-height:1.15">{{ r.v }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#8A91B0">{{ r.e }} <small style="color:#E3AE4A">{{ r.next }}</small></div>
+          <div style="grid-column:2;height:3px;background:rgba(138,145,176,.2);border-radius:2px;margin-top:6px;overflow:hidden"><i style="display:block;height:100%;background:#E3AE4A;width:{{ r.pct }}"></i></div>
+        </div>
+      </sc-for>
+      <div style="display:grid;gap:4px;margin-top:8px;font-size:16px">
+        <sc-for list="{{ kala }}" as="q" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:10px;padding:4px 10px;border-radius:8px;color:{{ q.fg }};background:{{ q.bg }}"><i style="width:12px;height:12px;border-radius:3px;display:inline-block;background:{{ q.c }}"></i>{{ q.name }}<b style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-weight:500;color:#EFE8D8">{{ q.v }}</b></div>
+        </sc-for>
+      </div>
+    </div>
+    <button onClick="{{ onLift }}" style="position:absolute;left:{{ lbL }};top:{{ lbT }};transform:translateX(-50%);appearance:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:11px 20px 11px 16px;border-radius:999px;border:1px solid #E3AE4A;background:rgba(8,11,24,0.82);color:#F3D491;font:600 12px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;box-shadow:0 0 30px rgba(227,174,74,.18);white-space:nowrap" style-hover="background:rgba(227,174,74,0.16)"><span style="display:inline-block;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:9px solid #E3AE4A"></span>Lift off into the sky<span style="font-family:'IBM Plex Mono',monospace;font-weight:500;color:#8A91B0;letter-spacing:0">L</span></button>
+  </sc-if>
+
+  <sc-if value="{{ skyConsole }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute;left:{{ tL }};right:{{ tR }};top:{{ tT }};bottom:{{ tB }};width:{{ tW }};display:flex;flex-direction:{{ tDir }};gap:4px;overflow:auto;scrollbar-width:none">
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#8A91B0;padding:0 4px 6px">Targets</div></sc-if>
+      <sc-for list="{{ targets }}" as="t" hint-placeholder-count="7">
+        <button onClick="{{ t.onClick }}" style="appearance:none;cursor:pointer;flex:none;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;text-align:left;padding:8px 10px;border-radius:10px;border:1px solid {{ t.bd }};background:{{ t.bg }}" style-hover="border-color:rgba(227,174,74,0.5)">
+          <span style="font:500 10px 'IBM Plex Mono',monospace;color:#8A91B0;border:1px solid rgba(138,145,176,0.35);border-radius:4px;padding:1px 5px">{{ t.key }}</span>
+          <span style="display:flex;flex-direction:column;line-height:1.15"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:17px;color:{{ t.fg }}">{{ t.name }}</span><span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">{{ t.gloss }}</span></span>
+          <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0;white-space:nowrap">{{ t.val }}</span></sc-if>
+        </button>
+      </sc-for>
+    </div>
+    <div style="position:absolute;left:{{ dL }};right:{{ dR }};top:{{ dT }};bottom:{{ dB }};width:{{ dW }};max-height:{{ dMax }};overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:18px 20px;border-radius:14px;background:rgba(8,11,24,0.82);border:1px solid rgba(227,174,74,0.26);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><span style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#E3AE4A">{{ dKicker }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ dCoord }}</span></div>
+      <div style="display:flex;flex-direction:column;gap:2px"><div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:34px;line-height:1.05;color:#F3D491">{{ dName }}</div><div style="font:600 11px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">{{ dGloss }}</div></div>
+      <div style="font-size:14px;line-height:1.55;color:#EFE8D8;text-wrap:pretty">{{ dText }}</div>
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 14px;padding-top:10px;border-top:1px solid rgba(138,145,176,0.22)">
+        <sc-for list="{{ dRows }}" as="x" hint-placeholder-count="3">
+          <span style="font:600 10.5px/20px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">{{ x.k }}</span>
+          <span style="font-family:{{ x.ff }};font-size:{{ x.fs }};line-height:20px;color:#EFE8D8;text-align:right">{{ x.v }}</span>
+        </sc-for>
+      </div>
+      </sc-if>
+      <sc-if value="{{ showLand }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onLand }}" style="appearance:none;cursor:pointer;margin-top:4px;padding:9px 14px;border-radius:999px;border:1px solid rgba(227,174,74,0.5);background:transparent;color:#F3D491;font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase" style-hover="background:rgba(227,174,74,0.12)">Return to clock face · L</button>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isHorizon }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;left:50%;top:{{ compT }};transform:translateX(-50%);width:{{ compW }};height:40px;overflow:hidden;border-radius:10px;background:rgba(8,11,24,0.7);border:1px solid rgba(138,145,176,0.22);-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent)">
+      <div ref="{{ compRef }}" style="position:absolute;left:0;top:0;height:100%;width:2880px">
+        <sc-for list="{{ compTicks }}" as="c" hint-placeholder-count="0">
+          <div style="position:absolute;left:{{ c.x }};bottom:0;display:flex;flex-direction:column;align-items:center;transform:translateX(-50%)">
+            <span style="font:{{ c.font }};color:{{ c.col }};height:16px">{{ c.label }}</span>
+            <span style="width:1px;height:{{ c.h }};background:rgba(243,212,145,0.6)"></span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="position:absolute;left:50%;top:0;width:0;height:0;transform:translateX(-50%);border-left:6px solid transparent;border-right:6px solid transparent;border-top:7px solid #E3AE4A"></div>
+    </div>
+    <div style="position:absolute;left:50%;top:50%;width:44px;height:44px;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(243,212,145,0.55);pointer-events:none">
+      <div style="position:absolute;left:50%;top:-10px;width:1px;height:8px;background:#F3D491"></div>
+      <div style="position:absolute;left:50%;bottom:-10px;width:1px;height:8px;background:#F3D491"></div>
+      <div style="position:absolute;top:50%;left:-10px;height:1px;width:8px;background:#F3D491"></div>
+      <div style="position:absolute;top:50%;right:-10px;height:1px;width:8px;background:#F3D491"></div>
+      <div ref="{{ altRef }}" style="position:absolute;left:50%;top:56px;transform:translateX(-50%);white-space:nowrap;font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">ALT 0° · AZ 0°</div>
+    </div>
+    <div style="position:absolute;left:{{ hcL }};right:{{ hcR }};bottom:{{ hcB }};top:{{ hcT }};width:{{ hcW }};display:flex;flex-direction:column;gap:10px">
+      <div style="padding:16px 18px;border-radius:14px;background:rgba(8,11,24,0.82);border:1px solid rgba(227,174,74,0.26);display:flex;flex-direction:column;gap:8px">
+        <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#E3AE4A">Observer · Chennai</div>
+        <div style="font:500 12px 'IBM Plex Mono',monospace;color:#8A91B0">13.08°N 80.27°E · looking up</div>
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin-top:4px">
+          <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:16px;color:#F3D491">Sūrya</span><span ref="{{ sunAltRef }}" style="font:500 12px/22px 'IBM Plex Mono',monospace;text-align:right">—</span>
+          <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:16px;color:#EFE8D8">Candra</span><span ref="{{ moonAltRef }}" style="font:500 12px/22px 'IBM Plex Mono',monospace;text-align:right">—</span>
+        </div>
+        <div style="font-size:13px;line-height:1.5;color:#8A91B0;text-wrap:pretty">The gold line is the ecliptic, the Sun's path. The 27 nakṣatras sit along it, and the Moon is never more than about 5° away from it.</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <sc-for list="{{ hTargets }}" as="t" hint-placeholder-count="3">
+          <button onClick="{{ t.onClick }}" style="appearance:none;cursor:pointer;display:flex;gap:8px;align-items:center;padding:7px 12px;border-radius:999px;border:1px solid {{ t.bd }};background:{{ t.bg }}"><span style="font:500 10px 'IBM Plex Mono',monospace;color:#8A91B0">{{ t.key }}</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:15px;color:{{ t.fg }}">{{ t.name }}</span></button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="position:absolute;left:{{ padX }};right:{{ padX }};bottom:{{ conB }};padding:10px 14px 12px;border-radius:14px;background:rgba(8,11,24,0.82);border:1px solid rgba(138,145,176,0.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <button onClick="{{ onPlay }}" style="appearance:none;cursor:pointer;width:32px;height:32px;border-radius:50%;border:1px solid #E3AE4A;background:{{ playBg }};display:flex;align-items:center;justify-content:center;flex:none">
+        <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><span style="display:flex;gap:3px"><i style="width:3px;height:11px;background:#F3D491;display:block"></i><i style="width:3px;height:11px;background:#F3D491;display:block"></i></span></sc-if>
+        <sc-if value="{{ paused }}" hint-placeholder-val="{{ true }}"><span style="width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid #F3D491;margin-left:3px"></span></sc-if>
+      </button>
+      <div style="display:flex;gap:2px;padding:2px;border-radius:999px;border:1px solid rgba(138,145,176,0.22)">
+        <sc-for list="{{ speeds }}" as="s" hint-placeholder-count="3">
+          <button onClick="{{ s.onClick }}" style="appearance:none;border:0;cursor:pointer;padding:4px 9px;border-radius:999px;background:{{ s.bg }};color:{{ s.fg }};font:500 11px 'IBM Plex Mono',monospace">{{ s.label }}</button>
+        </sc-for>
+      </div>
+      <button onClick="{{ onLive }}" style="appearance:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid {{ liveBd }};background:transparent;color:{{ liveFg }};font:600 10.5px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase"><i style="width:6px;height:6px;border-radius:50%;background:{{ liveFg }};display:block"></i>Live</button>
+      <div style="margin-left:auto;display:flex;align-items:baseline;gap:10px;white-space:nowrap">
+        <span style="font:500 13px 'IBM Plex Mono',monospace;color:#EFE8D8">{{ timeLabel }}</span>
+        <span style="font:500 12px 'IBM Plex Mono',monospace;color:#E3AE4A">{{ offsetLabel }}</span>
+      </div>
+    </div>
+    <div onPointerDown="{{ onScrubDown }}" onPointerMove="{{ onScrubMove }}" onPointerUp="{{ onScrubUp }}" style="position:relative;height:30px;cursor:ew-resize;touch-action:none">
+      <div style="position:absolute;left:0;right:0;top:15px;height:1px;background:rgba(138,145,176,0.35)"></div>
+      <sc-for list="{{ ticks }}" as="k" hint-placeholder-count="0">
+        <div style="position:absolute;left:{{ k.pct }};top:{{ k.top }};width:1px;height:{{ k.h }};background:rgba(138,145,176,0.5)"></div>
+      </sc-for>
+      <sc-for list="{{ markers }}" as="m" hint-placeholder-count="0">
+        <div style="position:absolute;left:{{ m.pct }};top:3px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;border:1.5px solid #CBD5DE;background:{{ m.bg }}"></div>
+      </sc-for>
+      <div style="position:absolute;left:50%;top:18px;width:1px;height:10px;background:#E3AE4A"></div>
+      <div style="position:absolute;left:{{ knobPct }};top:8px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:#F3D491;box-shadow:0 0 0 4px rgba(227,174,74,0.2)"></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;direction&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bridge&quot;,&quot;liftoff&quot;,&quot;horizon&quot;],&quot;default&quot;:&quot;bridge&quot;,&quot;tsType&quot;:&quot;'bridge'|'liftoff'|'horizon'&quot;},&quot;scrubDays&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;min&quot;:3,&quot;max&quot;:30,&quot;default&quot;:15,&quot;tsType&quot;:&quot;number&quot;},&quot;hudFrame&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;embedded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const LOC = { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5 };
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const pad = (n) => String(n).padStart(2, '0');
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const degStr = (x) => { x = ((x % 360) + 360) % 360; const d = Math.floor(x), m = Math.round((x - d) * 60); return m === 60 ? `${d + 1}°00′` : `${d}°${pad(m)}′`; };
+const ASUBHA = [1, 6, 9, 10, 13, 15, 17, 19, 27];
+const TGT = [['overview','Kālacakra','Overview'],['sun','Sūrya','Sun'],['moon','Candra','Moon'],['earth','Pṛthvī','You are here'],['nakshatra','Nakṣatra','Lunar mansion'],['tithi','Tithi','Lunar day'],['yoga','Yoga','Sun + Moon']];
+const HTGT = [['sun','Sūrya'],['moon','Candra'],['nakshatra','Nakṣatra']];
+const DIRS = [['bridge','Bridge','A'],['liftoff','Lift-off','B'],['horizon','Horizon','C']];
+const SPEEDS = [['1h/s', 1], ['6h/s', 6], ['1d/s', 24]];
+
+class Component extends DCLogic {
+  state = { ready: false, jd: null, offsetH: 0, playing: false, speed: 6, lock: 'overview', hLock: 'moon', lifted: false, compact: false, dir: null, msg: 'Charting the sky' };
+  rootRef = React.createRef(); sceneRef = React.createRef(); retRef = React.createRef(); warpRef = React.createRef();
+  tagSunRef = React.createRef(); tagMoonRef = React.createRef(); tagNakRef = React.createRef();
+  compRef = React.createRef(); altRef = React.createRef(); sunAltRef = React.createRef(); moonAltRef = React.createRef();
+  off = 0; ac = {}; dc = null; ticksC = []; markersC = [];
+
+  dir() { return this.state.dir || this.props.direction || 'bridge'; }
+  days() { return this.props.scrubDays ?? 15; }
+  nowJd() { return this.P.jdFromDate(new Date()); }
+
+  componentDidMount() {
+    this.ro = new ResizeObserver(() => { const el = this.rootRef.current; if (!el) return; const c = el.clientWidth < 720; if (c !== this.state.compact) this.setState({ compact: c }, () => this.applyShift()); });
+    if (this.rootRef.current) this.ro.observe(this.rootRef.current);
+    this.keyH = (e) => this.onKey(e); window.addEventListener('keydown', this.keyH);
+    this.boot();
+  }
+  componentWillUnmount() { this.dead = true; this.ro && this.ro.disconnect(); window.removeEventListener('keydown', this.keyH); clearInterval(this.tick); cancelAnimationFrame(this.pr); this.ctrl && this.ctrl.dispose(); }
+  componentDidUpdate(pp) { if (pp.direction !== this.props.direction && this.props.direction) this.setDir(this.props.direction); if (pp.scrubDays !== this.props.scrubDays && this.P) { this.buildTrack(); this.forceUpdate(); } }
+
+  async boot() {
+    const t0 = Date.now();
+    while (!(window.THREE && window.Panchanga && window.PanchangaSky)) { if (this.dead) return; if (Date.now() - t0 > 20000) { this.setState({ msg: 'Could not load the sky engine' }); return; } await new Promise((r) => setTimeout(r, 60)); }
+    this.P = window.Panchanga;
+    this.buildTrack();
+    const compact = (this.rootRef.current?.clientWidth || 1200) < 720;
+    const dir = this.dir();
+    this.ctrl = await window.PanchangaSky.create(this.sceneRef.current, { direction: dir, jd: this.nowJd(), shiftX: compact ? 0 : 0.2, shiftY: compact ? 0.2 : -0.06, loc: LOC });
+    if (this.dead) { this.ctrl.dispose(); return; }
+    this.ctrl.onFrame = (i) => this.onFrame(i);
+    if (dir === 'horizon') { const hl = this.ctrl.bestHorizon(); this.setState({ hLock: hl }); this.ctrl.lock(hl); }
+    this.setState({ ready: true, compact });
+    this.pushTime(true);
+    this.tick = setInterval(() => { if (!this.state.playing) this.pushTime(true); }, 1000);
+  }
+  applyShift() { if (this.ctrl) this.ctrl.setShift(this.state.compact ? 0 : 0.2, this.state.compact ? 0.2 : -0.06); }
+  buildTrack() {
+    const P = this.P, now = this.nowJd(), D = this.days(), pct = (h) => `${((h / (D * 24) + 1) / 2 * 100).toFixed(2)}%`;
+    const loc = now + LOC.tz / 24 + 0.5, frac = loc - Math.floor(loc);
+    this.ticksC = []; for (let d = -D; d <= D + 1; d++) { const h = (d - frac) * 24; if (Math.abs(h) > D * 24) continue; const maj = d % 7 === 0; this.ticksC.push({ pct: pct(h), top: maj ? '9px' : '12px', h: maj ? '13px' : '7px' }); }
+    this.markersC = []; let prev = Math.floor(P.elong(now - D) / 12);
+    for (let h = -D * 24; h <= D * 24; h += 2) { const i = Math.floor(P.elong(now + h / 24) / 12); if (i !== prev) { if (i === 14) this.markersC.push({ pct: pct(h), bg: '#CBD5DE' }); if (i === 29) this.markersC.push({ pct: pct(h), bg: '#04060D' }); prev = i; } }
+  }
+  pushTime(render) { if (!this.P) return; const jd = this.nowJd() + this.off / 24; this.ctrl && this.ctrl.setTime(jd); if (render) this.setState({ jd, offsetH: this.off }); }
+  togglePlay() {
+    if (this.state.playing) { cancelAnimationFrame(this.pr); this.setState({ playing: false }); this.pushTime(true); return; }
+    const max = this.days() * 24; if (this.off >= max - 0.01) this.off = -max;
+    this.setState({ playing: true }); let last = performance.now(), lastSet = 0;
+    const step = (t) => { const dt = Math.min(0.1, (t - last) / 1000); last = t; let o = this.off + this.state.speed * dt;
+      if (o >= max) { this.off = max; cancelAnimationFrame(this.pr); this.setState({ playing: false }); this.pushTime(true); return; }
+      this.off = o; const r = t - lastSet > 80; if (r) lastSet = t; this.pushTime(r); this.pr = requestAnimationFrame(step); };
+    this.pr = requestAnimationFrame(step);
+  }
+  scrubAt(x) { const r = this.scrubRect; if (!r) return; const f = clamp((x - r.left) / r.width); const D = this.days() * 24; let o = (f * 2 - 1) * D; if (Math.abs(o) < D * 0.015) o = 0; this.off = o; this.pushTime(true); }
+  setDir(d) { if (!this.ctrl) { this.setState({ dir: d }); return; } this.ctrl.setDirection(d); const hl = d === 'horizon' ? this.ctrl.bestHorizon() : this.state.hLock; this.setState({ dir: d, lifted: false, hLock: hl }, () => { if (d === 'horizon') this.ctrl.lock(hl); else if (d === 'bridge') this.ctrl.lock(this.state.lock); }); }
+  lockTo(k) { if (!this.ctrl) return; this.ctrl.lock(k); if (this.dir() === 'horizon') this.setState({ hLock: k }); else this.setState({ lock: k }); }
+  lift(on) { if (!this.ctrl) return; this.ctrl.liftOff(on); this.setState({ lifted: on, lock: 'overview' }); }
+  onKey(e) {
+    if (this.props.embedded || (e.target && /input|textarea/i.test(e.target.tagName))) return;
+    const d = this.dir(), n = parseInt(e.key, 10);
+    if (e.key === ' ') { e.preventDefault(); this.togglePlay(); return; }
+    if (e.key === 'l' || e.key === 'L') { if (d === 'liftoff') this.lift(!this.state.lifted); return; }
+    if (['a','b','c'].includes(e.key.toLowerCase()) && !e.metaKey && !e.ctrlKey) { this.setDir(DIRS['abc'.indexOf(e.key.toLowerCase())][0]); return; }
+    if (!n) return;
+    if (d === 'horizon') { if (HTGT[n - 1]) this.lockTo(HTGT[n - 1][0]); }
+    else if (d === 'bridge' || this.state.lifted) { if (TGT[n - 1]) this.lockTo(TGT[n - 1][0]); }
+  }
+  onFrame(info) {
+    const st = this.state, d = this.dir();
+    const place = (ref, p, on) => { const el = ref.current; if (!el) return; if (!on || !p || !p.vis) { el.style.opacity = '0'; return; } el.style.opacity = '1'; el.style.transform = `translate3d(${p.x.toFixed(1)}px,${p.y.toFixed(1)}px,0)`; };
+    const sky = d === 'bridge' || (d === 'liftoff' && info.lift > 0.95);
+    const hor = d === 'horizon';
+    const lock = hor ? st.hLock : st.lock;
+    place(this.retRef, info.pos[lock], (sky && lock !== 'overview' && info.warp < 0.25) || hor);
+    if (this.warpRef.current) this.warpRef.current.style.opacity = String(sky ? info.warp : 0);
+    const tagsOn = sky || hor;
+    place(this.tagSunRef, info.pos.sun, tagsOn && lock !== 'sun');
+    place(this.tagMoonRef, info.pos.moon, tagsOn && lock !== 'moon');
+    place(this.tagNakRef, info.pos.nakshatra, tagsOn && lock !== 'nakshatra' && lock !== 'moon');
+    if (hor) {
+      const c = this.compRef.current; if (c) { const w = c.parentElement.clientWidth; c.style.transform = `translateX(${(w / 2 - (info.heading + 360) * 4).toFixed(1)}px)`; }
+      if (this.altRef.current) this.altRef.current.textContent = `ALT ${Math.round(info.pitch)}° · AZ ${Math.round(((info.heading % 360) + 360) % 360)}°`;
+      const fa = (a) => `${a.alt >= 0 ? '+' : '−'}${Math.abs(a.alt).toFixed(1)}° alt · ${Math.round(a.az)}° az`;
+      if (this.sunAltRef.current) this.sunAltRef.current.textContent = fa(info.alt.sun);
+      if (this.moonAltRef.current) this.moonAltRef.current.textContent = fa(info.alt.moon);
+    }
+    if (d === 'liftoff' && st.lifted && info.lift > 0.95 && !this._liftedSeen) { this._liftedSeen = true; }
+  }
+  fmt12(jd) { const d = this.P.dateFromJd(jd + LOC.tz / 24 + 1 / 86400); let h = d.getUTCHours() % 12; if (!h) h = 12; return `${h}:${pad(d.getUTCMinutes())} ${d.getUTCHours() < 12 ? 'am' : 'pm'}`; }
+  dayFor(jd) {
+    const P = this.P; if (this.dc && jd >= this.dc.sunrise && jd < this.dc.nextSunrise) return this.dc;
+    const d = P.dateFromJd(jd + LOC.tz / 24); let p = P.panchanga(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), LOC);
+    if (jd < p.sunrise) { const d2 = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - 1)); p = P.panchanga(d2.getUTCFullYear(), d2.getUTCMonth() + 1, d2.getUTCDate(), LOC); }
+    p.civ = P.dateFromJd(p.sunrise + LOC.tz / 24 + 0.3); this.dc = p; return p;
+  }
+  anga(kind, jd) { const P = this.P, q = this.ac[kind]; if (q && jd >= q.s && jd < q.e) return q; const r = { idx: P.angaAt(kind, jd), s: P.angaStart(kind, jd), e: P.angaEnd(kind, jd) }; this.ac[kind] = r; return r; }
+
+  dossier(key, ctx) {
+    const { b, A, day, P, nak, tN, kar, yg } = ctx; const mono = "'IBM Plex Mono',monospace", skt = "'Tiro Devanagari Sanskrit',serif";
+    const R = (k, v, f) => ({ k, v, ff: f === 's' ? skt : mono, fs: f === 's' ? '16px' : '12.5px' });
+    const pada = Math.floor((b.lm % (360 / 27)) / (360 / 108)) + 1; const illum = Math.round((1 - Math.cos(b.e * Math.PI / 180)) / 2 * 100);
+    const ti = Math.floor(b.e / 12) + 1, ki = Math.floor(b.e / 6) + 1, ni = Math.floor(b.lm / (360 / 27)) + 1, yi = Math.floor(b.ys / (360 / 27)) + 1;
+    const rasiS = P.N.rasi[Math.floor(b.ls / 30)], month = P.N.monthTaLat[Math.floor(b.ls / 30)];
+    const nzLen = Math.round((day.sunset - day.sunrise) * 86400 / 24 / 60 * 10) / 10;
+    switch (key) {
+      case 'sun': return { name: 'Sūrya', gloss: 'The Sun', coord: `λ ${degStr(b.ls)}`, text: `The Sun moves about 1° a day along the ecliptic. It is in ${rasiS} now, so the Tamil solar month is ${month}.`, rows: [R('Longitude', degStr(b.ls)), R('Rāśi', rasiS, 's'), R('Sunrise', this.fmt12(day.sunrise)), R('Sunset', this.fmt12(day.sunset))] };
+      case 'moon': return { name: 'Candra', gloss: 'The Moon', coord: `λ ${degStr(b.lm)}`, text: 'The Moon moves about 13° a day against the stars. Its place among them gives the nakṣatra; its angle from the Sun gives the tithi.', rows: [R('Longitude', degStr(b.lm)), R('Nakṣatra', `${nak} · ${pada}`, 's'), R('Lit', `${illum}%`), R('Elongation', degStr(b.e))] };
+      case 'earth': return { name: 'Pṛthvī', gloss: 'You are here', coord: '13.08°N 80.27°E', text: `Every limb is measured from here. The day begins at sunrise in ${LOC.name} and runs 60 nāḻigai to the next sunrise; today's daylight is ${nzLen} nāḻigai.`, rows: [R('Sunrise', this.fmt12(day.sunrise)), R('Sunset', this.fmt12(day.sunset)), R('Next sunrise', this.fmt12(day.nextSunrise))] };
+      case 'nakshatra': return { name: nak, gloss: `Nakṣatra ${ni} of 27`, coord: `${degStr((ni - 1) * 360 / 27)}–${degStr(ni * 360 / 27)}`, text: 'The ecliptic is divided into 27 lunar mansions of 13°20′ each, and each mansion into 4 padas. The Moon crosses one in about a day.', rows: [R('Moon at', degStr(b.lm)), R('Pada', `${pada} of 4`), R('Ends', this.fmt12(A.nakshatra.e))] };
+      case 'tithi': return { name: tN, gloss: `Tithi ${ti} of 30`, coord: `E ${degStr(b.e)}`, text: 'A tithi is each 12° the Moon gains on the Sun. The gold arc around Earth is that angle; thirty tithis make one synodic month.', rows: [R('E = λ☾ − λ☉', degStr(b.e)), R('⌊E ÷ 12°⌋ + 1', String(ti)), R('Karaṇa ⌊E ÷ 6°⌋ + 1', `${ki} · ${kar}`), R('Ends', this.fmt12(A.tithi.e))] };
+      case 'yoga': return { name: yg, gloss: `Yoga ${yi} of 27 · ${ASUBHA.includes(yi) ? 'aśubha' : 'śubha'}`, coord: `Σ ${degStr(b.ys)}`, text: "Add the Sun's and the Moon's longitudes. The sum, split into 27 parts of 13°20′, names the yoga. The ring now shows yoga names; 17 and 27 are marked red.", rows: [R('Σ = λ☉ + λ☾', degStr(b.ys)), R('⌊Σ ÷ 13°20′⌋ + 1', String(yi)), R('Ends', this.fmt12(A.yoga.e))] };
+      default: return { name: 'Kālacakra', gloss: 'Wheel of time', coord: '', text: 'Earth at the centre, the tithi dial around it, then the 12 rāśis and 27 nakṣatras. Drag to orbit, scroll to zoom, press 1–7 to lock on.', rows: [R('Tithi', tN, 's'), R('Nakṣatra', nak, 's'), R('Yoga', yg, 's'), R('Karaṇa', kar, 's')] };
+    }
+  }
+
+  renderVals() {
+    const st = this.state, d = this.dir(), compact = st.compact, wide = !compact;
+    const liftClock = d === 'liftoff' && !st.lifted;
+    const L = (a, b) => (compact ? b : a);
+    const base = {
+      rootRef: this.rootRef, sceneRef: this.sceneRef, retRef: this.retRef, warpRef: this.warpRef, tagSunRef: this.tagSunRef, tagMoonRef: this.tagMoonRef, tagNakRef: this.tagNakRef, compRef: this.compRef, altRef: this.altRef, sunAltRef: this.sunAltRef, moonAltRef: this.moonAltRef,
+      rootH: this.props.embedded ? '100%' : '100vh', notReady: !st.ready, loadMsg: st.msg, wide,
+      isHorizon: d === 'horizon', liftClock, skyConsole: d === 'bridge' || (d === 'liftoff' && st.lifted), showFrame: d === 'bridge' && (this.props.hudFrame ?? true), showLand: d === 'liftoff' && st.lifted,
+      showTag: wide, showTopRead: !liftClock,
+      padX: L('28px', '12px'), conB: L('20px', '12px'),
+      dirs: DIRS.map(([id, label, key]) => ({ label: compact ? label.replace('-off', '') : label, key, onClick: () => this.setDir(id), bg: d === id ? 'rgba(227,174,74,0.18)' : 'transparent', fg: d === id ? '#F3D491' : '#8A91B0' })),
+      cpL: L('auto', '12px'), cpR: L('34px', '12px'), cpT: L('24px', '60%'), cpB: L('180px', '118px'), cpW: L('440px', 'auto'), cpZ: L('1', '0.72'),
+      lbL: L('calc(100% - 254px)', '50%'), lbT: L('calc(100% - 166px)', 'calc(53% + 2px)'),
+      tL: L('24px', '12px'), tR: L('auto', '12px'), tT: L('110px', 'auto'), tB: L('132px', '122px'), tW: L('250px', 'auto'), tDir: L('column', 'row'),
+      dL: L('auto', '12px'), dR: L('24px', '12px'), dT: L('118px', 'auto'), dB: L('auto', '178px'), dW: L('340px', 'auto'), dMax: L('calc(100% - 260px)', '30%'),
+      compT: L('22px', '104px'), compW: L('min(520px, calc(100% - 640px))', 'calc(100% - 24px)'),
+      hcL: L('24px', '12px'), hcR: L('auto', '12px'), hcB: L('124px', '118px'), hcT: 'auto', hcW: L('320px', 'auto'),
+      onLift: () => this.lift(true), onLand: () => this.lift(false),
+      onPlay: () => this.togglePlay(), playing: st.playing, paused: !st.playing, playBg: st.playing ? 'rgba(227,174,74,0.2)' : 'transparent',
+      speeds: SPEEDS.map(([label, v]) => ({ label, onClick: () => this.setState({ speed: v }), bg: st.speed === v ? 'rgba(227,174,74,0.18)' : 'transparent', fg: st.speed === v ? '#F3D491' : '#8A91B0' })),
+      onLive: () => { cancelAnimationFrame(this.pr); this.off = 0; this.setState({ playing: false }); this.pushTime(true); },
+      liveFg: st.offsetH === 0 && !st.playing ? '#D9483E' : '#8A91B0', liveBd: st.offsetH === 0 && !st.playing ? 'rgba(217,72,62,0.6)' : 'rgba(138,145,176,0.3)',
+      onScrubDown: (e) => { this.scrubbing = true; e.currentTarget.setPointerCapture(e.pointerId); this.scrubRect = e.currentTarget.getBoundingClientRect(); if (st.playing) { cancelAnimationFrame(this.pr); this.setState({ playing: false }); } this.scrubAt(e.clientX); },
+      onScrubMove: (e) => { if (this.scrubbing) this.scrubAt(e.clientX); }, onScrubUp: () => { this.scrubbing = false; },
+      ticks: this.ticksC, markers: this.markersC, knobPct: `${((st.offsetH / (this.days() * 24) + 1) / 2 * 100).toFixed(2)}%`,
+      compTicks: this.compTicks || (this.compTicks = (() => { const o = []; const card = { 0: 'N', 90: 'E', 180: 'S', 270: 'W' }; for (let a = 0; a <= 720; a += 5) { const m = a % 360; const c = card[m]; o.push({ x: `${a * 4}px`, h: m % 30 ? '5px' : '10px', label: c || (m % 30 ? '' : String(m)), font: c ? "600 12px 'Noto Sans'" : "500 9.5px 'IBM Plex Mono'", col: c ? '#F3D491' : '#8A91B0' }); } return o; })()),
+      warpLabelOn: false, warpLabel: '',
+    };
+    if (!st.ready || !this.P || !st.jd) return { ...base, vara: '', varaTa: '', sub: '', place: '', nzA: '--', nzB: '--', civil: '', rows: [], kala: [], targets: [], hTargets: [], dRows: [], dName: '', dGloss: '', dText: '', dKicker: '', dCoord: '', retName: '', retSub: '', sunTag: '', moonTag: '', nakName: '', timeLabel: '', offsetLabel: '' };
+    const P = this.P, jd = st.jd, day = this.dayFor(jd);
+    const A = { tithi: this.anga('tithi', jd), nakshatra: this.anga('nakshatra', jd), yoga: this.anga('yoga', jd), karana: this.anga('karana', jd) };
+    const ls = P.sidSun(jd), lm = P.sidMoon(jd), e = P.elong(jd), b = { ls, lm, e, ys: (ls + lm) % 360 };
+    const tt = P.tithiName(A.tithi.idx), tN = `${tt.paksha} ${tt.name}`, nak = P.N.nakshatra[A.nakshatra.idx], yg = P.N.yoga[A.yoga.idx], kar = P.karanaName(A.karana.idx);
+    const v = Math.max(0, Math.floor((jd - day.sunrise) * 86400 / 24));
+    const endStr = (x) => { const vv = Math.round((x - day.sunrise) * 86400 / 24); return `ends ${Math.floor(vv / 60)}:${pad(vv % 60)} · ${this.fmt12(x)}`; };
+    const lockKey = d === 'horizon' ? st.hLock : st.lock;
+    const rows = [['Tithi', tN, 'tithi'], ['Nakṣatra', nak, 'nakshatra'], ['Yoga', yg, 'yoga'], ['Karaṇa', kar, 'karana']].map(([k, val, kind]) => ({ k, v: val, e: endStr(A[kind].e), next: A[kind].e > day.nextSunrise ? 'next day' : '', pct: `${(100 * clamp((jd - A[kind].s) / (A[kind].e - A[kind].s))).toFixed(1)}%`, bd: kind === 'nakshatra' ? 'rgba(227,174,74,0.74)' : 'rgba(227,174,74,0.14)' }));
+    const kala = [['Rāhu kālam', '#D9483E', day.rahu], ['Yamagaṇḍam', '#8F6BB8', day.yama], ['Kuḷikai', '#C07A43', day.gulika]].map(([name, c, r], i) => { const now = jd >= r[0] && jd < r[1]; return { name, c, v: `${this.fmt12(r[0])}–${this.fmt12(r[1])}`, bg: now && i === 0 ? 'rgba(217,72,62,.18)' : now ? 'rgba(138,145,176,.14)' : 'transparent', fg: now ? '#fff' : '#8A91B0' }; });
+    const val = { overview: '', sun: degStr(ls), moon: degStr(lm), earth: this.fmt12(jd), nakshatra: `#${A.nakshatra.idx + 1}`, tithi: `#${A.tithi.idx + 1}`, yoga: `#${A.yoga.idx + 1}` };
+    const targets = TGT.map(([id, name, gloss], i) => { const on = st.lock === id; return { key: String(i + 1), name, gloss, val: val[id], onClick: () => this.lockTo(id), bd: on ? 'rgba(227,174,74,0.7)' : 'rgba(138,145,176,0.18)', bg: on ? 'rgba(227,174,74,0.12)' : 'rgba(8,11,24,0.72)', fg: on ? '#F3D491' : '#EFE8D8' }; });
+    const hTargets = HTGT.map(([id, name], i) => { const on = st.hLock === id; return { key: String(i + 1), name, onClick: () => this.lockTo(id), bd: on ? 'rgba(227,174,74,0.7)' : 'rgba(138,145,176,0.3)', bg: on ? 'rgba(227,174,74,0.14)' : 'rgba(8,11,24,0.78)', fg: on ? '#F3D491' : '#EFE8D8' }; });
+    const D = this.dossier(st.lock, { b, A, day, P, nak, tN, kar, yg });
+    const retInfo = { sun: ['Sūrya', degStr(ls)], moon: ['Candra', `${nak}`], earth: ['Pṛthvī', LOC.name], nakshatra: [nak, `#${A.nakshatra.idx + 1}`], tithi: [tN, `E ${degStr(e)}`], yoga: [yg, `Σ ${degStr(b.ys)}`], overview: ['', ''] }[lockKey] || ['', ''];
+    const cd = P.dateFromJd(jd + LOC.tz / 24);
+    const oh = st.offsetH; const ah = Math.abs(oh), od = Math.floor(ah / 24), ohh = Math.floor(ah % 24), om = Math.floor((ah * 60) % 60);
+    const offsetLabel = Math.abs(oh) < 1 / 60 ? 'now' : `${oh > 0 ? '+' : '−'}${od ? od + 'd ' : ''}${ohh}h${od ? '' : ' ' + pad(om) + 'm'}`;
+    return { ...base,
+      vara: P.N.vara[day.weekday], varaTa: P.N.varaTa[day.weekday],
+      sub: `${day.civ.getUTCDate()} ${MON[day.civ.getUTCMonth()]} ${day.civ.getUTCFullYear()} · ${P.N.monthTaLat[day.tamilMonth]} ${day.tamilDay} · ${P.N.samvat[day.samvat]}`,
+      place: `${LOC.name} · sunrise ${this.fmt12(day.sunrise)} · sunset ${this.fmt12(day.sunset)}`,
+      nzA: pad(Math.floor(v / 60)), nzB: pad(v % 60), civil: this.fmt12(jd), rows, kala, targets, hTargets,
+      dKicker: st.lock === 'overview' ? 'Overview' : 'Locked', dCoord: D.coord, dName: D.name, dGloss: D.gloss, dText: D.text, dRows: D.rows,
+      retName: retInfo[0], retSub: retInfo[1], sunTag: degStr(ls), moonTag: `${Math.round((1 - Math.cos(e * Math.PI / 180)) / 2 * 100)}% · ${nak}`, nakName: nak,
+      timeLabel: `${WD[cd.getUTCDay()]} ${cd.getUTCDate()} ${MON[cd.getUTCMonth()]} · ${this.fmt12(jd)}`, offsetLabel,
+    };
+  }
+}
+</script>
+</body>
+</html>
