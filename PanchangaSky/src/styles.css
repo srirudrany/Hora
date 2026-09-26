@@ -359,3 +359,24 @@ body.pov .dock-body { opacity: .94; }
 /* in the sky the geometry panel leads with locks, overlays and the inset */
 body.sky .presets, body.sky .geo .dl.sub, body.sky .geo > .fine { display: none; }
 body.sky .slider { margin: 6px 0 8px; }
+
+/* ===== agent B: timeline + script ===== */
+.nm-ta { font-family: 'Tiro Tamil', 'Noto Sans Tamil', serif; }
+.nm-ia { font-family: var(--f-ui); font-style: italic; }
+.card .dvn .nm-ia { font-size: 21px; }
+.crow .cd .nm-ia { font-size: 15px; }
+.lbl .dv.nm-ta { font-family: 'Tiro Tamil', serif; font-size: 15px; }
+.lbl .dv.nm-ia { font-family: var(--f-ui); font-style: italic; font-size: 14px; }
+body[data-script="iast"] .lbl-rashi .ia, body[data-script="iast"] .card .iast { opacity: .75; }
+.seg.script { align-items: center; }
+.scriptrow { display: flex; justify-content: space-between; align-items: center; margin: -2px 0 6px; }
+.seg.script .sc-dv { font: 14px/1 var(--f-dv2); }
+.seg.script .sc-ta { font: 14px/1 'Tiro Tamil', serif; }
+/* year: solar-month bands + saṅkrānti marks; hour: nāḻigai / vināḻigai lanes */
+.b-smonth { background: rgba(36,51,107,.55); border-right: 1px solid rgba(227,174,74,.35); }
+.b-smonth.odd { background: rgba(22,32,74,.75); }
+.m-sank { background: var(--copper) !important; height: 30px !important; top: 0 !important; }
+.m-sank span { color: var(--gold-soft) !important; top: -13px !important; left: 3px !important; font-size: 10.5px !important; }
+.m-nazhigai { background: var(--gold-soft) !important; height: 30px !important; top: 0 !important; }
+.m-nazhigai span { color: var(--gold-soft) !important; }
+.m-vin { background: rgba(203,213,222,.45) !important; height: 8px !important; top: 11px !important; width: 1px !important; }

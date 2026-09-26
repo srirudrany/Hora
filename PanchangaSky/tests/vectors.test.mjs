@@ -95,5 +95,29 @@ for (const [nat, v] of Object.entries(RULES.nakshatra_natures)) for (const i of 
 const jdP = M.jdFromLocal(2026, 9, 26, 12, 0, 5.5);
 eq('rahu/ketu opposite', Math.round(M.norm360(M.rahuLon(jdP) + 180 - M.rahuLon(jdP))), 180);
 
+// script preference (agent B): Tamil from Hora's tables, Devanagari fallback where Hora has none
+const { nameIn } = await import('../src/Script.js');
+eq('script ta nakshatra 25', nameIn('nakshatra', NAKSHATRA_TABLE[24], 'ta').text, 'பூரட்டாதி');
+eq('script ta vara 7', nameIn('vara', { index: 7, name: 'शनिवार' }, 'ta').text, 'சனி');
+eq('script ta yoga fallback', nameIn('yoga', YOGA_TABLE[9], 'ta').cls, 'dv');
+eq('script iast yoga 10', nameIn('yoga', YOGA_TABLE[9], 'iast').text, 'Gaṇḍa');
+eq('script iast tithi 15', nameIn('tithi', TITHI_TABLE[14], 'iast').text, 'Pūrṇimā');
+eq('script iast karana 29', nameIn('karana', KARANA_TABLE[28], 'iast').text, 'Viṣṭi');
+eq('script dev default', nameIn('nakshatra', NAKSHATRA_TABLE[0], 'dev').text, 'अश्विनी');
+
+// zoom ladder + year window: 12 saṅkrāntis a year, ~12–13 Pūrṇimās
+const TL = await import('../src/Timeline.js');
+eq('ladder narrow', TL.zoomDomain('day', -1), 'hour');
+eq('ladder clamp', TL.zoomDomain('year', 1), 'year');
+const yw = { key: '' };
+TL.buildYear(yw, M.jdFromLocal(2026, 6, 1, 12, 0, 5.5), chennai);
+eq('year sankrantis', yw.marks.filter((m) => m.cls === 'm-sank').length, 12);
+const pur = yw.marks.filter((m) => m.cls === 'f-purnima').length;
+eq('year purnimas 12-13', pur >= 12 && pur <= 13, true);
+eq('year bands', yw.bands.length, 13);
+const hw = { key: '' };
+TL.buildHour(hw, j0, chennai, s0.day);
+eq('hour ticks', hw.ticks.length, 61);
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
