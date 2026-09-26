@@ -1,0 +1,746 @@
+/* ============================================================
+   Panchanga Sky — Stylesheet
+   A night-sky Vedic astrology visualization
+   ============================================================ */
+
+/* ----- 1. Reset / Base ----- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #C0C0C0;
+  background: #0a0a1a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Devanagari font stack */
+.devanagari,
+.card-name-devanagari,
+[lang="sa"] {
+  font-family: 'Noto Sans Devanagari', 'Tiro Devanagari Sanskrit', sans-serif;
+  font-size: max(14px, 1em);
+}
+
+/* Monospace for numerals */
+.mono,
+.numeral,
+[data-numeral] {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+}
+
+
+/* ----- 2. #app ----- */
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0a1a;
+}
+
+
+/* ----- 3. #canvas-container ----- */
+
+#canvas-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+#canvas-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ----- 4. #ui-overlay ----- */
+
+#ui-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+
+/* ----- 5. Header bar ----- */
+
+#header-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  pointer-events: auto;
+  background: rgba(10, 10, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(218, 165, 32, 0.2);
+  flex-shrink: 0;
+}
+
+#header-bar .app-title {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #DAA520;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 18px rgba(218, 165, 32, 0.35);
+  user-select: none;
+}
+
+#header-bar .app-subtitle {
+  font-size: 12px;
+  color: rgba(192, 192, 192, 0.6);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+
+/* ----- 6. Panchangam cards container ----- */
+
+#panchangam-panel {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: auto;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(218, 165, 32, 0.3) transparent;
+}
+
+#panchangam-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+#panchangam-panel::-webkit-scrollbar-thumb {
+  background: rgba(218, 165, 32, 0.3);
+  border-radius: 2px;
+}
+
+
+/* ----- 7. Individual .panchanga-card ----- */
+
+.panchanga-card {
+  background: rgba(10, 10, 26, 0.85);
+  border: 1px solid rgba(218, 165, 32, 0.3);
+  border-radius: 8px;
+  padding: 14px 16px;
+  min-width: 280px;
+  max-width: 340px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 1px rgba(218, 165, 32, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(218, 165, 32, 0.05);
+  transition:
+    border-color 300ms ease,
+    box-shadow 300ms ease,
+    transform 250ms ease;
+  animation: cardStagger 600ms ease both;
+}
+
+.panchanga-card:nth-child(1) { animation-delay: 0ms; }
+.panchanga-card:nth-child(2) { animation-delay: 80ms; }
+.panchanga-card:nth-child(3) { animation-delay: 160ms; }
+.panchanga-card:nth-child(4) { animation-delay: 240ms; }
+.panchanga-card:nth-child(5) { animation-delay: 320ms; }
+.panchanga-card:nth-child(6) { animation-delay: 400ms; }
+
+.panchanga-card:hover {
+  border-color: rgba(218, 165, 32, 0.55);
+  box-shadow:
+    0 0 6px rgba(218, 165, 32, 0.2),
+    0 6px 24px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(218, 165, 32, 0.1);
+  transform: translateX(4px);
+}
+
+.card-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #DAA520;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+.card-name-devanagari {
+  font-family: 'Noto Sans Devanagari', 'Tiro Devanagari Sanskrit', sans-serif;
+  font-size: clamp(22px, 2.8vw, 28px);
+  font-weight: 600;
+  color: #DAA520;
+  line-height: 1.3;
+  text-shadow: 0 0 12px rgba(218, 165, 32, 0.25);
+}
+
+.card-name-iast {
+  font-size: 14px;
+  color: rgba(218, 165, 32, 0.6);
+  font-style: italic;
+  margin-top: 1px;
+  letter-spacing: 0.02em;
+}
+
+.card-detail {
+  font-size: 12.5px;
+  color: rgba(192, 192, 192, 0.6);
+  margin-top: 6px;
+  line-height: 1.45;
+}
+
+.card-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+  user-select: none;
+}
+
+.card-badge.shubha {
+  color: #DAA520;
+  background: rgba(76, 175, 80, 0.12);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  box-shadow: 0 0 8px rgba(218, 165, 32, 0.15), 0 0 4px rgba(76, 175, 80, 0.15);
+}
+
+.card-badge.ashubha {
+  color: #D4553A;
+  background: rgba(193, 68, 14, 0.12);
+  border: 1px solid rgba(193, 68, 14, 0.3);
+  box-shadow: 0 0 8px rgba(193, 68, 14, 0.2);
+}
+
+.card-activities {
+  font-size: 11.5px;
+  font-style: italic;
+  color: rgba(192, 192, 192, 0.45);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+
+/* ----- 8. Controls panel ----- */
+
+#controls-panel {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  pointer-events: auto;
+  background: rgba(10, 10, 26, 0.85);
+  border: 1px solid rgba(218, 165, 32, 0.3);
+  border-radius: 8px;
+  padding: 16px 20px;
+  min-width: 260px;
+  max-width: 320px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 0 1px rgba(218, 165, 32, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(218, 165, 32, 0.05);
+  animation: fadeIn 500ms ease both;
+  animation-delay: 500ms;
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.slider-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(218, 165, 32, 0.8);
+}
+
+.slider-group .slider-value {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 12px;
+  color: #E8E8E8;
+  font-weight: 400;
+}
+
+/* Range input styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(218, 165, 32, 0.15);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transition: background 200ms ease;
+}
+
+input[type="range"]:hover {
+  background: rgba(218, 165, 32, 0.25);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #DAA520;
+  border: 2px solid #0a0a1a;
+  box-shadow: 0 0 6px rgba(218, 165, 32, 0.5);
+  cursor: pointer;
+  transition: box-shadow 200ms ease, transform 150ms ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 12px rgba(218, 165, 32, 0.7);
+  transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #DAA520;
+  border: 2px solid #0a0a1a;
+  box-shadow: 0 0 6px rgba(218, 165, 32, 0.5);
+  cursor: pointer;
+  transition: box-shadow 200ms ease, transform 150ms ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  box-shadow: 0 0 12px rgba(218, 165, 32, 0.7);
+  transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: rgba(218, 165, 32, 0.15);
+  border-radius: 2px;
+  border: none;
+}
+
+/* Preset buttons */
+.preset-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.preset-btn {
+  pointer-events: auto;
+  font-size: 12px;
+  font-weight: 500;
+  color: #DAA520;
+  background: rgba(10, 10, 26, 0.9);
+  border: 1px solid rgba(218, 165, 32, 0.35);
+  border-radius: 5px;
+  padding: 5px 12px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    box-shadow 250ms ease,
+    color 200ms ease;
+  user-select: none;
+}
+
+.preset-btn:hover {
+  background: rgba(218, 165, 32, 0.1);
+  border-color: rgba(218, 165, 32, 0.6);
+  box-shadow: 0 0 10px rgba(218, 165, 32, 0.2);
+  color: #FFD700;
+}
+
+.preset-btn:active {
+  background: rgba(218, 165, 32, 0.18);
+  transform: scale(0.97);
+}
+
+.preset-btn.active {
+  background: rgba(218, 165, 32, 0.15);
+  border-color: #DAA520;
+  color: #FFD700;
+  box-shadow: 0 0 8px rgba(218, 165, 32, 0.25);
+}
+
+/* Mode toggle (segmented control) */
+.mode-toggle {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgba(218, 165, 32, 0.3);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.mode-toggle button {
+  flex: 1;
+  pointer-events: auto;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(218, 165, 32, 0.6);
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition:
+    background 250ms ease,
+    color 250ms ease;
+  user-select: none;
+}
+
+.mode-toggle button + button {
+  border-left: 1px solid rgba(218, 165, 32, 0.2);
+}
+
+.mode-toggle button:hover {
+  color: #DAA520;
+  background: rgba(218, 165, 32, 0.06);
+}
+
+.mode-toggle button.active {
+  color: #FFD700;
+  background: rgba(218, 165, 32, 0.15);
+}
+
+
+/* ----- 9. Auspiciousness indicator ----- */
+
+#auspiciousness-dot {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  z-index: 20;
+  pointer-events: none;
+  transition: background 500ms ease, box-shadow 500ms ease;
+}
+
+#auspiciousness-dot.shubha {
+  background: #DAA520;
+  box-shadow:
+    0 0 6px rgba(218, 165, 32, 0.6),
+    0 0 16px rgba(76, 175, 80, 0.35),
+    0 0 28px rgba(218, 165, 32, 0.2);
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+#auspiciousness-dot.ashubha {
+  background: #C1440E;
+  box-shadow:
+    0 0 6px rgba(193, 68, 14, 0.6),
+    0 0 16px rgba(193, 68, 14, 0.35),
+    0 0 28px rgba(193, 68, 14, 0.2);
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+
+/* ----- 10. Elongation readout ----- */
+
+#elongation-display {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: #DAA520;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 15;
+  animation: fadeIn 700ms ease both;
+  animation-delay: 300ms;
+}
+
+
+/* ----- 11. Tooltip system ----- */
+
+.tooltip-box {
+  position: absolute;
+  background: rgba(10, 10, 26, 0.95);
+  border: 1px solid rgba(218, 165, 32, 0.4);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  color: #E8E8E8;
+  line-height: 1.5;
+  max-width: 280px;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    0 0 1px rgba(218, 165, 32, 0.2);
+  z-index: 100;
+  pointer-events: none;
+  animation: fadeIn 150ms ease both;
+}
+
+.glossary-term {
+  border-bottom: 1px dotted rgba(218, 165, 32, 0.5);
+  cursor: help;
+  position: relative;
+  color: #DAA520;
+  transition: border-color 200ms ease;
+}
+
+.glossary-term:hover {
+  border-bottom-color: #FFD700;
+}
+
+.glossary-term:hover .glossary-tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.glossary-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(10, 10, 26, 0.95);
+  border: 1px solid rgba(218, 165, 32, 0.35);
+  border-radius: 5px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-style: normal;
+  color: #C0C0C0;
+  white-space: nowrap;
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 110;
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+}
+
+
+/* ----- 12. Loading / entrance animations ----- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cardStagger {
+  from {
+    opacity: 0;
+    transform: translateX(-20px) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes ringDraw {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 6px currentColor,
+      0 0 16px currentColor,
+      0 0 28px rgba(218, 165, 32, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 10px currentColor,
+      0 0 24px currentColor,
+      0 0 40px rgba(218, 165, 32, 0.25);
+  }
+}
+
+
+/* ----- 13. prefers-reduced-motion ----- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 300ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 300ms !important;
+  }
+
+  .panchanga-card {
+    animation: fadeIn 300ms ease both !important;
+  }
+
+  #auspiciousness-dot.shubha,
+  #auspiciousness-dot.ashubha {
+    animation: none !important;
+  }
+}
+
+
+/* ----- 14. Responsive ----- */
+
+@media (max-width: 900px) {
+  #header-bar {
+    padding: 10px 16px;
+  }
+
+  #header-bar .app-title {
+    font-size: 22px;
+  }
+
+  #panchangam-panel {
+    left: 12px;
+    bottom: 12px;
+    right: 12px;
+    max-width: none;
+  }
+
+  .panchanga-card {
+    min-width: auto;
+    max-width: none;
+  }
+
+  #controls-panel {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    min-width: auto;
+    max-width: none;
+  }
+
+  #elongation-display {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  #ui-overlay {
+    flex-direction: column;
+  }
+
+  #header-bar {
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  #header-bar .app-title {
+    font-size: 20px;
+  }
+
+  #panchangam-panel {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    right: auto;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 12px;
+    max-height: 50vh;
+  }
+
+  .panchanga-card {
+    padding: 10px 12px;
+    min-width: auto;
+  }
+
+  .card-name-devanagari {
+    font-size: 20px;
+  }
+
+  .card-name-iast {
+    font-size: max(14px, 0.85rem);
+  }
+
+  #controls-panel {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin: 0 12px 12px;
+    min-width: auto;
+    max-width: none;
+    padding: 12px 14px;
+  }
+
+  #elongation-display {
+    font-size: 11px;
+    top: 10px;
+  }
+
+  #auspiciousness-dot {
+    top: 12px;
+    right: 14px;
+    width: 12px;
+    height: 12px;
+  }
+
+  .preset-buttons {
+    gap: 4px;
+  }
+
+  .preset-btn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+}
