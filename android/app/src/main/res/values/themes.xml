@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.Panchanga" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/stage</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/stage</item>
+    </style>
+    <color name="stage">#04060D</color>
+    <color name="gold">#E3AE4A</color>
+</resources>

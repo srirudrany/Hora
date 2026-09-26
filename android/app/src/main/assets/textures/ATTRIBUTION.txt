@@ -1,0 +1,4 @@
+Planet, Moon, Sun and Milky Way textures: Solar System Scope (https://www.solarsystemscope.com/textures/),
+licensed CC BY 4.0, obtained via Wikimedia Commons ("Solarsystemscope texture 2k/8k ...").
+The Milky Way map was downscaled from 8k to 1024x512, softly blurred and brightened (levels) to serve as a glow layer.
+Star catalogue (data/stars.json): HYG Database v4.1 by David Nash / astronexus, CC BY-SA 4.0, filtered to V <= 5.0.

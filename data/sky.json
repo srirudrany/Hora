@@ -1,0 +1,119 @@
+{
+  "_note": "Graha descriptions and clock-ring legend colours used by the phone apps.",
+  "graha": [
+    {
+      "key": "sun",
+      "iast": "Sūrya",
+      "english": "Sun",
+      "science": "A G2 star 1 AU away; its path against the stars is the ecliptic.",
+      "lore": "Soul and sovereignty; lord of Ravivāra and of Siṃha."
+    },
+    {
+      "key": "moon",
+      "iast": "Candra",
+      "english": "Moon",
+      "science": "Earth's satellite, 384,400 km away; laps the zodiac in 27.3 days.",
+      "lore": "Mind and emotion; lord of Somavāra and of Karkaṭa."
+    },
+    {
+      "key": "mercury",
+      "iast": "Budha",
+      "english": "Mercury",
+      "science": "Innermost planet; never strays more than 28° from the Sun.",
+      "lore": "Intellect and speech; lord of Budhavāra, Mithuna and Kanyā."
+    },
+    {
+      "key": "venus",
+      "iast": "Śukra",
+      "english": "Venus",
+      "science": "Brightest planet, wrapped in sulphuric cloud; within 47° of the Sun.",
+      "lore": "Beauty, art and pleasure; lord of Śukravāra, Vṛṣabha and Tulā."
+    },
+    {
+      "key": "mars",
+      "iast": "Maṅgala",
+      "english": "Mars",
+      "science": "The red planet; its retrograde loops puzzled every early astronomer.",
+      "lore": "Courage and conflict; lord of Maṅgalavāra, Meṣa and Vṛścika."
+    },
+    {
+      "key": "jupiter",
+      "iast": "Guru",
+      "english": "Jupiter",
+      "science": "The giant; spends about a year in each rāśi, which names the 60-year cycle.",
+      "lore": "Wisdom and the teacher of the gods; lord of Guruvāra, Dhanus and Mīna."
+    },
+    {
+      "key": "saturn",
+      "iast": "Śani",
+      "english": "Saturn",
+      "science": "Ringed and slow: 29.5 years round the zodiac, about 2½ years per rāśi.",
+      "lore": "Time, discipline and karma; lord of Śanivāra, Makara and Kumbha."
+    },
+    {
+      "key": "rahu",
+      "iast": "Rāhu",
+      "english": "North lunar node",
+      "science": "Where the Moon's orbit crosses the ecliptic going north; eclipses happen near the nodes.",
+      "lore": "The shadow graha said to swallow the Sun and Moon at eclipses."
+    },
+    {
+      "key": "ketu",
+      "iast": "Ketu",
+      "english": "South lunar node",
+      "science": "Always opposite Rāhu; the nodes drift backwards once round in 18.6 years.",
+      "lore": "The headless body of the demon; detachment and liberation."
+    },
+    {
+      "key": "earth",
+      "iast": "Pṛthvī",
+      "english": "Earth",
+      "science": "The observer's home: every limb is measured from here.",
+      "lore": "Bhūmi Devī, the goddess who bears all."
+    }
+  ],
+  "rings": [
+    {
+      "key": "nazhigai",
+      "iast": "Nāḻigai",
+      "english": "Hour dial — 60 per day from sunrise",
+      "color": "#E3AE4A"
+    },
+    {
+      "key": "nakshatra",
+      "iast": "Nakṣatra",
+      "english": "Lunar mansions — Moon among the stars",
+      "color": "#5B8DEF"
+    },
+    {
+      "key": "tithi",
+      "iast": "Tithi",
+      "english": "Lunar day — Moon's lead on the Sun",
+      "color": "#CBD5DE"
+    },
+    {
+      "key": "yoga",
+      "iast": "Yoga",
+      "english": "Union — Sun + Moon",
+      "color": "#63B8B2"
+    },
+    {
+      "key": "karana",
+      "iast": "Karaṇa",
+      "english": "Half lunar day",
+      "color": "#C07A43"
+    },
+    {
+      "key": "vara",
+      "iast": "Vāra",
+      "english": "Weekday",
+      "color": "#F3D491"
+    },
+    {
+      "key": "rasi",
+      "iast": "Rāśi",
+      "english": "Zodiac sign",
+      "color": "#E3AE4A"
+    }
+  ]
+}

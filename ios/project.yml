@@ -1,0 +1,51 @@
+# XcodeGen spec — generate the Xcode project on a Mac with:
+#   brew install xcodegen && cd ios && xcodegen generate && open PanchangaClock.xcodeproj
+name: PanchangaClock
+options:
+  bundleIdPrefix: org.hora
+  deploymentTarget:
+    iOS: "17.0"
+packages:
+  PanchangaCore:
+    path: PanchangaCore
+targets:
+  PanchangaClock:
+    type: application
+    platform: iOS
+    sources:
+      - PanchangaClock/Sources
+      - path: PanchangaClock/Resources/Fonts
+        type: folder
+        buildPhase: resources
+      - path: PanchangaClock/Resources/Textures
+        type: folder
+        buildPhase: resources
+      - path: PanchangaClock/Resources/Data
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: PanchangaCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.hora.panchanga
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.10"
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: "Pañcāṅga"
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UIUserInterfaceStyle: Dark
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "Your location sets sunrise, the kāla periods and the sky view."
+    info:
+      path: PanchangaClock/Info.plist
+      properties:
+        UIAppFonts:
+          - Fonts/TiroDevanagariSanskrit-Regular.ttf
+          - Fonts/TiroDevanagariSanskrit-Italic.ttf
+          - Fonts/TiroTamil-Regular.ttf
+          - Fonts/IBMPlexMono-Regular.ttf
+          - Fonts/IBMPlexMono-Medium.ttf
+          - Fonts/IBMPlexMono-SemiBold.ttf
+          - Fonts/NotoSans-Variable.ttf
