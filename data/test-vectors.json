@@ -1,0 +1,6540 @@
+{
+ "generated_by": "engine/panchanga.js",
+ "tolerance_minutes": 1,
+ "externally_verified": [
+  {
+   "city": "Chennai",
+   "date": "2026-09-26",
+   "source": "drikpanchang.com Tamil panchangam",
+   "values": {
+    "sunrise": "05:58",
+    "sunset": "18:02",
+    "tithi": "Pournami until 22:18",
+    "nakshatra": "Poorattathi (Pūrva Bhādrapadā) until 11:32",
+    "yoga": "Ganda until 13:17",
+    "karana": "Vishti until 10:46; Bava until 22:18",
+    "rahu_kalam": "08:59–10:30",
+    "tamil_date": "Purattasi 10"
+   }
+  }
+ ],
+ "note": "All other vectors are engine output. A port must reproduce them within tolerance; spot-check a few against a printed Tamil panchangam.",
+ "vectors": [
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-01-15",
+   "sunrise": "2026-01-15T06:35:07+05:30",
+   "sunset": "2026-01-15T18:01:28+05:30",
+   "next_sunrise": "2026-01-16T06:35:16+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 9,
+    "name": "Thai",
+    "tamil": "தை",
+    "day": 2
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2227,
+   "sun_sidereal_deg": 270.6612,
+   "moon_sidereal_deg": 228.4144,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "34:16"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-01-16T22:22:40+05:30",
+     "ends_nazhigai": "99:28"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 17,
+     "name": "Jyeṣṭhā",
+     "ends": "2026-01-16T05:47:52+05:30",
+     "ends_nazhigai": "58:01"
+    },
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-01-17T08:12:23+05:30",
+     "ends_nazhigai": "124:03"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-01-15T20:37:37+05:30",
+     "ends_nazhigai": "35:06"
+    },
+    {
+     "index": 11,
+     "name": "Dhruva",
+     "ends": "2026-01-16T21:06:04+05:30",
+     "ends_nazhigai": "96:17"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-01-15T07:07:42+05:30",
+     "ends_nazhigai": "1:21"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "34:16"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-01-16T09:22:47+05:30",
+     "ends_nazhigai": "66:59"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-01-15T13:44:05+05:30",
+    "2026-01-15T15:09:53+05:30"
+   ],
+   "yamagandam": [
+    "2026-01-15T06:35:07+05:30",
+    "2026-01-15T08:00:55+05:30"
+   ],
+   "kulikai": [
+    "2026-01-15T09:26:42+05:30",
+    "2026-01-15T10:52:30+05:30"
+   ],
+   "abhijit": [
+    "2026-01-15T11:55:25+05:30",
+    "2026-01-15T12:41:10+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-03-19",
+   "sunrise": "2026-03-19T06:13:58+05:30",
+   "sunset": "2026-03-19T18:19:41+05:30",
+   "next_sunrise": "2026-03-20T06:13:18+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 5
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2251,
+   "sun_sidereal_deg": 334.206,
+   "moon_sidereal_deg": 333.8414,
+   "tithi": [
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:41"
+    },
+    {
+     "index": 0,
+     "name": "Śukla Pratipadā",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:39"
+    },
+    {
+     "index": 1,
+     "name": "Śukla Dvitīyā",
+     "ends": "2026-03-21T02:32:09+05:30",
+     "ends_nazhigai": "110:45"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-03-20T04:05:13+05:30",
+     "ends_nazhigai": "54:38"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2026-03-21T02:28:03+05:30",
+     "ends_nazhigai": "110:35"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-03-20T01:16:34+05:30",
+     "ends_nazhigai": "47:36"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-03-20T22:14:30+05:30",
+     "ends_nazhigai": "100:01"
+    }
+   ],
+   "karana": [
+    {
+     "index": 59,
+     "name": "Nāga",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:41"
+    },
+    {
+     "index": 0,
+     "name": "Kiṃstughna",
+     "ends": "2026-03-19T17:57:09+05:30",
+     "ends_nazhigai": "29:17"
+    },
+    {
+     "index": 1,
+     "name": "Bava",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:39"
+    },
+    {
+     "index": 2,
+     "name": "Bālava",
+     "ends": "2026-03-20T15:45:02+05:30",
+     "ends_nazhigai": "83:47"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-03-19T13:47:32+05:30",
+    "2026-03-19T15:18:15+05:30"
+   ],
+   "yamagandam": [
+    "2026-03-19T06:13:58+05:30",
+    "2026-03-19T07:44:41+05:30"
+   ],
+   "kulikai": [
+    "2026-03-19T09:15:24+05:30",
+    "2026-03-19T10:46:07+05:30"
+   ],
+   "abhijit": [
+    "2026-03-19T11:52:38+05:30",
+    "2026-03-19T12:41:01+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-04-14",
+   "sunrise": "2026-04-14T05:57:05+05:30",
+   "sunset": "2026-04-14T18:21:36+05:30",
+   "next_sunrise": "2026-04-15T05:56:29+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 0,
+    "name": "Chithirai",
+    "tamil": "சித்திரை",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2259,
+   "sun_sidereal_deg": 359.8624,
+   "moon_sidereal_deg": 314.3161,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:42"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-04-15T22:32:51+05:30",
+     "ends_nazhigai": "101:29"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 23,
+     "name": "Śatabhiṣaj",
+     "ends": "2026-04-14T16:06:14+05:30",
+     "ends_nazhigai": "25:22"
+    },
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-04-15T15:23:02+05:30",
+     "ends_nazhigai": "83:34"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-04-14T15:38:45+05:30",
+     "ends_nazhigai": "24:14"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-04-15T13:24:38+05:30",
+     "ends_nazhigai": "78:38"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-04-14T12:48:02+05:30",
+     "ends_nazhigai": "17:07"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:42"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-04-15T11:28:43+05:30",
+     "ends_nazhigai": "73:49"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-04-14T15:15:28+05:30",
+    "2026-04-14T16:48:32+05:30"
+   ],
+   "yamagandam": [
+    "2026-04-14T09:03:13+05:30",
+    "2026-04-14T10:36:17+05:30"
+   ],
+   "kulikai": [
+    "2026-04-14T12:09:21+05:30",
+    "2026-04-14T13:42:24+05:30"
+   ],
+   "abhijit": [
+    "2026-04-14T11:44:32+05:30",
+    "2026-04-14T12:34:10+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-05-15",
+   "sunrise": "2026-05-15T05:43:29+05:30",
+   "sunset": "2026-05-15T18:27:13+05:30",
+   "next_sunrise": "2026-05-16T05:43:15+05:30",
+   "vara": {
+    "index": 5,
+    "name": "Śukravāra",
+    "tamil": "வெள்ளி"
+   },
+   "tamil_month": {
+    "index": 1,
+    "name": "Vaikāsi",
+    "tamil": "வைகாசி",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2271,
+   "sun_sidereal_deg": 29.9825,
+   "moon_sidereal_deg": 4.3648,
+   "tithi": [
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "7:03"
+    },
+    {
+     "index": 28,
+     "name": "Kṛṣṇa Caturdaśī",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:42"
+    },
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-05-17T01:31:56+05:30",
+     "ends_nazhigai": "109:31"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 0,
+     "name": "Aśvinī",
+     "ends": "2026-05-15T20:15:02+05:30",
+     "ends_nazhigai": "36:18"
+    },
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-05-16T17:30:36+05:30",
+     "ends_nazhigai": "89:27"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 2,
+     "name": "Āyuṣmān",
+     "ends": "2026-05-15T14:20:43+05:30",
+     "ends_nazhigai": "21:33"
+    },
+    {
+     "index": 3,
+     "name": "Saubhāgya",
+     "ends": "2026-05-16T10:25:12+05:30",
+     "ends_nazhigai": "71:44"
+    }
+   ],
+   "karana": [
+    {
+     "index": 55,
+     "name": "Vaṇij",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "7:03"
+    },
+    {
+     "index": 56,
+     "name": "Viṣṭi",
+     "ends": "2026-05-15T18:55:51+05:30",
+     "ends_nazhigai": "33:00"
+    },
+    {
+     "index": 57,
+     "name": "Śakuni",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:42"
+    },
+    {
+     "index": 58,
+     "name": "Catuṣpāda",
+     "ends": "2026-05-16T15:24:05+05:30",
+     "ends_nazhigai": "84:11"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-05-15T10:29:53+05:30",
+    "2026-05-15T12:05:21+05:30"
+   ],
+   "yamagandam": [
+    "2026-05-15T15:16:17+05:30",
+    "2026-05-15T16:51:45+05:30"
+   ],
+   "kulikai": [
+    "2026-05-15T07:18:57+05:30",
+    "2026-05-15T08:54:25+05:30"
+   ],
+   "abhijit": [
+    "2026-05-15T11:39:54+05:30",
+    "2026-05-15T12:30:49+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-06-21",
+   "sunrise": "2026-06-21T05:43:46+05:30",
+   "sunset": "2026-06-21T18:37:38+05:30",
+   "next_sunrise": "2026-06-22T05:43:59+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 2,
+    "name": "Āni",
+    "tamil": "ஆனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.229,
+   "sun_sidereal_deg": 65.4491,
+   "moon_sidereal_deg": 144.5926,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "24:04"
+    },
+    {
+     "index": 7,
+     "name": "Śukla Aṣṭamī",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:52"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2026-06-21T09:31:41+05:30",
+     "ends_nazhigai": "9:29"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-06-22T10:22:36+05:30",
+     "ends_nazhigai": "71:37"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 15,
+     "name": "Siddhi",
+     "ends": "2026-06-21T11:21:18+05:30",
+     "ends_nazhigai": "14:03"
+    },
+    {
+     "index": 16,
+     "name": "Vyatīpāta",
+     "ends": "2026-06-22T10:30:53+05:30",
+     "ends_nazhigai": "71:57"
+    }
+   ],
+   "karana": [
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "24:04"
+    },
+    {
+     "index": 14,
+     "name": "Viṣṭi",
+     "ends": "2026-06-22T03:25:53+05:30",
+     "ends_nazhigai": "54:15"
+    },
+    {
+     "index": 15,
+     "name": "Bava",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:52"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-06-21T17:00:54+05:30",
+    "2026-06-21T18:37:38+05:30"
+   ],
+   "yamagandam": [
+    "2026-06-21T12:10:42+05:30",
+    "2026-06-21T13:47:26+05:30"
+   ],
+   "kulikai": [
+    "2026-06-21T15:24:10+05:30",
+    "2026-06-21T17:00:54+05:30"
+   ],
+   "abhijit": [
+    "2026-06-21T11:44:54+05:30",
+    "2026-06-21T12:36:30+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-08-15",
+   "sunrise": "2026-08-15T05:56:36+05:30",
+   "sunset": "2026-08-15T18:30:10+05:30",
+   "next_sunrise": "2026-08-16T05:56:43+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 3,
+    "name": "Āḍi",
+    "tamil": "ஆடி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2317,
+   "sun_sidereal_deg": 117.9953,
+   "moon_sidereal_deg": 147.9352,
+   "tithi": [
+    {
+     "index": 2,
+     "name": "Śukla Tṛtīyā",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:52"
+    },
+    {
+     "index": 3,
+     "name": "Śukla Caturthī",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "87:21"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-08-16T03:25:54+05:30",
+     "ends_nazhigai": "53:43"
+    },
+    {
+     "index": 12,
+     "name": "Hasta",
+     "ends": "2026-08-17T03:51:03+05:30",
+     "ends_nazhigai": "114:46"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-08-15T07:09:12+05:30",
+     "ends_nazhigai": "3:01"
+    },
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-08-16T05:21:36+05:30",
+     "ends_nazhigai": "58:32"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-08-17T04:08:22+05:30",
+     "ends_nazhigai": "115:29"
+    }
+   ],
+   "karana": [
+    {
+     "index": 4,
+     "name": "Taitila",
+     "ends": "2026-08-15T06:03:25+05:30",
+     "ends_nazhigai": "0:17"
+    },
+    {
+     "index": 5,
+     "name": "Gara",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:52"
+    },
+    {
+     "index": 6,
+     "name": "Vaṇij",
+     "ends": "2026-08-16T05:05:51+05:30",
+     "ends_nazhigai": "57:53"
+    },
+    {
+     "index": 7,
+     "name": "Viṣṭi",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "87:21"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-08-15T09:04:59+05:30",
+    "2026-08-15T10:39:11+05:30"
+   ],
+   "yamagandam": [
+    "2026-08-15T13:47:35+05:30",
+    "2026-08-15T15:21:47+05:30"
+   ],
+   "kulikai": [
+    "2026-08-15T05:56:36+05:30",
+    "2026-08-15T07:30:48+05:30"
+   ],
+   "abhijit": [
+    "2026-08-15T11:48:16+05:30",
+    "2026-08-15T12:38:30+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-09-26",
+   "sunrise": "2026-09-26T05:58:05+05:30",
+   "sunset": "2026-09-26T18:02:23+05:30",
+   "next_sunrise": "2026-09-27T05:58:06+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 10
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.233,
+   "sun_sidereal_deg": 158.7181,
+   "moon_sidereal_deg": 330.2302,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:51"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-09-27T20:58:57+05:30",
+     "ends_nazhigai": "97:32"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-09-26T11:32:15+05:30",
+     "ends_nazhigai": "13:55"
+    },
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-09-27T11:08:12+05:30",
+     "ends_nazhigai": "72:55"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2026-09-26T13:17:42+05:30",
+     "ends_nazhigai": "18:19"
+    },
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-09-27T11:17:03+05:30",
+     "ends_nazhigai": "73:17"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-09-26T10:47:18+05:30",
+     "ends_nazhigai": "12:03"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:51"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-09-27T09:42:28+05:30",
+     "ends_nazhigai": "69:20"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-09-26T08:59:09+05:30",
+    "2026-09-26T10:29:41+05:30"
+   ],
+   "yamagandam": [
+    "2026-09-26T13:30:46+05:30",
+    "2026-09-26T15:01:18+05:30"
+   ],
+   "kulikai": [
+    "2026-09-26T05:58:05+05:30",
+    "2026-09-26T07:28:37+05:30"
+   ],
+   "abhijit": [
+    "2026-09-26T11:36:05+05:30",
+    "2026-09-26T12:24:22+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-10-17",
+   "sunrise": "2026-10-17T05:59:31+05:30",
+   "sunset": "2026-10-17T17:48:57+05:30",
+   "next_sunrise": "2026-10-18T05:59:39+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 31
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2337,
+   "sun_sidereal_deg": 179.4245,
+   "moon_sidereal_deg": 251.4622,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "66:11"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-10-17T09:47:14+05:30",
+     "ends_nazhigai": "9:29"
+    },
+    {
+     "index": 19,
+     "name": "Pūrva Āṣāḍhā",
+     "ends": "2026-10-18T12:49:04+05:30",
+     "ends_nazhigai": "77:03"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 5,
+     "name": "Atigaṇḍa",
+     "ends": "2026-10-17T23:02:59+05:30",
+     "ends_nazhigai": "42:38"
+    },
+    {
+     "index": 6,
+     "name": "Sukarmā",
+     "ends": "2026-10-18T23:56:19+05:30",
+     "ends_nazhigai": "104:52"
+    }
+   ],
+   "karana": [
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2026-10-17T19:11:43+05:30",
+     "ends_nazhigai": "33:00"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "66:11"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-10-17T08:56:52+05:30",
+    "2026-10-17T10:25:33+05:30"
+   ],
+   "yamagandam": [
+    "2026-10-17T13:22:55+05:30",
+    "2026-10-17T14:51:36+05:30"
+   ],
+   "kulikai": [
+    "2026-10-17T05:59:31+05:30",
+    "2026-10-17T07:28:12+05:30"
+   ],
+   "abhijit": [
+    "2026-10-17T11:30:35+05:30",
+    "2026-10-17T12:17:53+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-11-24",
+   "sunrise": "2026-11-24T06:11:45+05:30",
+   "sunset": "2026-11-24T17:39:13+05:30",
+   "next_sunrise": "2026-11-25T06:12:15+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 7,
+    "name": "Kārttikai",
+    "tamil": "கார்த்திகை",
+    "day": 8
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2353,
+   "sun_sidereal_deg": 217.5045,
+   "moon_sidereal_deg": 29.2425,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:30"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-11-25T16:51:09+05:30",
+     "ends_nazhigai": "86:38"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-11-24T23:25:28+05:30",
+     "ends_nazhigai": "43:04"
+    },
+    {
+     "index": 3,
+     "name": "Rohiṇī",
+     "ends": "2026-11-25T20:36:38+05:30",
+     "ends_nazhigai": "96:02"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2026-11-24T16:05:52+05:30",
+     "ends_nazhigai": "24:45"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-11-25T11:59:57+05:30",
+     "ends_nazhigai": "74:30"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-11-24T10:05:54+05:30",
+     "ends_nazhigai": "9:45"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:30"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-11-25T06:38:30+05:30",
+     "ends_nazhigai": "61:06"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-11-24T14:47:21+05:30",
+    "2026-11-24T16:13:17+05:30"
+   ],
+   "yamagandam": [
+    "2026-11-24T09:03:37+05:30",
+    "2026-11-24T10:29:33+05:30"
+   ],
+   "kulikai": [
+    "2026-11-24T11:55:29+05:30",
+    "2026-11-24T13:21:25+05:30"
+   ],
+   "abhijit": [
+    "2026-11-24T11:32:34+05:30",
+    "2026-11-24T12:18:24+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2026-12-21",
+   "sunrise": "2026-12-21T06:26:08+05:30",
+   "sunset": "2026-12-21T17:47:37+05:30",
+   "next_sunrise": "2026-12-22T06:26:38+05:30",
+   "vara": {
+    "index": 1,
+    "name": "Somavāra",
+    "tamil": "திங்கள்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 6
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2367,
+   "sun_sidereal_deg": 244.9204,
+   "moon_sidereal_deg": 22.5942,
+   "tithi": [
+    {
+     "index": 11,
+     "name": "Śukla Dvādaśī",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:57"
+    },
+    {
+     "index": 12,
+     "name": "Śukla Trayodaśī",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:55"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-12-21T13:09:01+05:30",
+     "ends_nazhigai": "16:47"
+    },
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-12-22T10:45:50+05:30",
+     "ends_nazhigai": "70:49"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-12-22T01:32:15+05:30",
+     "ends_nazhigai": "47:45"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-12-22T21:32:10+05:30",
+     "ends_nazhigai": "97:45"
+    }
+   ],
+   "karana": [
+    {
+     "index": 22,
+     "name": "Bava",
+     "ends": "2026-12-21T07:00:59+05:30",
+     "ends_nazhigai": "1:27"
+    },
+    {
+     "index": 23,
+     "name": "Bālava",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:57"
+    },
+    {
+     "index": 24,
+     "name": "Kaulava",
+     "ends": "2026-12-22T04:04:21+05:30",
+     "ends_nazhigai": "54:05"
+    },
+    {
+     "index": 25,
+     "name": "Taitila",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:55"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-12-21T07:51:19+05:30",
+    "2026-12-21T09:16:30+05:30"
+   ],
+   "yamagandam": [
+    "2026-12-21T10:41:42+05:30",
+    "2026-12-21T12:06:53+05:30"
+   ],
+   "kulikai": [
+    "2026-12-21T13:32:04+05:30",
+    "2026-12-21T14:57:15+05:30"
+   ],
+   "abhijit": [
+    "2026-12-21T11:44:10+05:30",
+    "2026-12-21T12:29:36+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2027-01-14",
+   "sunrise": "2027-01-14T06:34:54+05:30",
+   "sunset": "2027-01-14T18:00:48+05:30",
+   "next_sunrise": "2027-01-15T06:35:05+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.238,
+   "sun_sidereal_deg": 269.3812,
+   "moon_sidereal_deg": 337.7864,
+   "tithi": [
+    {
+     "index": 5,
+     "name": "Śukla Ṣaṣṭhī",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:30"
+    },
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "79:07"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2027-01-14T23:19:02+05:30",
+     "ends_nazhigai": "41:50"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2027-01-15T23:51:19+05:30",
+     "ends_nazhigai": "103:11"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2027-01-14T17:22:23+05:30",
+     "ends_nazhigai": "26:58"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2027-01-15T16:18:15+05:30",
+     "ends_nazhigai": "84:18"
+    }
+   ],
+   "karana": [
+    {
+     "index": 11,
+     "name": "Taitila",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:30"
+    },
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2027-01-15T02:12:07+05:30",
+     "ends_nazhigai": "49:03"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "79:07"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-01-14T13:43:35+05:30",
+    "2027-01-14T15:09:19+05:30"
+   ],
+   "yamagandam": [
+    "2027-01-14T06:34:54+05:30",
+    "2027-01-14T08:00:38+05:30"
+   ],
+   "kulikai": [
+    "2027-01-14T09:26:23+05:30",
+    "2027-01-14T10:52:07+05:30"
+   ],
+   "abhijit": [
+    "2027-01-14T11:54:59+05:30",
+    "2027-01-14T12:40:43+05:30"
+   ]
+  },
+  {
+   "city": "Chennai",
+   "lat": 13.0827,
+   "lon": 80.2707,
+   "tz": "+05:30",
+   "date": "2027-03-21",
+   "sunrise": "2027-03-21T06:12:48+05:30",
+   "sunset": "2027-03-21T18:19:49+05:30",
+   "next_sunrise": "2027-03-22T06:12:09+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2405,
+   "sun_sidereal_deg": 335.9384,
+   "moon_sidereal_deg": 137.1989,
+   "tithi": [
+    {
+     "index": 13,
+     "name": "Śukla Caturdaśī",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "30:23"
+    },
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "85:02"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2027-03-21T22:07:10+05:30",
+     "ends_nazhigai": "39:45"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2027-03-22T20:46:11+05:30",
+     "ends_nazhigai": "96:23"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 8,
+     "name": "Śūla",
+     "ends": "2027-03-21T16:58:52+05:30",
+     "ends_nazhigai": "26:55"
+    },
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2027-03-22T14:04:05+05:30",
+     "ends_nazhigai": "79:38"
+    }
+   ],
+   "karana": [
+    {
+     "index": 26,
+     "name": "Gara",
+     "ends": "2027-03-21T07:32:38+05:30",
+     "ends_nazhigai": "3:19"
+    },
+    {
+     "index": 27,
+     "name": "Vaṇij",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "30:23"
+    },
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2027-03-22T05:15:41+05:30",
+     "ends_nazhigai": "57:37"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "85:02"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-03-21T16:48:56+05:30",
+    "2027-03-21T18:19:49+05:30"
+   ],
+   "yamagandam": [
+    "2027-03-21T12:16:19+05:30",
+    "2027-03-21T13:47:11+05:30"
+   ],
+   "kulikai": [
+    "2027-03-21T15:18:04+05:30",
+    "2027-03-21T16:48:56+05:30"
+   ],
+   "abhijit": [
+    "2027-03-21T11:52:05+05:30",
+    "2027-03-21T12:40:33+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-01-15",
+   "sunrise": "2026-01-15T06:38:40+05:30",
+   "sunset": "2026-01-15T18:15:07+05:30",
+   "next_sunrise": "2026-01-16T06:38:52+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 9,
+    "name": "Thai",
+    "tamil": "தை",
+    "day": 2
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2227,
+   "sun_sidereal_deg": 270.6637,
+   "moon_sidereal_deg": 228.4438,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "34:07"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-01-16T22:22:40+05:30",
+     "ends_nazhigai": "99:20"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 17,
+     "name": "Jyeṣṭhā",
+     "ends": "2026-01-16T05:47:52+05:30",
+     "ends_nazhigai": "57:52"
+    },
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-01-17T08:12:23+05:30",
+     "ends_nazhigai": "123:54"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-01-15T20:37:37+05:30",
+     "ends_nazhigai": "34:57"
+    },
+    {
+     "index": 11,
+     "name": "Dhruva",
+     "ends": "2026-01-16T21:06:04+05:30",
+     "ends_nazhigai": "96:08"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-01-15T07:07:42+05:30",
+     "ends_nazhigai": "1:12"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "34:07"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-01-16T09:22:47+05:30",
+     "ends_nazhigai": "66:50"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-01-15T13:53:57+05:30",
+    "2026-01-15T15:21:00+05:30"
+   ],
+   "yamagandam": [
+    "2026-01-15T06:38:40+05:30",
+    "2026-01-15T08:05:43+05:30"
+   ],
+   "kulikai": [
+    "2026-01-15T09:32:47+05:30",
+    "2026-01-15T10:59:50+05:30"
+   ],
+   "abhijit": [
+    "2026-01-15T12:03:41+05:30",
+    "2026-01-15T12:50:06+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-03-19",
+   "sunrise": "2026-03-19T06:22:28+05:30",
+   "sunset": "2026-03-19T18:28:21+05:30",
+   "next_sunrise": "2026-03-20T06:21:54+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 5
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2251,
+   "sun_sidereal_deg": 334.2118,
+   "moon_sidereal_deg": 333.9238,
+   "tithi": [
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:19"
+    },
+    {
+     "index": 0,
+     "name": "Śukla Pratipadā",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:18"
+    },
+    {
+     "index": 1,
+     "name": "Śukla Dvitīyā",
+     "ends": "2026-03-21T02:32:09+05:30",
+     "ends_nazhigai": "110:24"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-03-20T04:05:13+05:30",
+     "ends_nazhigai": "54:16"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2026-03-21T02:28:03+05:30",
+     "ends_nazhigai": "110:13"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-03-20T01:16:34+05:30",
+     "ends_nazhigai": "47:15"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-03-20T22:14:30+05:30",
+     "ends_nazhigai": "99:40"
+    }
+   ],
+   "karana": [
+    {
+     "index": 59,
+     "name": "Nāga",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:19"
+    },
+    {
+     "index": 0,
+     "name": "Kiṃstughna",
+     "ends": "2026-03-19T17:57:09+05:30",
+     "ends_nazhigai": "28:56"
+    },
+    {
+     "index": 1,
+     "name": "Bava",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:18"
+    },
+    {
+     "index": 2,
+     "name": "Bālava",
+     "ends": "2026-03-20T15:45:02+05:30",
+     "ends_nazhigai": "83:26"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-03-19T13:56:08+05:30",
+    "2026-03-19T15:26:53+05:30"
+   ],
+   "yamagandam": [
+    "2026-03-19T06:22:28+05:30",
+    "2026-03-19T07:53:12+05:30"
+   ],
+   "kulikai": [
+    "2026-03-19T09:23:56+05:30",
+    "2026-03-19T10:54:40+05:30"
+   ],
+   "abhijit": [
+    "2026-03-19T12:01:13+05:30",
+    "2026-03-19T12:49:36+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-04-14",
+   "sunrise": "2026-04-14T06:07:53+05:30",
+   "sunset": "2026-04-14T18:27:57+05:30",
+   "next_sunrise": "2026-04-15T06:07:23+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 0,
+    "name": "Chithirai",
+    "tamil": "சித்திரை",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2259,
+   "sun_sidereal_deg": 359.8697,
+   "moon_sidereal_deg": 314.4163,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:15"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-04-15T22:32:51+05:30",
+     "ends_nazhigai": "101:02"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 23,
+     "name": "Śatabhiṣaj",
+     "ends": "2026-04-14T16:06:14+05:30",
+     "ends_nazhigai": "24:55"
+    },
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-04-15T15:23:02+05:30",
+     "ends_nazhigai": "83:07"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-04-14T15:38:45+05:30",
+     "ends_nazhigai": "23:47"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-04-15T13:24:38+05:30",
+     "ends_nazhigai": "78:11"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-04-14T12:48:02+05:30",
+     "ends_nazhigai": "16:40"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:15"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-04-15T11:28:43+05:30",
+     "ends_nazhigai": "73:22"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-04-14T15:22:56+05:30",
+    "2026-04-14T16:55:27+05:30"
+   ],
+   "yamagandam": [
+    "2026-04-14T09:12:54+05:30",
+    "2026-04-14T10:45:25+05:30"
+   ],
+   "kulikai": [
+    "2026-04-14T12:17:55+05:30",
+    "2026-04-14T13:50:26+05:30"
+   ],
+   "abhijit": [
+    "2026-04-14T11:53:15+05:30",
+    "2026-04-14T12:42:36+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-05-15",
+   "sunrise": "2026-05-15T05:56:37+05:30",
+   "sunset": "2026-05-15T18:31:15+05:30",
+   "next_sunrise": "2026-05-16T05:56:27+05:30",
+   "vara": {
+    "index": 5,
+    "name": "Śukravāra",
+    "tamil": "வெள்ளி"
+   },
+   "tamil_month": {
+    "index": 1,
+    "name": "Vaikāsi",
+    "tamil": "வைகாசி",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2271,
+   "sun_sidereal_deg": 29.9913,
+   "moon_sidereal_deg": 4.4991,
+   "tithi": [
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "6:30"
+    },
+    {
+     "index": 28,
+     "name": "Kṛṣṇa Caturdaśī",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:09"
+    },
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-05-17T01:31:56+05:30",
+     "ends_nazhigai": "108:58"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 0,
+     "name": "Aśvinī",
+     "ends": "2026-05-15T20:15:02+05:30",
+     "ends_nazhigai": "35:46"
+    },
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-05-16T17:30:36+05:30",
+     "ends_nazhigai": "88:54"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 2,
+     "name": "Āyuṣmān",
+     "ends": "2026-05-15T14:20:43+05:30",
+     "ends_nazhigai": "21:00"
+    },
+    {
+     "index": 3,
+     "name": "Saubhāgya",
+     "ends": "2026-05-16T10:25:12+05:30",
+     "ends_nazhigai": "71:11"
+    }
+   ],
+   "karana": [
+    {
+     "index": 55,
+     "name": "Vaṇij",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "6:30"
+    },
+    {
+     "index": 56,
+     "name": "Viṣṭi",
+     "ends": "2026-05-15T18:55:51+05:30",
+     "ends_nazhigai": "32:28"
+    },
+    {
+     "index": 57,
+     "name": "Śakuni",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:09"
+    },
+    {
+     "index": 58,
+     "name": "Catuṣpāda",
+     "ends": "2026-05-16T15:24:05+05:30",
+     "ends_nazhigai": "83:38"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-05-15T10:39:37+05:30",
+    "2026-05-15T12:13:56+05:30"
+   ],
+   "yamagandam": [
+    "2026-05-15T15:22:36+05:30",
+    "2026-05-15T16:56:55+05:30"
+   ],
+   "kulikai": [
+    "2026-05-15T07:30:57+05:30",
+    "2026-05-15T09:05:17+05:30"
+   ],
+   "abhijit": [
+    "2026-05-15T11:48:47+05:30",
+    "2026-05-15T12:39:06+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-06-21",
+   "sunrise": "2026-06-21T05:58:09+05:30",
+   "sunset": "2026-06-21T18:40:28+05:30",
+   "next_sunrise": "2026-06-22T05:58:22+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 2,
+    "name": "Āni",
+    "tamil": "ஆனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.229,
+   "sun_sidereal_deg": 65.4586,
+   "moon_sidereal_deg": 144.7238,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "23:28"
+    },
+    {
+     "index": 7,
+     "name": "Śukla Aṣṭamī",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:16"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2026-06-21T09:31:41+05:30",
+     "ends_nazhigai": "8:53"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-06-22T10:22:36+05:30",
+     "ends_nazhigai": "71:01"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 15,
+     "name": "Siddhi",
+     "ends": "2026-06-21T11:21:18+05:30",
+     "ends_nazhigai": "13:27"
+    },
+    {
+     "index": 16,
+     "name": "Vyatīpāta",
+     "ends": "2026-06-22T10:30:53+05:30",
+     "ends_nazhigai": "71:21"
+    }
+   ],
+   "karana": [
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "23:28"
+    },
+    {
+     "index": 14,
+     "name": "Viṣṭi",
+     "ends": "2026-06-22T03:25:53+05:30",
+     "ends_nazhigai": "53:39"
+    },
+    {
+     "index": 15,
+     "name": "Bava",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:16"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-06-21T17:05:10+05:30",
+    "2026-06-21T18:40:28+05:30"
+   ],
+   "yamagandam": [
+    "2026-06-21T12:19:18+05:30",
+    "2026-06-21T13:54:36+05:30"
+   ],
+   "kulikai": [
+    "2026-06-21T15:29:53+05:30",
+    "2026-06-21T17:05:10+05:30"
+   ],
+   "abhijit": [
+    "2026-06-21T11:53:54+05:30",
+    "2026-06-21T12:44:43+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-08-15",
+   "sunrise": "2026-08-15T06:08:33+05:30",
+   "sunset": "2026-08-15T18:35:28+05:30",
+   "next_sunrise": "2026-08-16T06:08:35+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 3,
+    "name": "Āḍi",
+    "tamil": "ஆடி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2317,
+   "sun_sidereal_deg": 118.0033,
+   "moon_sidereal_deg": 148.0485,
+   "tithi": [
+    {
+     "index": 2,
+     "name": "Śukla Tṛtīyā",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:22"
+    },
+    {
+     "index": 3,
+     "name": "Śukla Caturthī",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "86:51"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-08-16T03:25:54+05:30",
+     "ends_nazhigai": "53:13"
+    },
+    {
+     "index": 12,
+     "name": "Hasta",
+     "ends": "2026-08-17T03:51:03+05:30",
+     "ends_nazhigai": "114:16"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-08-15T07:09:12+05:30",
+     "ends_nazhigai": "2:31"
+    },
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-08-16T05:21:36+05:30",
+     "ends_nazhigai": "58:02"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-08-17T04:08:22+05:30",
+     "ends_nazhigai": "114:59"
+    }
+   ],
+   "karana": [
+    {
+     "index": 5,
+     "name": "Gara",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:22"
+    },
+    {
+     "index": 6,
+     "name": "Vaṇij",
+     "ends": "2026-08-16T05:05:51+05:30",
+     "ends_nazhigai": "57:23"
+    },
+    {
+     "index": 7,
+     "name": "Viṣṭi",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "86:51"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-08-15T09:15:17+05:30",
+    "2026-08-15T10:48:39+05:30"
+   ],
+   "yamagandam": [
+    "2026-08-15T13:55:22+05:30",
+    "2026-08-15T15:28:44+05:30"
+   ],
+   "kulikai": [
+    "2026-08-15T06:08:33+05:30",
+    "2026-08-15T07:41:55+05:30"
+   ],
+   "abhijit": [
+    "2026-08-15T11:57:07+05:30",
+    "2026-08-15T12:46:54+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-09-26",
+   "sunrise": "2026-09-26T06:06:27+05:30",
+   "sunset": "2026-09-26T18:11:16+05:30",
+   "next_sunrise": "2026-09-27T06:06:23+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 10
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.233,
+   "sun_sidereal_deg": 158.7238,
+   "moon_sidereal_deg": 330.3077,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:30"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-09-27T20:58:57+05:30",
+     "ends_nazhigai": "97:11"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-09-26T11:32:15+05:30",
+     "ends_nazhigai": "13:34"
+    },
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-09-27T11:08:12+05:30",
+     "ends_nazhigai": "72:34"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2026-09-26T13:17:42+05:30",
+     "ends_nazhigai": "17:58"
+    },
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-09-27T11:17:03+05:30",
+     "ends_nazhigai": "72:56"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-09-26T10:47:18+05:30",
+     "ends_nazhigai": "11:42"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:30"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-09-27T09:42:28+05:30",
+     "ends_nazhigai": "69:00"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-09-26T09:07:39+05:30",
+    "2026-09-26T10:38:15+05:30"
+   ],
+   "yamagandam": [
+    "2026-09-26T13:39:27+05:30",
+    "2026-09-26T15:10:03+05:30"
+   ],
+   "kulikai": [
+    "2026-09-26T06:06:27+05:30",
+    "2026-09-26T07:37:03+05:30"
+   ],
+   "abhijit": [
+    "2026-09-26T11:44:42+05:30",
+    "2026-09-26T12:33:01+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-10-17",
+   "sunrise": "2026-10-17T06:06:02+05:30",
+   "sunset": "2026-10-17T17:59:41+05:30",
+   "next_sunrise": "2026-10-18T06:06:05+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 31
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2337,
+   "sun_sidereal_deg": 179.4289,
+   "moon_sidereal_deg": 251.5158,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "65:55"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-10-17T09:47:14+05:30",
+     "ends_nazhigai": "9:13"
+    },
+    {
+     "index": 19,
+     "name": "Pūrva Āṣāḍhā",
+     "ends": "2026-10-18T12:49:04+05:30",
+     "ends_nazhigai": "76:47"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 5,
+     "name": "Atigaṇḍa",
+     "ends": "2026-10-17T23:02:59+05:30",
+     "ends_nazhigai": "42:22"
+    },
+    {
+     "index": 6,
+     "name": "Sukarmā",
+     "ends": "2026-10-18T23:56:19+05:30",
+     "ends_nazhigai": "104:35"
+    }
+   ],
+   "karana": [
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2026-10-17T19:11:43+05:30",
+     "ends_nazhigai": "32:44"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "65:55"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-10-17T09:04:27+05:30",
+    "2026-10-17T10:33:39+05:30"
+   ],
+   "yamagandam": [
+    "2026-10-17T13:32:04+05:30",
+    "2026-10-17T15:01:16+05:30"
+   ],
+   "kulikai": [
+    "2026-10-17T06:06:02+05:30",
+    "2026-10-17T07:35:14+05:30"
+   ],
+   "abhijit": [
+    "2026-10-17T11:39:04+05:30",
+    "2026-10-17T12:26:39+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-11-24",
+   "sunrise": "2026-11-24T06:15:28+05:30",
+   "sunset": "2026-11-24T17:52:44+05:30",
+   "next_sunrise": "2026-11-25T06:15:55+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 7,
+    "name": "Kārttikai",
+    "tamil": "கார்த்திகை",
+    "day": 8
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2353,
+   "sun_sidereal_deg": 217.5071,
+   "moon_sidereal_deg": 29.2809,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:21"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-11-25T16:51:09+05:30",
+     "ends_nazhigai": "86:29"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-11-24T23:25:28+05:30",
+     "ends_nazhigai": "42:54"
+    },
+    {
+     "index": 3,
+     "name": "Rohiṇī",
+     "ends": "2026-11-25T20:36:38+05:30",
+     "ends_nazhigai": "95:52"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2026-11-24T16:05:52+05:30",
+     "ends_nazhigai": "24:36"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-11-25T11:59:57+05:30",
+     "ends_nazhigai": "74:21"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-11-24T10:05:54+05:30",
+     "ends_nazhigai": "9:36"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:21"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-11-25T06:38:30+05:30",
+     "ends_nazhigai": "60:57"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-11-24T14:58:25+05:30",
+    "2026-11-24T16:25:35+05:30"
+   ],
+   "yamagandam": [
+    "2026-11-24T09:09:47+05:30",
+    "2026-11-24T10:36:56+05:30"
+   ],
+   "kulikai": [
+    "2026-11-24T12:04:06+05:30",
+    "2026-11-24T13:31:16+05:30"
+   ],
+   "abhijit": [
+    "2026-11-24T11:40:51+05:30",
+    "2026-11-24T12:27:21+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2026-12-21",
+   "sunrise": "2026-12-21T06:29:04+05:30",
+   "sunset": "2026-12-21T18:01:54+05:30",
+   "next_sunrise": "2026-12-22T06:29:34+05:30",
+   "vara": {
+    "index": 1,
+    "name": "Somavāra",
+    "tamil": "திங்கள்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 6
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2367,
+   "sun_sidereal_deg": 244.9225,
+   "moon_sidereal_deg": 22.6237,
+   "tithi": [
+    {
+     "index": 11,
+     "name": "Śukla Dvādaśī",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:49"
+    },
+    {
+     "index": 12,
+     "name": "Śukla Trayodaśī",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:48"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-12-21T13:09:01+05:30",
+     "ends_nazhigai": "16:39"
+    },
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-12-22T10:45:50+05:30",
+     "ends_nazhigai": "70:41"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-12-22T01:32:15+05:30",
+     "ends_nazhigai": "47:37"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-12-22T21:32:10+05:30",
+     "ends_nazhigai": "97:37"
+    }
+   ],
+   "karana": [
+    {
+     "index": 22,
+     "name": "Bava",
+     "ends": "2026-12-21T07:00:59+05:30",
+     "ends_nazhigai": "1:19"
+    },
+    {
+     "index": 23,
+     "name": "Bālava",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:49"
+    },
+    {
+     "index": 24,
+     "name": "Kaulava",
+     "ends": "2026-12-22T04:04:21+05:30",
+     "ends_nazhigai": "53:58"
+    },
+    {
+     "index": 25,
+     "name": "Taitila",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:48"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-12-21T07:55:40+05:30",
+    "2026-12-21T09:22:17+05:30"
+   ],
+   "yamagandam": [
+    "2026-12-21T10:48:53+05:30",
+    "2026-12-21T12:15:29+05:30"
+   ],
+   "kulikai": [
+    "2026-12-21T13:42:05+05:30",
+    "2026-12-21T15:08:41+05:30"
+   ],
+   "abhijit": [
+    "2026-12-21T11:52:23+05:30",
+    "2026-12-21T12:38:35+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2027-01-14",
+   "sunrise": "2027-01-14T06:38:23+05:30",
+   "sunset": "2027-01-14T18:14:30+05:30",
+   "next_sunrise": "2027-01-15T06:38:37+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.238,
+   "sun_sidereal_deg": 269.3836,
+   "moon_sidereal_deg": 337.8169,
+   "tithi": [
+    {
+     "index": 5,
+     "name": "Śukla Ṣaṣṭhī",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:21"
+    },
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "78:59"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2027-01-14T23:19:02+05:30",
+     "ends_nazhigai": "41:41"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2027-01-15T23:51:19+05:30",
+     "ends_nazhigai": "103:02"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2027-01-14T17:22:23+05:30",
+     "ends_nazhigai": "26:49"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2027-01-15T16:18:15+05:30",
+     "ends_nazhigai": "84:09"
+    }
+   ],
+   "karana": [
+    {
+     "index": 11,
+     "name": "Taitila",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:21"
+    },
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2027-01-15T02:12:07+05:30",
+     "ends_nazhigai": "48:54"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "78:59"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-01-14T13:53:28+05:30",
+    "2027-01-14T15:20:28+05:30"
+   ],
+   "yamagandam": [
+    "2027-01-14T06:38:23+05:30",
+    "2027-01-14T08:05:24+05:30"
+   ],
+   "kulikai": [
+    "2027-01-14T09:32:25+05:30",
+    "2027-01-14T10:59:26+05:30"
+   ],
+   "abhijit": [
+    "2027-01-14T12:03:15+05:30",
+    "2027-01-14T12:49:39+05:30"
+   ]
+  },
+  {
+   "city": "Madurai",
+   "lat": 9.9252,
+   "lon": 78.1198,
+   "tz": "+05:30",
+   "date": "2027-03-21",
+   "sunrise": "2027-03-21T06:21:28+05:30",
+   "sunset": "2027-03-21T18:28:19+05:30",
+   "next_sunrise": "2027-03-22T06:20:53+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2405,
+   "sun_sidereal_deg": 335.9443,
+   "moon_sidereal_deg": 137.2851,
+   "tithi": [
+    {
+     "index": 13,
+     "name": "Śukla Caturdaśī",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "30:01"
+    },
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "84:41"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2027-03-21T22:07:10+05:30",
+     "ends_nazhigai": "39:24"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2027-03-22T20:46:11+05:30",
+     "ends_nazhigai": "96:01"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 8,
+     "name": "Śūla",
+     "ends": "2027-03-21T16:58:52+05:30",
+     "ends_nazhigai": "26:33"
+    },
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2027-03-22T14:04:05+05:30",
+     "ends_nazhigai": "79:16"
+    }
+   ],
+   "karana": [
+    {
+     "index": 26,
+     "name": "Gara",
+     "ends": "2027-03-21T07:32:38+05:30",
+     "ends_nazhigai": "2:57"
+    },
+    {
+     "index": 27,
+     "name": "Vaṇij",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "30:01"
+    },
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2027-03-22T05:15:41+05:30",
+     "ends_nazhigai": "57:15"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "84:41"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-03-21T16:57:28+05:30",
+    "2027-03-21T18:28:19+05:30"
+   ],
+   "yamagandam": [
+    "2027-03-21T12:24:54+05:30",
+    "2027-03-21T13:55:45+05:30"
+   ],
+   "kulikai": [
+    "2027-03-21T15:26:36+05:30",
+    "2027-03-21T16:57:28+05:30"
+   ],
+   "abhijit": [
+    "2027-03-21T12:00:40+05:30",
+    "2027-03-21T12:49:07+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-01-15",
+   "sunrise": "2026-01-15T06:45:03+05:30",
+   "sunset": "2026-01-15T18:18:03+05:30",
+   "next_sunrise": "2026-01-16T06:45:15+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 9,
+    "name": "Thai",
+    "tamil": "தை",
+    "day": 2
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2227,
+   "sun_sidereal_deg": 270.6682,
+   "moon_sidereal_deg": 228.4967,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "33:51"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-01-16T22:22:40+05:30",
+     "ends_nazhigai": "99:04"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 17,
+     "name": "Jyeṣṭhā",
+     "ends": "2026-01-16T05:47:52+05:30",
+     "ends_nazhigai": "57:37"
+    },
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-01-17T08:12:23+05:30",
+     "ends_nazhigai": "123:38"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-01-15T20:37:37+05:30",
+     "ends_nazhigai": "34:41"
+    },
+    {
+     "index": 11,
+     "name": "Dhruva",
+     "ends": "2026-01-16T21:06:04+05:30",
+     "ends_nazhigai": "95:52"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-01-15T07:07:42+05:30",
+     "ends_nazhigai": "0:56"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "33:51"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-01-16T09:22:47+05:30",
+     "ends_nazhigai": "66:34"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-01-15T13:58:11+05:30",
+    "2026-01-15T15:24:48+05:30"
+   ],
+   "yamagandam": [
+    "2026-01-15T06:45:03+05:30",
+    "2026-01-15T08:11:41+05:30"
+   ],
+   "kulikai": [
+    "2026-01-15T09:38:18+05:30",
+    "2026-01-15T11:04:56+05:30"
+   ],
+   "abhijit": [
+    "2026-01-15T12:08:27+05:30",
+    "2026-01-15T12:54:39+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-03-19",
+   "sunrise": "2026-03-19T06:27:09+05:30",
+   "sunset": "2026-03-19T18:32:59+05:30",
+   "next_sunrise": "2026-03-20T06:26:33+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 5
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2251,
+   "sun_sidereal_deg": 334.2151,
+   "moon_sidereal_deg": 333.9693,
+   "tithi": [
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:08"
+    },
+    {
+     "index": 0,
+     "name": "Śukla Pratipadā",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:06"
+    },
+    {
+     "index": 1,
+     "name": "Śukla Dvitīyā",
+     "ends": "2026-03-21T02:32:09+05:30",
+     "ends_nazhigai": "110:12"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-03-20T04:05:13+05:30",
+     "ends_nazhigai": "54:05"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2026-03-21T02:28:03+05:30",
+     "ends_nazhigai": "110:02"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-03-20T01:16:34+05:30",
+     "ends_nazhigai": "47:03"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-03-20T22:14:30+05:30",
+     "ends_nazhigai": "99:28"
+    }
+   ],
+   "karana": [
+    {
+     "index": 59,
+     "name": "Nāga",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:08"
+    },
+    {
+     "index": 0,
+     "name": "Kiṃstughna",
+     "ends": "2026-03-19T17:57:09+05:30",
+     "ends_nazhigai": "28:44"
+    },
+    {
+     "index": 1,
+     "name": "Bava",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:06"
+    },
+    {
+     "index": 2,
+     "name": "Bālava",
+     "ends": "2026-03-20T15:45:02+05:30",
+     "ends_nazhigai": "83:14"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-03-19T14:00:48+05:30",
+    "2026-03-19T15:31:32+05:30"
+   ],
+   "yamagandam": [
+    "2026-03-19T06:27:09+05:30",
+    "2026-03-19T07:57:53+05:30"
+   ],
+   "kulikai": [
+    "2026-03-19T09:28:37+05:30",
+    "2026-03-19T10:59:20+05:30"
+   ],
+   "abhijit": [
+    "2026-03-19T12:05:52+05:30",
+    "2026-03-19T12:54:16+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-04-14",
+   "sunrise": "2026-04-14T06:11:47+05:30",
+   "sunset": "2026-04-14T18:33:23+05:30",
+   "next_sunrise": "2026-04-15T06:11:15+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 0,
+    "name": "Chithirai",
+    "tamil": "சித்திரை",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2259,
+   "sun_sidereal_deg": 359.8724,
+   "moon_sidereal_deg": 314.4524,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:05"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-04-15T22:32:51+05:30",
+     "ends_nazhigai": "100:52"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 23,
+     "name": "Śatabhiṣaj",
+     "ends": "2026-04-14T16:06:14+05:30",
+     "ends_nazhigai": "24:46"
+    },
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-04-15T15:23:02+05:30",
+     "ends_nazhigai": "82:58"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-04-14T15:38:45+05:30",
+     "ends_nazhigai": "23:37"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-04-15T13:24:38+05:30",
+     "ends_nazhigai": "78:02"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-04-14T12:48:02+05:30",
+     "ends_nazhigai": "16:30"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:05"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-04-15T11:28:43+05:30",
+     "ends_nazhigai": "73:12"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-04-14T15:27:59+05:30",
+    "2026-04-14T17:00:41+05:30"
+   ],
+   "yamagandam": [
+    "2026-04-14T09:17:11+05:30",
+    "2026-04-14T10:49:53+05:30"
+   ],
+   "kulikai": [
+    "2026-04-14T12:22:35+05:30",
+    "2026-04-14T13:55:17+05:30"
+   ],
+   "abhijit": [
+    "2026-04-14T11:57:52+05:30",
+    "2026-04-14T12:47:18+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-05-15",
+   "sunrise": "2026-05-15T05:59:43+05:30",
+   "sunset": "2026-05-15T18:37:29+05:30",
+   "next_sunrise": "2026-05-16T05:59:32+05:30",
+   "vara": {
+    "index": 5,
+    "name": "Śukravāra",
+    "tamil": "வெள்ளி"
+   },
+   "tamil_month": {
+    "index": 1,
+    "name": "Vaikāsi",
+    "tamil": "வைகாசி",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2271,
+   "sun_sidereal_deg": 29.9933,
+   "moon_sidereal_deg": 4.5307,
+   "tithi": [
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "6:22"
+    },
+    {
+     "index": 28,
+     "name": "Kṛṣṇa Caturdaśī",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:01"
+    },
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-05-17T01:31:56+05:30",
+     "ends_nazhigai": "108:50"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 0,
+     "name": "Aśvinī",
+     "ends": "2026-05-15T20:15:02+05:30",
+     "ends_nazhigai": "35:38"
+    },
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-05-16T17:30:36+05:30",
+     "ends_nazhigai": "88:47"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 2,
+     "name": "Āyuṣmān",
+     "ends": "2026-05-15T14:20:43+05:30",
+     "ends_nazhigai": "20:52"
+    },
+    {
+     "index": 3,
+     "name": "Saubhāgya",
+     "ends": "2026-05-16T10:25:12+05:30",
+     "ends_nazhigai": "71:03"
+    }
+   ],
+   "karana": [
+    {
+     "index": 55,
+     "name": "Vaṇij",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "6:22"
+    },
+    {
+     "index": 56,
+     "name": "Viṣṭi",
+     "ends": "2026-05-15T18:55:51+05:30",
+     "ends_nazhigai": "32:20"
+    },
+    {
+     "index": 57,
+     "name": "Śakuni",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:01"
+    },
+    {
+     "index": 58,
+     "name": "Catuṣpāda",
+     "ends": "2026-05-16T15:24:05+05:30",
+     "ends_nazhigai": "83:30"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-05-15T10:43:53+05:30",
+    "2026-05-15T12:18:36+05:30"
+   ],
+   "yamagandam": [
+    "2026-05-15T15:28:02+05:30",
+    "2026-05-15T17:02:45+05:30"
+   ],
+   "kulikai": [
+    "2026-05-15T07:34:27+05:30",
+    "2026-05-15T09:09:10+05:30"
+   ],
+   "abhijit": [
+    "2026-05-15T11:53:20+05:30",
+    "2026-05-15T12:43:51+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-06-21",
+   "sunrise": "2026-06-21T06:00:49+05:30",
+   "sunset": "2026-06-21T18:47:06+05:30",
+   "next_sunrise": "2026-06-22T06:01:03+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 2,
+    "name": "Āni",
+    "tamil": "ஆனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.229,
+   "sun_sidereal_deg": 65.4604,
+   "moon_sidereal_deg": 144.7482,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "23:22"
+    },
+    {
+     "index": 7,
+     "name": "Śukla Aṣṭamī",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:10"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2026-06-21T09:31:41+05:30",
+     "ends_nazhigai": "8:47"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-06-22T10:22:36+05:30",
+     "ends_nazhigai": "70:54"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 15,
+     "name": "Siddhi",
+     "ends": "2026-06-21T11:21:18+05:30",
+     "ends_nazhigai": "13:21"
+    },
+    {
+     "index": 16,
+     "name": "Vyatīpāta",
+     "ends": "2026-06-22T10:30:53+05:30",
+     "ends_nazhigai": "71:15"
+    }
+   ],
+   "karana": [
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "23:22"
+    },
+    {
+     "index": 14,
+     "name": "Viṣṭi",
+     "ends": "2026-06-22T03:25:53+05:30",
+     "ends_nazhigai": "53:32"
+    },
+    {
+     "index": 15,
+     "name": "Bava",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:10"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-06-21T17:11:19+05:30",
+    "2026-06-21T18:47:06+05:30"
+   ],
+   "yamagandam": [
+    "2026-06-21T12:23:58+05:30",
+    "2026-06-21T13:59:45+05:30"
+   ],
+   "kulikai": [
+    "2026-06-21T15:35:32+05:30",
+    "2026-06-21T17:11:19+05:30"
+   ],
+   "abhijit": [
+    "2026-06-21T11:58:25+05:30",
+    "2026-06-21T12:49:30+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-08-15",
+   "sunrise": "2026-08-15T06:12:04+05:30",
+   "sunset": "2026-08-15T18:41:15+05:30",
+   "next_sunrise": "2026-08-16T06:12:07+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 3,
+    "name": "Āḍi",
+    "tamil": "ஆடி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2317,
+   "sun_sidereal_deg": 118.0056,
+   "moon_sidereal_deg": 148.0817,
+   "tithi": [
+    {
+     "index": 2,
+     "name": "Śukla Tṛtīyā",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:13"
+    },
+    {
+     "index": 3,
+     "name": "Śukla Caturthī",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "86:42"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-08-16T03:25:54+05:30",
+     "ends_nazhigai": "53:04"
+    },
+    {
+     "index": 12,
+     "name": "Hasta",
+     "ends": "2026-08-17T03:51:03+05:30",
+     "ends_nazhigai": "114:07"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-08-15T07:09:12+05:30",
+     "ends_nazhigai": "2:22"
+    },
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-08-16T05:21:36+05:30",
+     "ends_nazhigai": "57:53"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-08-17T04:08:22+05:30",
+     "ends_nazhigai": "114:50"
+    }
+   ],
+   "karana": [
+    {
+     "index": 5,
+     "name": "Gara",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:13"
+    },
+    {
+     "index": 6,
+     "name": "Vaṇij",
+     "ends": "2026-08-16T05:05:51+05:30",
+     "ends_nazhigai": "57:14"
+    },
+    {
+     "index": 7,
+     "name": "Viṣṭi",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "86:42"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-08-15T09:19:21+05:30",
+    "2026-08-15T10:53:00+05:30"
+   ],
+   "yamagandam": [
+    "2026-08-15T14:00:18+05:30",
+    "2026-08-15T15:33:57+05:30"
+   ],
+   "kulikai": [
+    "2026-08-15T06:12:04+05:30",
+    "2026-08-15T07:45:42+05:30"
+   ],
+   "abhijit": [
+    "2026-08-15T12:01:41+05:30",
+    "2026-08-15T12:51:38+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-09-26",
+   "sunrise": "2026-09-26T06:11:11+05:30",
+   "sunset": "2026-09-26T18:15:49+05:30",
+   "next_sunrise": "2026-09-27T06:11:09+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 10
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.233,
+   "sun_sidereal_deg": 158.727,
+   "moon_sidereal_deg": 330.3516,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:19"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-09-27T20:58:57+05:30",
+     "ends_nazhigai": "96:59"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-09-26T11:32:15+05:30",
+     "ends_nazhigai": "13:22"
+    },
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-09-27T11:08:12+05:30",
+     "ends_nazhigai": "72:22"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2026-09-26T13:17:42+05:30",
+     "ends_nazhigai": "17:46"
+    },
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-09-27T11:17:03+05:30",
+     "ends_nazhigai": "72:44"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-09-26T10:47:18+05:30",
+     "ends_nazhigai": "11:30"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:19"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-09-27T09:42:28+05:30",
+     "ends_nazhigai": "68:48"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-09-26T09:12:21+05:30",
+    "2026-09-26T10:42:55+05:30"
+   ],
+   "yamagandam": [
+    "2026-09-26T13:44:05+05:30",
+    "2026-09-26T15:14:40+05:30"
+   ],
+   "kulikai": [
+    "2026-09-26T06:11:11+05:30",
+    "2026-09-26T07:41:46+05:30"
+   ],
+   "abhijit": [
+    "2026-09-26T11:49:21+05:30",
+    "2026-09-26T12:37:39+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-10-17",
+   "sunrise": "2026-10-17T06:11:24+05:30",
+   "sunset": "2026-10-17T18:03:36+05:30",
+   "next_sunrise": "2026-10-18T06:11:29+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 31
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2337,
+   "sun_sidereal_deg": 179.4326,
+   "moon_sidereal_deg": 251.5599,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "65:42"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-10-17T09:47:14+05:30",
+     "ends_nazhigai": "8:59"
+    },
+    {
+     "index": 19,
+     "name": "Pūrva Āṣāḍhā",
+     "ends": "2026-10-18T12:49:04+05:30",
+     "ends_nazhigai": "76:34"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 5,
+     "name": "Atigaṇḍa",
+     "ends": "2026-10-17T23:02:59+05:30",
+     "ends_nazhigai": "42:08"
+    },
+    {
+     "index": 6,
+     "name": "Sukarmā",
+     "ends": "2026-10-18T23:56:19+05:30",
+     "ends_nazhigai": "104:22"
+    }
+   ],
+   "karana": [
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2026-10-17T19:11:43+05:30",
+     "ends_nazhigai": "32:30"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "65:42"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-10-17T09:09:27+05:30",
+    "2026-10-17T10:38:29+05:30"
+   ],
+   "yamagandam": [
+    "2026-10-17T13:36:32+05:30",
+    "2026-10-17T15:05:33+05:30"
+   ],
+   "kulikai": [
+    "2026-10-17T06:11:24+05:30",
+    "2026-10-17T07:40:26+05:30"
+   ],
+   "abhijit": [
+    "2026-10-17T11:43:46+05:30",
+    "2026-10-17T12:31:15+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-11-24",
+   "sunrise": "2026-11-24T06:21:48+05:30",
+   "sunset": "2026-11-24T17:55:42+05:30",
+   "next_sunrise": "2026-11-25T06:22:16+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 7,
+    "name": "Kārttikai",
+    "tamil": "கார்த்திகை",
+    "day": 8
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2353,
+   "sun_sidereal_deg": 217.5116,
+   "moon_sidereal_deg": 29.3465,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:05"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-11-25T16:51:09+05:30",
+     "ends_nazhigai": "86:13"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-11-24T23:25:28+05:30",
+     "ends_nazhigai": "42:39"
+    },
+    {
+     "index": 3,
+     "name": "Rohiṇī",
+     "ends": "2026-11-25T20:36:38+05:30",
+     "ends_nazhigai": "95:37"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2026-11-24T16:05:52+05:30",
+     "ends_nazhigai": "24:20"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-11-25T11:59:57+05:30",
+     "ends_nazhigai": "74:05"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-11-24T10:05:54+05:30",
+     "ends_nazhigai": "9:20"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:05"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-11-25T06:38:30+05:30",
+     "ends_nazhigai": "60:41"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-11-24T15:02:14+05:30",
+    "2026-11-24T16:28:58+05:30"
+   ],
+   "yamagandam": [
+    "2026-11-24T09:15:17+05:30",
+    "2026-11-24T10:42:01+05:30"
+   ],
+   "kulikai": [
+    "2026-11-24T12:08:45+05:30",
+    "2026-11-24T13:35:30+05:30"
+   ],
+   "abhijit": [
+    "2026-11-24T11:45:37+05:30",
+    "2026-11-24T12:31:53+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2026-12-21",
+   "sunrise": "2026-12-21T06:35:40+05:30",
+   "sunset": "2026-12-21T18:04:36+05:30",
+   "next_sunrise": "2026-12-22T06:36:10+05:30",
+   "vara": {
+    "index": 1,
+    "name": "Somavāra",
+    "tamil": "திங்கள்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 6
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2367,
+   "sun_sidereal_deg": 244.9272,
+   "moon_sidereal_deg": 22.6902,
+   "tithi": [
+    {
+     "index": 11,
+     "name": "Śukla Dvādaśī",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:33"
+    },
+    {
+     "index": 12,
+     "name": "Śukla Trayodaśī",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:31"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-12-21T13:09:01+05:30",
+     "ends_nazhigai": "16:23"
+    },
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-12-22T10:45:50+05:30",
+     "ends_nazhigai": "70:25"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-12-22T01:32:15+05:30",
+     "ends_nazhigai": "47:21"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-12-22T21:32:10+05:30",
+     "ends_nazhigai": "97:21"
+    }
+   ],
+   "karana": [
+    {
+     "index": 22,
+     "name": "Bava",
+     "ends": "2026-12-21T07:00:59+05:30",
+     "ends_nazhigai": "1:03"
+    },
+    {
+     "index": 23,
+     "name": "Bālava",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:33"
+    },
+    {
+     "index": 24,
+     "name": "Kaulava",
+     "ends": "2026-12-22T04:04:21+05:30",
+     "ends_nazhigai": "53:41"
+    },
+    {
+     "index": 25,
+     "name": "Taitila",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:31"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-12-21T08:01:47+05:30",
+    "2026-12-21T09:27:54+05:30"
+   ],
+   "yamagandam": [
+    "2026-12-21T10:54:01+05:30",
+    "2026-12-21T12:20:08+05:30"
+   ],
+   "kulikai": [
+    "2026-12-21T13:46:15+05:30",
+    "2026-12-21T15:12:22+05:30"
+   ],
+   "abhijit": [
+    "2026-12-21T11:57:11+05:30",
+    "2026-12-21T12:43:06+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2027-01-14",
+   "sunrise": "2027-01-14T06:44:48+05:30",
+   "sunset": "2027-01-14T18:17:25+05:30",
+   "next_sunrise": "2027-01-15T06:45:01+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.238,
+   "sun_sidereal_deg": 269.3882,
+   "moon_sidereal_deg": 337.8732,
+   "tithi": [
+    {
+     "index": 5,
+     "name": "Śukla Ṣaṣṭhī",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:05"
+    },
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "78:43"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2027-01-14T23:19:02+05:30",
+     "ends_nazhigai": "41:25"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2027-01-15T23:51:19+05:30",
+     "ends_nazhigai": "102:46"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2027-01-14T17:22:23+05:30",
+     "ends_nazhigai": "26:33"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2027-01-15T16:18:15+05:30",
+     "ends_nazhigai": "83:53"
+    }
+   ],
+   "karana": [
+    {
+     "index": 11,
+     "name": "Taitila",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:05"
+    },
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2027-01-15T02:12:07+05:30",
+     "ends_nazhigai": "48:38"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "78:43"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-01-14T13:57:41+05:30",
+    "2027-01-14T15:24:15+05:30"
+   ],
+   "yamagandam": [
+    "2027-01-14T06:44:48+05:30",
+    "2027-01-14T08:11:23+05:30"
+   ],
+   "kulikai": [
+    "2027-01-14T09:37:57+05:30",
+    "2027-01-14T11:04:32+05:30"
+   ],
+   "abhijit": [
+    "2027-01-14T12:08:01+05:30",
+    "2027-01-14T12:54:12+05:30"
+   ]
+  },
+  {
+   "city": "Coimbatore",
+   "lat": 11.0168,
+   "lon": 76.9558,
+   "tz": "+05:30",
+   "date": "2027-03-21",
+   "sunrise": "2027-03-21T06:26:06+05:30",
+   "sunset": "2027-03-21T18:33:01+05:30",
+   "next_sunrise": "2027-03-22T06:25:30+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2405,
+   "sun_sidereal_deg": 335.9475,
+   "moon_sidereal_deg": 137.3313,
+   "tithi": [
+    {
+     "index": 13,
+     "name": "Śukla Caturdaśī",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "29:50"
+    },
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "84:29"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2027-03-21T22:07:10+05:30",
+     "ends_nazhigai": "39:12"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2027-03-22T20:46:11+05:30",
+     "ends_nazhigai": "95:50"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 8,
+     "name": "Śūla",
+     "ends": "2027-03-21T16:58:52+05:30",
+     "ends_nazhigai": "26:21"
+    },
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2027-03-22T14:04:05+05:30",
+     "ends_nazhigai": "79:04"
+    }
+   ],
+   "karana": [
+    {
+     "index": 26,
+     "name": "Gara",
+     "ends": "2027-03-21T07:32:38+05:30",
+     "ends_nazhigai": "2:46"
+    },
+    {
+     "index": 27,
+     "name": "Vaṇij",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "29:50"
+    },
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2027-03-22T05:15:41+05:30",
+     "ends_nazhigai": "57:03"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "84:29"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-03-21T17:02:09+05:30",
+    "2027-03-21T18:33:01+05:30"
+   ],
+   "yamagandam": [
+    "2027-03-21T12:29:33+05:30",
+    "2027-03-21T14:00:25+05:30"
+   ],
+   "kulikai": [
+    "2027-03-21T15:31:17+05:30",
+    "2027-03-21T17:02:09+05:30"
+   ],
+   "abhijit": [
+    "2027-03-21T12:05:19+05:30",
+    "2027-03-21T12:53:47+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-01-15",
+   "sunrise": "2026-01-15T06:37:42+05:30",
+   "sunset": "2026-01-15T18:11:24+05:30",
+   "next_sunrise": "2026-01-16T06:37:53+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 9,
+    "name": "Thai",
+    "tamil": "தை",
+    "day": 2
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2227,
+   "sun_sidereal_deg": 270.663,
+   "moon_sidereal_deg": 228.4358,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "34:09"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-01-16T22:22:40+05:30",
+     "ends_nazhigai": "99:22"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 17,
+     "name": "Jyeṣṭhā",
+     "ends": "2026-01-16T05:47:52+05:30",
+     "ends_nazhigai": "57:55"
+    },
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-01-17T08:12:23+05:30",
+     "ends_nazhigai": "123:56"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-01-15T20:37:37+05:30",
+     "ends_nazhigai": "34:59"
+    },
+    {
+     "index": 11,
+     "name": "Dhruva",
+     "ends": "2026-01-16T21:06:04+05:30",
+     "ends_nazhigai": "96:10"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-01-15T07:07:42+05:30",
+     "ends_nazhigai": "1:14"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "34:09"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-01-16T09:22:47+05:30",
+     "ends_nazhigai": "66:52"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-01-15T13:51:16+05:30",
+    "2026-01-15T15:17:59+05:30"
+   ],
+   "yamagandam": [
+    "2026-01-15T06:37:42+05:30",
+    "2026-01-15T08:04:25+05:30"
+   ],
+   "kulikai": [
+    "2026-01-15T09:31:08+05:30",
+    "2026-01-15T10:57:50+05:30"
+   ],
+   "abhijit": [
+    "2026-01-15T12:01:26+05:30",
+    "2026-01-15T12:47:41+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-03-19",
+   "sunrise": "2026-03-19T06:20:09+05:30",
+   "sunset": "2026-03-19T18:26:00+05:30",
+   "next_sunrise": "2026-03-20T06:19:33+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 5
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2251,
+   "sun_sidereal_deg": 334.2102,
+   "moon_sidereal_deg": 333.9014,
+   "tithi": [
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:25"
+    },
+    {
+     "index": 0,
+     "name": "Śukla Pratipadā",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:23"
+    },
+    {
+     "index": 1,
+     "name": "Śukla Dvitīyā",
+     "ends": "2026-03-21T02:32:09+05:30",
+     "ends_nazhigai": "110:29"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-03-20T04:05:13+05:30",
+     "ends_nazhigai": "54:22"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2026-03-21T02:28:03+05:30",
+     "ends_nazhigai": "110:19"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-03-20T01:16:34+05:30",
+     "ends_nazhigai": "47:21"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-03-20T22:14:30+05:30",
+     "ends_nazhigai": "99:45"
+    }
+   ],
+   "karana": [
+    {
+     "index": 59,
+     "name": "Nāga",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:25"
+    },
+    {
+     "index": 0,
+     "name": "Kiṃstughna",
+     "ends": "2026-03-19T17:57:09+05:30",
+     "ends_nazhigai": "29:02"
+    },
+    {
+     "index": 1,
+     "name": "Bava",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:23"
+    },
+    {
+     "index": 2,
+     "name": "Bālava",
+     "ends": "2026-03-20T15:45:02+05:30",
+     "ends_nazhigai": "83:32"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-03-19T13:53:48+05:30",
+    "2026-03-19T15:24:32+05:30"
+   ],
+   "yamagandam": [
+    "2026-03-19T06:20:09+05:30",
+    "2026-03-19T07:50:53+05:30"
+   ],
+   "kulikai": [
+    "2026-03-19T09:21:37+05:30",
+    "2026-03-19T10:52:21+05:30"
+   ],
+   "abhijit": [
+    "2026-03-19T11:58:53+05:30",
+    "2026-03-19T12:47:16+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-04-14",
+   "sunrise": "2026-04-14T06:04:57+05:30",
+   "sunset": "2026-04-14T18:26:14+05:30",
+   "next_sunrise": "2026-04-15T06:04:25+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 0,
+    "name": "Chithirai",
+    "tamil": "சித்திரை",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2259,
+   "sun_sidereal_deg": 359.8677,
+   "moon_sidereal_deg": 314.3891,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:22"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-04-15T22:32:51+05:30",
+     "ends_nazhigai": "101:09"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 23,
+     "name": "Śatabhiṣaj",
+     "ends": "2026-04-14T16:06:14+05:30",
+     "ends_nazhigai": "25:03"
+    },
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-04-15T15:23:02+05:30",
+     "ends_nazhigai": "83:15"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-04-14T15:38:45+05:30",
+     "ends_nazhigai": "23:54"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-04-15T13:24:38+05:30",
+     "ends_nazhigai": "78:19"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-04-14T12:48:02+05:30",
+     "ends_nazhigai": "16:47"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:22"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-04-15T11:28:43+05:30",
+     "ends_nazhigai": "73:29"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-04-14T15:20:55+05:30",
+    "2026-04-14T16:53:34+05:30"
+   ],
+   "yamagandam": [
+    "2026-04-14T09:10:16+05:30",
+    "2026-04-14T10:42:56+05:30"
+   ],
+   "kulikai": [
+    "2026-04-14T12:15:35+05:30",
+    "2026-04-14T13:48:15+05:30"
+   ],
+   "abhijit": [
+    "2026-04-14T11:50:53+05:30",
+    "2026-04-14T12:40:18+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-05-15",
+   "sunrise": "2026-05-15T05:53:03+05:30",
+   "sunset": "2026-05-15T18:30:09+05:30",
+   "next_sunrise": "2026-05-16T05:52:52+05:30",
+   "vara": {
+    "index": 5,
+    "name": "Śukravāra",
+    "tamil": "வெள்ளி"
+   },
+   "tamil_month": {
+    "index": 1,
+    "name": "Vaikāsi",
+    "tamil": "வைகாசி",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2271,
+   "sun_sidereal_deg": 29.9889,
+   "moon_sidereal_deg": 4.4626,
+   "tithi": [
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "6:39"
+    },
+    {
+     "index": 28,
+     "name": "Kṛṣṇa Caturdaśī",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:18"
+    },
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-05-17T01:31:56+05:30",
+     "ends_nazhigai": "109:07"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 0,
+     "name": "Aśvinī",
+     "ends": "2026-05-15T20:15:02+05:30",
+     "ends_nazhigai": "35:54"
+    },
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-05-16T17:30:36+05:30",
+     "ends_nazhigai": "89:03"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 2,
+     "name": "Āyuṣmān",
+     "ends": "2026-05-15T14:20:43+05:30",
+     "ends_nazhigai": "21:09"
+    },
+    {
+     "index": 3,
+     "name": "Saubhāgya",
+     "ends": "2026-05-16T10:25:12+05:30",
+     "ends_nazhigai": "71:20"
+    }
+   ],
+   "karana": [
+    {
+     "index": 55,
+     "name": "Vaṇij",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "6:39"
+    },
+    {
+     "index": 56,
+     "name": "Viṣṭi",
+     "ends": "2026-05-15T18:55:51+05:30",
+     "ends_nazhigai": "32:37"
+    },
+    {
+     "index": 57,
+     "name": "Śakuni",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:18"
+    },
+    {
+     "index": 58,
+     "name": "Catuṣpāda",
+     "ends": "2026-05-16T15:24:05+05:30",
+     "ends_nazhigai": "83:47"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-05-15T10:36:58+05:30",
+    "2026-05-15T12:11:36+05:30"
+   ],
+   "yamagandam": [
+    "2026-05-15T15:20:53+05:30",
+    "2026-05-15T16:55:31+05:30"
+   ],
+   "kulikai": [
+    "2026-05-15T07:27:41+05:30",
+    "2026-05-15T09:02:20+05:30"
+   ],
+   "abhijit": [
+    "2026-05-15T11:46:22+05:30",
+    "2026-05-15T12:36:50+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-06-21",
+   "sunrise": "2026-06-21T05:54:14+05:30",
+   "sunset": "2026-06-21T18:39:41+05:30",
+   "next_sunrise": "2026-06-22T05:54:27+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 2,
+    "name": "Āni",
+    "tamil": "ஆனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.229,
+   "sun_sidereal_deg": 65.4561,
+   "moon_sidereal_deg": 144.6882,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "23:38"
+    },
+    {
+     "index": 7,
+     "name": "Śukla Aṣṭamī",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:26"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2026-06-21T09:31:41+05:30",
+     "ends_nazhigai": "9:03"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-06-22T10:22:36+05:30",
+     "ends_nazhigai": "71:10"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 15,
+     "name": "Siddhi",
+     "ends": "2026-06-21T11:21:18+05:30",
+     "ends_nazhigai": "13:37"
+    },
+    {
+     "index": 16,
+     "name": "Vyatīpāta",
+     "ends": "2026-06-22T10:30:53+05:30",
+     "ends_nazhigai": "71:31"
+    }
+   ],
+   "karana": [
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "23:38"
+    },
+    {
+     "index": 14,
+     "name": "Viṣṭi",
+     "ends": "2026-06-22T03:25:53+05:30",
+     "ends_nazhigai": "53:49"
+    },
+    {
+     "index": 15,
+     "name": "Bava",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:26"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-06-21T17:04:01+05:30",
+    "2026-06-21T18:39:41+05:30"
+   ],
+   "yamagandam": [
+    "2026-06-21T12:16:58+05:30",
+    "2026-06-21T13:52:39+05:30"
+   ],
+   "kulikai": [
+    "2026-06-21T15:28:20+05:30",
+    "2026-06-21T17:04:01+05:30"
+   ],
+   "abhijit": [
+    "2026-06-21T11:51:27+05:30",
+    "2026-06-21T12:42:29+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-08-15",
+   "sunrise": "2026-08-15T06:05:18+05:30",
+   "sunset": "2026-08-15T18:34:01+05:30",
+   "next_sunrise": "2026-08-16T06:05:22+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 3,
+    "name": "Āḍi",
+    "tamil": "ஆடி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2317,
+   "sun_sidereal_deg": 118.0011,
+   "moon_sidereal_deg": 148.0177,
+   "tithi": [
+    {
+     "index": 2,
+     "name": "Śukla Tṛtīyā",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:30"
+    },
+    {
+     "index": 3,
+     "name": "Śukla Caturthī",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "86:59"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-08-16T03:25:54+05:30",
+     "ends_nazhigai": "53:21"
+    },
+    {
+     "index": 12,
+     "name": "Hasta",
+     "ends": "2026-08-17T03:51:03+05:30",
+     "ends_nazhigai": "114:24"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-08-15T07:09:12+05:30",
+     "ends_nazhigai": "2:39"
+    },
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-08-16T05:21:36+05:30",
+     "ends_nazhigai": "58:10"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-08-17T04:08:22+05:30",
+     "ends_nazhigai": "115:07"
+    }
+   ],
+   "karana": [
+    {
+     "index": 5,
+     "name": "Gara",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:30"
+    },
+    {
+     "index": 6,
+     "name": "Vaṇij",
+     "ends": "2026-08-16T05:05:51+05:30",
+     "ends_nazhigai": "57:31"
+    },
+    {
+     "index": 7,
+     "name": "Viṣṭi",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "86:59"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-08-15T09:12:29+05:30",
+    "2026-08-15T10:46:04+05:30"
+   ],
+   "yamagandam": [
+    "2026-08-15T13:53:15+05:30",
+    "2026-08-15T15:26:50+05:30"
+   ],
+   "kulikai": [
+    "2026-08-15T06:05:18+05:30",
+    "2026-08-15T07:38:54+05:30"
+   ],
+   "abhijit": [
+    "2026-08-15T11:54:42+05:30",
+    "2026-08-15T12:44:37+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-09-26",
+   "sunrise": "2026-09-26T06:04:10+05:30",
+   "sunset": "2026-09-26T18:08:51+05:30",
+   "next_sunrise": "2026-09-27T06:04:08+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 10
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.233,
+   "sun_sidereal_deg": 158.7222,
+   "moon_sidereal_deg": 330.2867,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:36"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-09-27T20:58:57+05:30",
+     "ends_nazhigai": "97:16"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-09-26T11:32:15+05:30",
+     "ends_nazhigai": "13:40"
+    },
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-09-27T11:08:12+05:30",
+     "ends_nazhigai": "72:40"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2026-09-26T13:17:42+05:30",
+     "ends_nazhigai": "18:03"
+    },
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-09-27T11:17:03+05:30",
+     "ends_nazhigai": "73:02"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-09-26T10:47:18+05:30",
+     "ends_nazhigai": "11:47"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:36"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-09-27T09:42:28+05:30",
+     "ends_nazhigai": "69:05"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-09-26T09:05:20+05:30",
+    "2026-09-26T10:35:55+05:30"
+   ],
+   "yamagandam": [
+    "2026-09-26T13:37:06+05:30",
+    "2026-09-26T15:07:41+05:30"
+   ],
+   "kulikai": [
+    "2026-09-26T06:04:10+05:30",
+    "2026-09-26T07:34:45+05:30"
+   ],
+   "abhijit": [
+    "2026-09-26T11:42:21+05:30",
+    "2026-09-26T12:30:40+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-10-17",
+   "sunrise": "2026-10-17T06:04:16+05:30",
+   "sunset": "2026-10-17T17:56:46+05:30",
+   "next_sunrise": "2026-10-18T06:04:20+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 31
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2337,
+   "sun_sidereal_deg": 179.4277,
+   "moon_sidereal_deg": 251.5012,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "66:00"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-10-17T09:47:14+05:30",
+     "ends_nazhigai": "9:17"
+    },
+    {
+     "index": 19,
+     "name": "Pūrva Āṣāḍhā",
+     "ends": "2026-10-18T12:49:04+05:30",
+     "ends_nazhigai": "76:52"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 5,
+     "name": "Atigaṇḍa",
+     "ends": "2026-10-17T23:02:59+05:30",
+     "ends_nazhigai": "42:26"
+    },
+    {
+     "index": 6,
+     "name": "Sukarmā",
+     "ends": "2026-10-18T23:56:19+05:30",
+     "ends_nazhigai": "104:40"
+    }
+   ],
+   "karana": [
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2026-10-17T19:11:43+05:30",
+     "ends_nazhigai": "32:48"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "66:00"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-10-17T09:02:23+05:30",
+    "2026-10-17T10:31:27+05:30"
+   ],
+   "yamagandam": [
+    "2026-10-17T13:29:34+05:30",
+    "2026-10-17T14:58:38+05:30"
+   ],
+   "kulikai": [
+    "2026-10-17T06:04:16+05:30",
+    "2026-10-17T07:33:19+05:30"
+   ],
+   "abhijit": [
+    "2026-10-17T11:36:46+05:30",
+    "2026-10-17T12:24:16+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-11-24",
+   "sunrise": "2026-11-24T06:14:27+05:30",
+   "sunset": "2026-11-24T17:49:04+05:30",
+   "next_sunrise": "2026-11-25T06:14:55+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 7,
+    "name": "Kārttikai",
+    "tamil": "கார்த்திகை",
+    "day": 8
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2353,
+   "sun_sidereal_deg": 217.5064,
+   "moon_sidereal_deg": 29.2705,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:23"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-11-25T16:51:09+05:30",
+     "ends_nazhigai": "86:31"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-11-24T23:25:28+05:30",
+     "ends_nazhigai": "42:57"
+    },
+    {
+     "index": 3,
+     "name": "Rohiṇī",
+     "ends": "2026-11-25T20:36:38+05:30",
+     "ends_nazhigai": "95:55"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2026-11-24T16:05:52+05:30",
+     "ends_nazhigai": "24:38"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-11-25T11:59:57+05:30",
+     "ends_nazhigai": "74:23"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-11-24T10:05:54+05:30",
+     "ends_nazhigai": "9:38"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:23"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-11-25T06:38:30+05:30",
+     "ends_nazhigai": "61:00"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-11-24T14:55:25+05:30",
+    "2026-11-24T16:22:14+05:30"
+   ],
+   "yamagandam": [
+    "2026-11-24T09:08:06+05:30",
+    "2026-11-24T10:34:56+05:30"
+   ],
+   "kulikai": [
+    "2026-11-24T12:01:45+05:30",
+    "2026-11-24T13:28:35+05:30"
+   ],
+   "abhijit": [
+    "2026-11-24T11:38:36+05:30",
+    "2026-11-24T12:24:55+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2026-12-21",
+   "sunrise": "2026-12-21T06:28:16+05:30",
+   "sunset": "2026-12-21T17:58:01+05:30",
+   "next_sunrise": "2026-12-22T06:28:46+05:30",
+   "vara": {
+    "index": 1,
+    "name": "Somavāra",
+    "tamil": "திங்கள்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 6
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2367,
+   "sun_sidereal_deg": 244.9219,
+   "moon_sidereal_deg": 22.6157,
+   "tithi": [
+    {
+     "index": 11,
+     "name": "Śukla Dvādaśī",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:51"
+    },
+    {
+     "index": 12,
+     "name": "Śukla Trayodaśī",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:50"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-12-21T13:09:01+05:30",
+     "ends_nazhigai": "16:41"
+    },
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-12-22T10:45:50+05:30",
+     "ends_nazhigai": "70:43"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-12-22T01:32:15+05:30",
+     "ends_nazhigai": "47:39"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-12-22T21:32:10+05:30",
+     "ends_nazhigai": "97:39"
+    }
+   ],
+   "karana": [
+    {
+     "index": 22,
+     "name": "Bava",
+     "ends": "2026-12-21T07:00:59+05:30",
+     "ends_nazhigai": "1:21"
+    },
+    {
+     "index": 23,
+     "name": "Bālava",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:51"
+    },
+    {
+     "index": 24,
+     "name": "Kaulava",
+     "ends": "2026-12-22T04:04:21+05:30",
+     "ends_nazhigai": "54:00"
+    },
+    {
+     "index": 25,
+     "name": "Taitila",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:50"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-12-21T07:54:29+05:30",
+    "2026-12-21T09:20:42+05:30"
+   ],
+   "yamagandam": [
+    "2026-12-21T10:46:56+05:30",
+    "2026-12-21T12:13:09+05:30"
+   ],
+   "kulikai": [
+    "2026-12-21T13:39:22+05:30",
+    "2026-12-21T15:05:35+05:30"
+   ],
+   "abhijit": [
+    "2026-12-21T11:50:09+05:30",
+    "2026-12-21T12:36:08+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2027-01-14",
+   "sunrise": "2027-01-14T06:37:26+05:30",
+   "sunset": "2027-01-14T18:10:47+05:30",
+   "next_sunrise": "2027-01-15T06:37:39+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.238,
+   "sun_sidereal_deg": 269.383,
+   "moon_sidereal_deg": 337.8086,
+   "tithi": [
+    {
+     "index": 5,
+     "name": "Śukla Ṣaṣṭhī",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:24"
+    },
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "79:01"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2027-01-14T23:19:02+05:30",
+     "ends_nazhigai": "41:43"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2027-01-15T23:51:19+05:30",
+     "ends_nazhigai": "103:04"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2027-01-14T17:22:23+05:30",
+     "ends_nazhigai": "26:52"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2027-01-15T16:18:15+05:30",
+     "ends_nazhigai": "84:12"
+    }
+   ],
+   "karana": [
+    {
+     "index": 11,
+     "name": "Taitila",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:24"
+    },
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2027-01-15T02:12:07+05:30",
+     "ends_nazhigai": "48:56"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "79:01"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-01-14T13:50:47+05:30",
+    "2027-01-14T15:17:27+05:30"
+   ],
+   "yamagandam": [
+    "2027-01-14T06:37:26+05:30",
+    "2027-01-14T08:04:06+05:30"
+   ],
+   "kulikai": [
+    "2027-01-14T09:30:47+05:30",
+    "2027-01-14T10:57:27+05:30"
+   ],
+   "abhijit": [
+    "2027-01-14T12:01:00+05:30",
+    "2027-01-14T12:47:13+05:30"
+   ]
+  },
+  {
+   "city": "Tiruchirappalli",
+   "lat": 10.7905,
+   "lon": 78.7047,
+   "tz": "+05:30",
+   "date": "2027-03-21",
+   "sunrise": "2027-03-21T06:19:07+05:30",
+   "sunset": "2027-03-21T18:26:00+05:30",
+   "next_sunrise": "2027-03-22T06:18:31+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2405,
+   "sun_sidereal_deg": 335.9427,
+   "moon_sidereal_deg": 137.2617,
+   "tithi": [
+    {
+     "index": 13,
+     "name": "Śukla Caturdaśī",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "30:07"
+    },
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "84:47"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2027-03-21T22:07:10+05:30",
+     "ends_nazhigai": "39:30"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2027-03-22T20:46:11+05:30",
+     "ends_nazhigai": "96:07"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 8,
+     "name": "Śūla",
+     "ends": "2027-03-21T16:58:52+05:30",
+     "ends_nazhigai": "26:39"
+    },
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2027-03-22T14:04:05+05:30",
+     "ends_nazhigai": "79:22"
+    }
+   ],
+   "karana": [
+    {
+     "index": 26,
+     "name": "Gara",
+     "ends": "2027-03-21T07:32:38+05:30",
+     "ends_nazhigai": "3:03"
+    },
+    {
+     "index": 27,
+     "name": "Vaṇij",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "30:07"
+    },
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2027-03-22T05:15:41+05:30",
+     "ends_nazhigai": "57:21"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "84:47"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-03-21T16:55:09+05:30",
+    "2027-03-21T18:26:00+05:30"
+   ],
+   "yamagandam": [
+    "2027-03-21T12:22:34+05:30",
+    "2027-03-21T13:53:25+05:30"
+   ],
+   "kulikai": [
+    "2027-03-21T15:24:17+05:30",
+    "2027-03-21T16:55:09+05:30"
+   ],
+   "abhijit": [
+    "2027-03-21T11:58:20+05:30",
+    "2027-03-21T12:46:47+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-01-15",
+   "sunrise": "2026-01-15T06:45:39+05:30",
+   "sunset": "2026-01-15T18:12:22+05:30",
+   "next_sunrise": "2026-01-16T06:45:48+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 9,
+    "name": "Thai",
+    "tamil": "தை",
+    "day": 2
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2227,
+   "sun_sidereal_deg": 270.6686,
+   "moon_sidereal_deg": 228.5016,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "33:49"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-01-16T22:22:40+05:30",
+     "ends_nazhigai": "99:02"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 17,
+     "name": "Jyeṣṭhā",
+     "ends": "2026-01-16T05:47:52+05:30",
+     "ends_nazhigai": "57:35"
+    },
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-01-17T08:12:23+05:30",
+     "ends_nazhigai": "123:36"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-01-15T20:37:37+05:30",
+     "ends_nazhigai": "34:39"
+    },
+    {
+     "index": 11,
+     "name": "Dhruva",
+     "ends": "2026-01-16T21:06:04+05:30",
+     "ends_nazhigai": "95:51"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-01-15T07:07:42+05:30",
+     "ends_nazhigai": "0:55"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-01-15T20:17:36+05:30",
+     "ends_nazhigai": "33:49"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-01-16T09:22:47+05:30",
+     "ends_nazhigai": "66:32"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-01-15T13:54:51+05:30",
+    "2026-01-15T15:20:41+05:30"
+   ],
+   "yamagandam": [
+    "2026-01-15T06:45:39+05:30",
+    "2026-01-15T08:11:29+05:30"
+   ],
+   "kulikai": [
+    "2026-01-15T09:37:19+05:30",
+    "2026-01-15T11:03:10+05:30"
+   ],
+   "abhijit": [
+    "2026-01-15T12:06:07+05:30",
+    "2026-01-15T12:51:54+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-03-19",
+   "sunrise": "2026-03-19T06:24:40+05:30",
+   "sunset": "2026-03-19T18:30:24+05:30",
+   "next_sunrise": "2026-03-20T06:24:00+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 5
+   },
+   "samvatsara": {
+    "index": 38,
+    "name": "Viśvāvasu"
+   },
+   "ayanamsa_deg": 24.2251,
+   "sun_sidereal_deg": 334.2133,
+   "moon_sidereal_deg": 333.9451,
+   "tithi": [
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:14"
+    },
+    {
+     "index": 0,
+     "name": "Śukla Pratipadā",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:12"
+    },
+    {
+     "index": 1,
+     "name": "Śukla Dvitīyā",
+     "ends": "2026-03-21T02:32:09+05:30",
+     "ends_nazhigai": "110:18"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-03-20T04:05:13+05:30",
+     "ends_nazhigai": "54:11"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2026-03-21T02:28:03+05:30",
+     "ends_nazhigai": "110:08"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-03-20T01:16:34+05:30",
+     "ends_nazhigai": "47:09"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-03-20T22:14:30+05:30",
+     "ends_nazhigai": "99:34"
+    }
+   ],
+   "karana": [
+    {
+     "index": 59,
+     "name": "Nāga",
+     "ends": "2026-03-19T06:54:27+05:30",
+     "ends_nazhigai": "1:14"
+    },
+    {
+     "index": 0,
+     "name": "Kiṃstughna",
+     "ends": "2026-03-19T17:57:09+05:30",
+     "ends_nazhigai": "28:51"
+    },
+    {
+     "index": 1,
+     "name": "Bava",
+     "ends": "2026-03-20T04:53:41+05:30",
+     "ends_nazhigai": "56:12"
+    },
+    {
+     "index": 2,
+     "name": "Bālava",
+     "ends": "2026-03-20T15:45:02+05:30",
+     "ends_nazhigai": "83:20"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-03-19T13:58:15+05:30",
+    "2026-03-19T15:28:58+05:30"
+   ],
+   "yamagandam": [
+    "2026-03-19T06:24:40+05:30",
+    "2026-03-19T07:55:23+05:30"
+   ],
+   "kulikai": [
+    "2026-03-19T09:26:06+05:30",
+    "2026-03-19T10:56:49+05:30"
+   ],
+   "abhijit": [
+    "2026-03-19T12:03:20+05:30",
+    "2026-03-19T12:51:43+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-04-14",
+   "sunrise": "2026-04-14T06:07:52+05:30",
+   "sunset": "2026-04-14T18:32:14+05:30",
+   "next_sunrise": "2026-04-15T06:07:16+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 0,
+    "name": "Chithirai",
+    "tamil": "சித்திரை",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2259,
+   "sun_sidereal_deg": 359.8697,
+   "moon_sidereal_deg": 314.416,
+   "tithi": [
+    {
+     "index": 26,
+     "name": "Kṛṣṇa Dvādaśī",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:15"
+    },
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-04-15T22:32:51+05:30",
+     "ends_nazhigai": "101:02"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 23,
+     "name": "Śatabhiṣaj",
+     "ends": "2026-04-14T16:06:14+05:30",
+     "ends_nazhigai": "24:55"
+    },
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-04-15T15:23:02+05:30",
+     "ends_nazhigai": "83:07"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 23,
+     "name": "Śukla",
+     "ends": "2026-04-14T15:38:45+05:30",
+     "ends_nazhigai": "23:47"
+    },
+    {
+     "index": 24,
+     "name": "Brahma",
+     "ends": "2026-04-15T13:24:38+05:30",
+     "ends_nazhigai": "78:11"
+    }
+   ],
+   "karana": [
+    {
+     "index": 52,
+     "name": "Kaulava",
+     "ends": "2026-04-14T12:48:02+05:30",
+     "ends_nazhigai": "16:40"
+    },
+    {
+     "index": 53,
+     "name": "Taitila",
+     "ends": "2026-04-15T00:14:01+05:30",
+     "ends_nazhigai": "45:15"
+    },
+    {
+     "index": 54,
+     "name": "Gara",
+     "ends": "2026-04-15T11:28:43+05:30",
+     "ends_nazhigai": "73:22"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-04-14T15:26:08+05:30",
+    "2026-04-14T16:59:11+05:30"
+   ],
+   "yamagandam": [
+    "2026-04-14T09:13:57+05:30",
+    "2026-04-14T10:47:00+05:30"
+   ],
+   "kulikai": [
+    "2026-04-14T12:20:03+05:30",
+    "2026-04-14T13:53:05+05:30"
+   ],
+   "abhijit": [
+    "2026-04-14T11:55:14+05:30",
+    "2026-04-14T12:44:51+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-05-15",
+   "sunrise": "2026-05-15T05:54:21+05:30",
+   "sunset": "2026-05-15T18:37:46+05:30",
+   "next_sunrise": "2026-05-16T05:54:07+05:30",
+   "vara": {
+    "index": 5,
+    "name": "Śukravāra",
+    "tamil": "வெள்ளி"
+   },
+   "tamil_month": {
+    "index": 1,
+    "name": "Vaikāsi",
+    "tamil": "வைகாசி",
+    "day": 1
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2271,
+   "sun_sidereal_deg": 29.9897,
+   "moon_sidereal_deg": 4.4758,
+   "tithi": [
+    {
+     "index": 27,
+     "name": "Kṛṣṇa Trayodaśī",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "6:35"
+    },
+    {
+     "index": 28,
+     "name": "Kṛṣṇa Caturdaśī",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:15"
+    },
+    {
+     "index": 29,
+     "name": "Kṛṣṇa Amāvāsyā",
+     "ends": "2026-05-17T01:31:56+05:30",
+     "ends_nazhigai": "109:03"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 0,
+     "name": "Aśvinī",
+     "ends": "2026-05-15T20:15:02+05:30",
+     "ends_nazhigai": "35:51"
+    },
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-05-16T17:30:36+05:30",
+     "ends_nazhigai": "89:00"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 2,
+     "name": "Āyuṣmān",
+     "ends": "2026-05-15T14:20:43+05:30",
+     "ends_nazhigai": "21:05"
+    },
+    {
+     "index": 3,
+     "name": "Saubhāgya",
+     "ends": "2026-05-16T10:25:12+05:30",
+     "ends_nazhigai": "71:17"
+    }
+   ],
+   "karana": [
+    {
+     "index": 55,
+     "name": "Vaṇij",
+     "ends": "2026-05-15T08:32:45+05:30",
+     "ends_nazhigai": "6:35"
+    },
+    {
+     "index": 56,
+     "name": "Viṣṭi",
+     "ends": "2026-05-15T18:55:51+05:30",
+     "ends_nazhigai": "32:33"
+    },
+    {
+     "index": 57,
+     "name": "Śakuni",
+     "ends": "2026-05-16T05:12:31+05:30",
+     "ends_nazhigai": "58:15"
+    },
+    {
+     "index": 58,
+     "name": "Catuṣpāda",
+     "ends": "2026-05-16T15:24:05+05:30",
+     "ends_nazhigai": "83:44"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-05-15T10:40:38+05:30",
+    "2026-05-15T12:16:03+05:30"
+   ],
+   "yamagandam": [
+    "2026-05-15T15:26:55+05:30",
+    "2026-05-15T17:02:20+05:30"
+   ],
+   "kulikai": [
+    "2026-05-15T07:29:46+05:30",
+    "2026-05-15T09:05:12+05:30"
+   ],
+   "abhijit": [
+    "2026-05-15T11:50:36+05:30",
+    "2026-05-15T12:41:30+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-06-21",
+   "sunrise": "2026-06-21T05:54:41+05:30",
+   "sunset": "2026-06-21T18:48:08+05:30",
+   "next_sunrise": "2026-06-22T05:54:54+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 2,
+    "name": "Āni",
+    "tamil": "ஆனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.229,
+   "sun_sidereal_deg": 65.4563,
+   "moon_sidereal_deg": 144.6922,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "23:37"
+    },
+    {
+     "index": 7,
+     "name": "Śukla Aṣṭamī",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:25"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2026-06-21T09:31:41+05:30",
+     "ends_nazhigai": "9:02"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-06-22T10:22:36+05:30",
+     "ends_nazhigai": "71:09"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 15,
+     "name": "Siddhi",
+     "ends": "2026-06-21T11:21:18+05:30",
+     "ends_nazhigai": "13:36"
+    },
+    {
+     "index": 16,
+     "name": "Vyatīpāta",
+     "ends": "2026-06-22T10:30:53+05:30",
+     "ends_nazhigai": "71:30"
+    }
+   ],
+   "karana": [
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-06-21T15:21:39+05:30",
+     "ends_nazhigai": "23:37"
+    },
+    {
+     "index": 14,
+     "name": "Viṣṭi",
+     "ends": "2026-06-22T03:25:53+05:30",
+     "ends_nazhigai": "53:48"
+    },
+    {
+     "index": 15,
+     "name": "Bava",
+     "ends": "2026-06-22T15:40:57+05:30",
+     "ends_nazhigai": "84:25"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-06-21T17:11:27+05:30",
+    "2026-06-21T18:48:08+05:30"
+   ],
+   "yamagandam": [
+    "2026-06-21T12:21:24+05:30",
+    "2026-06-21T13:58:05+05:30"
+   ],
+   "kulikai": [
+    "2026-06-21T15:34:46+05:30",
+    "2026-06-21T17:11:27+05:30"
+   ],
+   "abhijit": [
+    "2026-06-21T11:55:37+05:30",
+    "2026-06-21T12:47:11+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-08-15",
+   "sunrise": "2026-08-15T06:07:25+05:30",
+   "sunset": "2026-08-15T18:40:45+05:30",
+   "next_sunrise": "2026-08-16T06:07:32+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 3,
+    "name": "Āḍi",
+    "tamil": "ஆடி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2317,
+   "sun_sidereal_deg": 118.0025,
+   "moon_sidereal_deg": 148.0378,
+   "tithi": [
+    {
+     "index": 2,
+     "name": "Śukla Tṛtīyā",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:25"
+    },
+    {
+     "index": 3,
+     "name": "Śukla Caturthī",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "86:54"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2026-08-16T03:25:54+05:30",
+     "ends_nazhigai": "53:16"
+    },
+    {
+     "index": 12,
+     "name": "Hasta",
+     "ends": "2026-08-17T03:51:03+05:30",
+     "ends_nazhigai": "114:19"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-08-15T07:09:12+05:30",
+     "ends_nazhigai": "2:34"
+    },
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-08-16T05:21:36+05:30",
+     "ends_nazhigai": "58:05"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-08-17T04:08:22+05:30",
+     "ends_nazhigai": "115:02"
+    }
+   ],
+   "karana": [
+    {
+     "index": 5,
+     "name": "Gara",
+     "ends": "2026-08-15T17:29:25+05:30",
+     "ends_nazhigai": "28:25"
+    },
+    {
+     "index": 6,
+     "name": "Vaṇij",
+     "ends": "2026-08-16T05:05:51+05:30",
+     "ends_nazhigai": "57:26"
+    },
+    {
+     "index": 7,
+     "name": "Viṣṭi",
+     "ends": "2026-08-16T16:53:05+05:30",
+     "ends_nazhigai": "86:54"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-08-15T09:15:45+05:30",
+    "2026-08-15T10:49:55+05:30"
+   ],
+   "yamagandam": [
+    "2026-08-15T13:58:15+05:30",
+    "2026-08-15T15:32:25+05:30"
+   ],
+   "kulikai": [
+    "2026-08-15T06:07:25+05:30",
+    "2026-08-15T07:41:35+05:30"
+   ],
+   "abhijit": [
+    "2026-08-15T11:58:59+05:30",
+    "2026-08-15T12:49:12+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-09-26",
+   "sunrise": "2026-09-26T06:08:46+05:30",
+   "sunset": "2026-09-26T18:13:05+05:30",
+   "next_sunrise": "2026-09-27T06:08:47+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 10
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.233,
+   "sun_sidereal_deg": 158.7253,
+   "moon_sidereal_deg": 330.3293,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:25"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-09-27T20:58:57+05:30",
+     "ends_nazhigai": "97:05"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 24,
+     "name": "Pūrva Bhādrapadā",
+     "ends": "2026-09-26T11:32:15+05:30",
+     "ends_nazhigai": "13:28"
+    },
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2026-09-27T11:08:12+05:30",
+     "ends_nazhigai": "72:28"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2026-09-26T13:17:42+05:30",
+     "ends_nazhigai": "17:52"
+    },
+    {
+     "index": 10,
+     "name": "Vṛddhi",
+     "ends": "2026-09-27T11:17:03+05:30",
+     "ends_nazhigai": "72:50"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-09-26T10:47:18+05:30",
+     "ends_nazhigai": "11:36"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-09-26T22:18:50+05:30",
+     "ends_nazhigai": "40:25"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-09-27T09:42:28+05:30",
+     "ends_nazhigai": "68:54"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-09-26T09:09:51+05:30",
+    "2026-09-26T10:40:24+05:30"
+   ],
+   "yamagandam": [
+    "2026-09-26T13:41:28+05:30",
+    "2026-09-26T15:12:01+05:30"
+   ],
+   "kulikai": [
+    "2026-09-26T06:08:46+05:30",
+    "2026-09-26T07:39:19+05:30"
+   ],
+   "abhijit": [
+    "2026-09-26T11:46:47+05:30",
+    "2026-09-26T12:35:05+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-10-17",
+   "sunrise": "2026-10-17T06:10:09+05:30",
+   "sunset": "2026-10-17T17:59:44+05:30",
+   "next_sunrise": "2026-10-18T06:10:17+05:30",
+   "vara": {
+    "index": 6,
+    "name": "Śanivāra",
+    "tamil": "சனி"
+   },
+   "tamil_month": {
+    "index": 5,
+    "name": "Puraṭṭāsi",
+    "tamil": "புரட்டாசி",
+    "day": 31
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2337,
+   "sun_sidereal_deg": 179.4318,
+   "moon_sidereal_deg": 251.5496,
+   "tithi": [
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "65:45"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 18,
+     "name": "Mūla",
+     "ends": "2026-10-17T09:47:14+05:30",
+     "ends_nazhigai": "9:02"
+    },
+    {
+     "index": 19,
+     "name": "Pūrva Āṣāḍhā",
+     "ends": "2026-10-18T12:49:04+05:30",
+     "ends_nazhigai": "76:37"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 5,
+     "name": "Atigaṇḍa",
+     "ends": "2026-10-17T23:02:59+05:30",
+     "ends_nazhigai": "42:12"
+    },
+    {
+     "index": 6,
+     "name": "Sukarmā",
+     "ends": "2026-10-18T23:56:19+05:30",
+     "ends_nazhigai": "104:25"
+    }
+   ],
+   "karana": [
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2026-10-17T19:11:43+05:30",
+     "ends_nazhigai": "32:33"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2026-10-18T08:28:17+05:30",
+     "ends_nazhigai": "65:45"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-10-17T09:07:32+05:30",
+    "2026-10-17T10:36:14+05:30"
+   ],
+   "yamagandam": [
+    "2026-10-17T13:33:38+05:30",
+    "2026-10-17T15:02:20+05:30"
+   ],
+   "kulikai": [
+    "2026-10-17T06:10:09+05:30",
+    "2026-10-17T07:38:51+05:30"
+   ],
+   "abhijit": [
+    "2026-10-17T11:41:17+05:30",
+    "2026-10-17T12:28:35+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-11-24",
+   "sunrise": "2026-11-24T06:22:17+05:30",
+   "sunset": "2026-11-24T17:50:06+05:30",
+   "next_sunrise": "2026-11-25T06:22:47+05:30",
+   "vara": {
+    "index": 2,
+    "name": "Maṅgalavāra",
+    "tamil": "செவ்வாய்"
+   },
+   "tamil_month": {
+    "index": 7,
+    "name": "Kārttikai",
+    "tamil": "கார்த்திகை",
+    "day": 8
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2353,
+   "sun_sidereal_deg": 217.5119,
+   "moon_sidereal_deg": 29.3515,
+   "tithi": [
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:04"
+    },
+    {
+     "index": 15,
+     "name": "Kṛṣṇa Pratipadā",
+     "ends": "2026-11-25T16:51:09+05:30",
+     "ends_nazhigai": "86:12"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-11-24T23:25:28+05:30",
+     "ends_nazhigai": "42:37"
+    },
+    {
+     "index": 3,
+     "name": "Rohiṇī",
+     "ends": "2026-11-25T20:36:38+05:30",
+     "ends_nazhigai": "95:35"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2026-11-24T16:05:52+05:30",
+     "ends_nazhigai": "24:18"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2026-11-25T11:59:57+05:30",
+     "ends_nazhigai": "74:04"
+    }
+   ],
+   "karana": [
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2026-11-24T10:05:54+05:30",
+     "ends_nazhigai": "9:19"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2026-11-24T20:23:53+05:30",
+     "ends_nazhigai": "35:04"
+    },
+    {
+     "index": 30,
+     "name": "Bālava",
+     "ends": "2026-11-25T06:38:30+05:30",
+     "ends_nazhigai": "60:40"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-11-24T14:58:09+05:30",
+    "2026-11-24T16:24:07+05:30"
+   ],
+   "yamagandam": [
+    "2026-11-24T09:14:14+05:30",
+    "2026-11-24T10:40:13+05:30"
+   ],
+   "kulikai": [
+    "2026-11-24T12:06:11+05:30",
+    "2026-11-24T13:32:10+05:30"
+   ],
+   "abhijit": [
+    "2026-11-24T11:43:16+05:30",
+    "2026-11-24T12:29:07+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2026-12-21",
+   "sunrise": "2026-12-21T06:36:39+05:30",
+   "sunset": "2026-12-21T17:58:31+05:30",
+   "next_sunrise": "2026-12-22T06:37:09+05:30",
+   "vara": {
+    "index": 1,
+    "name": "Somavāra",
+    "tamil": "திங்கள்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 6
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2367,
+   "sun_sidereal_deg": 244.9279,
+   "moon_sidereal_deg": 22.7,
+   "tithi": [
+    {
+     "index": 11,
+     "name": "Śukla Dvādaśī",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:30"
+    },
+    {
+     "index": 12,
+     "name": "Śukla Trayodaśī",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:29"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 1,
+     "name": "Bharaṇī",
+     "ends": "2026-12-21T13:09:01+05:30",
+     "ends_nazhigai": "16:20"
+    },
+    {
+     "index": 2,
+     "name": "Kṛttikā",
+     "ends": "2026-12-22T10:45:50+05:30",
+     "ends_nazhigai": "70:22"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 20,
+     "name": "Siddha",
+     "ends": "2026-12-22T01:32:15+05:30",
+     "ends_nazhigai": "47:18"
+    },
+    {
+     "index": 21,
+     "name": "Sādhya",
+     "ends": "2026-12-22T21:32:10+05:30",
+     "ends_nazhigai": "97:18"
+    }
+   ],
+   "karana": [
+    {
+     "index": 22,
+     "name": "Bava",
+     "ends": "2026-12-21T07:00:59+05:30",
+     "ends_nazhigai": "1:00"
+    },
+    {
+     "index": 23,
+     "name": "Bālava",
+     "ends": "2026-12-21T17:36:59+05:30",
+     "ends_nazhigai": "27:30"
+    },
+    {
+     "index": 24,
+     "name": "Kaulava",
+     "ends": "2026-12-22T04:04:21+05:30",
+     "ends_nazhigai": "53:39"
+    },
+    {
+     "index": 25,
+     "name": "Taitila",
+     "ends": "2026-12-22T14:24:24+05:30",
+     "ends_nazhigai": "79:29"
+    }
+   ],
+   "rahu_kalam": [
+    "2026-12-21T08:01:53+05:30",
+    "2026-12-21T09:27:07+05:30"
+   ],
+   "yamagandam": [
+    "2026-12-21T10:52:21+05:30",
+    "2026-12-21T12:17:35+05:30"
+   ],
+   "kulikai": [
+    "2026-12-21T13:42:49+05:30",
+    "2026-12-21T15:08:03+05:30"
+   ],
+   "abhijit": [
+    "2026-12-21T11:54:51+05:30",
+    "2026-12-21T12:40:19+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2027-01-14",
+   "sunrise": "2027-01-14T06:45:26+05:30",
+   "sunset": "2027-01-14T18:11:41+05:30",
+   "next_sunrise": "2027-01-15T06:45:36+05:30",
+   "vara": {
+    "index": 4,
+    "name": "Guruvāra",
+    "tamil": "வியாழன்"
+   },
+   "tamil_month": {
+    "index": 8,
+    "name": "Mārgazhi",
+    "tamil": "மார்கழி",
+    "day": 30
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.238,
+   "sun_sidereal_deg": 269.3886,
+   "moon_sidereal_deg": 337.8786,
+   "tithi": [
+    {
+     "index": 5,
+     "name": "Śukla Ṣaṣṭhī",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:04"
+    },
+    {
+     "index": 6,
+     "name": "Śukla Saptamī",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "78:41"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 25,
+     "name": "Uttara Bhādrapadā",
+     "ends": "2027-01-14T23:19:02+05:30",
+     "ends_nazhigai": "41:24"
+    },
+    {
+     "index": 26,
+     "name": "Revatī",
+     "ends": "2027-01-15T23:51:19+05:30",
+     "ends_nazhigai": "102:44"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 18,
+     "name": "Parigha",
+     "ends": "2027-01-14T17:22:23+05:30",
+     "ends_nazhigai": "26:32"
+    },
+    {
+     "index": 19,
+     "name": "Śiva",
+     "ends": "2027-01-15T16:18:15+05:30",
+     "ends_nazhigai": "83:52"
+    }
+   ],
+   "karana": [
+    {
+     "index": 11,
+     "name": "Taitila",
+     "ends": "2027-01-14T13:59:08+05:30",
+     "ends_nazhigai": "18:04"
+    },
+    {
+     "index": 12,
+     "name": "Gara",
+     "ends": "2027-01-15T02:12:07+05:30",
+     "ends_nazhigai": "48:36"
+    },
+    {
+     "index": 13,
+     "name": "Vaṇij",
+     "ends": "2027-01-15T14:14:03+05:30",
+     "ends_nazhigai": "78:41"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-01-14T13:54:20+05:30",
+    "2027-01-14T15:20:07+05:30"
+   ],
+   "yamagandam": [
+    "2027-01-14T06:45:26+05:30",
+    "2027-01-14T08:11:13+05:30"
+   ],
+   "kulikai": [
+    "2027-01-14T09:37:00+05:30",
+    "2027-01-14T11:02:46+05:30"
+   ],
+   "abhijit": [
+    "2027-01-14T12:05:41+05:30",
+    "2027-01-14T12:51:26+05:30"
+   ]
+  },
+  {
+   "city": "Bengaluru",
+   "lat": 12.9716,
+   "lon": 77.5946,
+   "tz": "+05:30",
+   "date": "2027-03-21",
+   "sunrise": "2027-03-21T06:23:31+05:30",
+   "sunset": "2027-03-21T18:30:31+05:30",
+   "next_sunrise": "2027-03-22T06:22:51+05:30",
+   "vara": {
+    "index": 0,
+    "name": "Ravivāra",
+    "tamil": "ஞாயிறு"
+   },
+   "tamil_month": {
+    "index": 11,
+    "name": "Panguni",
+    "tamil": "பங்குனி",
+    "day": 7
+   },
+   "samvatsara": {
+    "index": 39,
+    "name": "Parābhava"
+   },
+   "ayanamsa_deg": 24.2405,
+   "sun_sidereal_deg": 335.9458,
+   "moon_sidereal_deg": 137.3055,
+   "tithi": [
+    {
+     "index": 13,
+     "name": "Śukla Caturdaśī",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "29:56"
+    },
+    {
+     "index": 14,
+     "name": "Śukla Pūrṇimā",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "84:36"
+    }
+   ],
+   "nakshatra": [
+    {
+     "index": 10,
+     "name": "Pūrva Phalgunī",
+     "ends": "2027-03-21T22:07:10+05:30",
+     "ends_nazhigai": "39:19"
+    },
+    {
+     "index": 11,
+     "name": "Uttara Phalgunī",
+     "ends": "2027-03-22T20:46:11+05:30",
+     "ends_nazhigai": "95:56"
+    }
+   ],
+   "yoga": [
+    {
+     "index": 8,
+     "name": "Śūla",
+     "ends": "2027-03-21T16:58:52+05:30",
+     "ends_nazhigai": "26:28"
+    },
+    {
+     "index": 9,
+     "name": "Gaṇḍa",
+     "ends": "2027-03-22T14:04:05+05:30",
+     "ends_nazhigai": "79:11"
+    }
+   ],
+   "karana": [
+    {
+     "index": 26,
+     "name": "Gara",
+     "ends": "2027-03-21T07:32:38+05:30",
+     "ends_nazhigai": "2:52"
+    },
+    {
+     "index": 27,
+     "name": "Vaṇij",
+     "ends": "2027-03-21T18:22:13+05:30",
+     "ends_nazhigai": "29:56"
+    },
+    {
+     "index": 28,
+     "name": "Viṣṭi",
+     "ends": "2027-03-22T05:15:41+05:30",
+     "ends_nazhigai": "57:10"
+    },
+    {
+     "index": 29,
+     "name": "Bava",
+     "ends": "2027-03-22T16:13:59+05:30",
+     "ends_nazhigai": "84:36"
+    }
+   ],
+   "rahu_kalam": [
+    "2027-03-21T16:59:39+05:30",
+    "2027-03-21T18:30:31+05:30"
+   ],
+   "yamagandam": [
+    "2027-03-21T12:27:01+05:30",
+    "2027-03-21T13:57:53+05:30"
+   ],
+   "kulikai": [
+    "2027-03-21T15:28:46+05:30",
+    "2027-03-21T16:59:39+05:30"
+   ],
+   "abhijit": [
+    "2027-03-21T12:02:47+05:30",
+    "2027-03-21T12:51:15+05:30"
+   ]
+  }
+ ]
+}
