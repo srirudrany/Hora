@@ -1,0 +1,163 @@
+// Generated verbatim from Hora data/rules.json (github.com/srirudrany/Hora). Teaching-level muhurta rules.
+export default Object.freeze({
+ "disclaimer": "Teaching-level rules used in the film. Real muhūrta selection also weighs lagna, tārābalam, candrabalam, month and personal charts; present results as guidance.",
+ "tithi_families": {
+  "Nandā": [
+   1,
+   6,
+   11
+  ],
+  "Bhadrā": [
+   2,
+   7,
+   12
+  ],
+  "Jayā": [
+   3,
+   8,
+   13
+  ],
+  "Riktā": [
+   4,
+   9,
+   14
+  ],
+  "Pūrṇā": [
+   5,
+   10,
+   15
+  ]
+ },
+ "avoid_for_beginnings": {
+  "tithi": [
+   "Riktā (4, 9, 14)",
+   "Amāvāsyā"
+  ],
+  "karana": [
+   "Viṣṭi (Bhadrā)"
+  ],
+  "yoga": [
+   "Vyatīpāta",
+   "Vaidhṛti"
+  ],
+  "daily_periods": [
+   "Rāhu kālam",
+   "Yamagaṇḍam"
+  ]
+ },
+ "nakshatra_natures": {
+  "dhruva": {
+   "meaning": "fixed",
+   "uses": "foundations, house-warming (gṛhapraveśa), planting",
+   "stars": [
+    3,
+    11,
+    20,
+    25
+   ]
+  },
+  "cara": {
+   "meaning": "movable",
+   "uses": "travel, vehicles",
+   "stars": [
+    6,
+    14,
+    21,
+    22,
+    23
+   ]
+  },
+  "ksipra": {
+   "meaning": "swift",
+   "uses": "learning, medicine, trade",
+   "stars": [
+    0,
+    7,
+    12
+   ]
+  },
+  "mrdu": {
+   "meaning": "soft",
+   "uses": "arts, friendship, new clothes",
+   "stars": [
+    4,
+    13,
+    16,
+    26
+   ]
+  },
+  "ugra": {
+   "meaning": "fierce",
+   "uses": "avoided for gentle work",
+   "stars": [
+    1,
+    9,
+    10,
+    19,
+    24
+   ]
+  },
+  "tiksna": {
+   "meaning": "sharp",
+   "uses": "avoided for gentle work",
+   "stars": [
+    5,
+    8,
+    17,
+    18
+   ]
+  },
+  "misra": {
+   "meaning": "mixed",
+   "uses": "routine work",
+   "stars": [
+    2,
+    15
+   ]
+  }
+ },
+ "wedding": {
+  "favourable_nakshatra": [
+   3,
+   4,
+   9,
+   11,
+   12,
+   14,
+   16,
+   18,
+   20,
+   25,
+   26
+  ],
+  "commonly_avoided_tamil_months": [
+   "Āḍi",
+   "Puraṭṭāsi",
+   "Mārgazhi"
+  ]
+ },
+ "chandrashtamam": "Moon in the 8th rāśi counted inclusively from the person's janma rāśi (≈2¼ days per month); avoid starting important work.",
+ "abhijit": "8th of the 15 equal daytime muhūrtas (around local noon)",
+ "festivals_solar_month_plus_star": [
+  {
+   "name": "Kārttikai Dīpam",
+   "month": "Kārttikai (Vṛścika)",
+   "nakshatra": "Kṛttikā"
+  },
+  {
+   "name": "Thai Pūsam",
+   "month": "Thai (Makara)",
+   "nakshatra": "Puṣya"
+  },
+  {
+   "name": "Paṅguni Uttiram",
+   "month": "Paṅguni (Mīna)",
+   "nakshatra": "Uttara Phalgunī"
+  },
+  {
+   "name": "Vaikāsi Visākam",
+   "month": "Vaikāsi (Vṛṣabha)",
+   "nakshatra": "Viśākhā"
+  }
+ ]
+});

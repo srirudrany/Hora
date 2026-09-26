@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Panchanga Sky · पञ्चाङ्ग</title>
+  <meta name="description" content="A photorealistic geocentric night sky that makes the Hindu Panchangam visible." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/styles.css" />
+  <script type="importmap">
+    { "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    } }
+  </script>
+  <!-- Hora's verified engine (Meeus + Lahiri), vendored verbatim; exposes window.Panchanga -->
+  <script src="vendor/panchanga.js"></script>
+</head>
+<body class="clock view-both">
+  <div id="stage" aria-label="Night sky"></div>
+  <div id="labels" aria-hidden="true"></div>
+  <div id="veil" aria-hidden="true"></div>
+  <div id="app"></div>
+  <script type="module" src="src/App.js"></script>
+</body>
+</html>
