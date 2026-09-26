@@ -1,14 +1,17 @@
 # PROMPT.md
 
-## Panchanga Sky — The One-Prompt Build (Opus 5.5 → Fable 5.1 → Three.js)
+## Panchanga Sky — The One-Prompt Build (Opus 5.5 → Three.js)
 
 **How to use:** paste the prompt block below into Opus 5.5 and attach
 `SPEC.md` (the prompt's data/verification sections point into it). If your
-interface cannot attach files, paste `SPEC.md` §2–§3 (math + tables) after
-the prompt. The prompt is intentionally demanding about completeness and the
-polish bar, and explicitly grants creative freedom on every concrete
-technique — the built result must pass the Verification Checklist and the
-acceptance vectors (SPEC §3 end, "Test Vectors").
+interface cannot attach files, paste ALL of `SPEC.md` §2–§10 (math, tables,
+modes, transition, time, place, holy days, solar system, polish bar) after
+the prompt — the Verification Checklist grades against those sections, so
+a partial paste makes gates ungradable. The prompt is intentionally
+demanding about completeness and the polish bar, and explicitly grants
+creative freedom on every concrete technique — the built result must pass
+the Verification Checklist and the acceptance vectors in
+`test-vectors.md` (same folder; paste it too when files can't be attached).
 
 ---
 
@@ -17,8 +20,8 @@ acceptance vectors (SPEC §3 end, "Test Vectors").
 ```
 You are a senior computational astronomer, full-stack visualization engineer, 
 and Vedic Jyotisha (Hindu astrology) scholar. Build a comprehensive, 
-single-file interactive web application using **Fable 5.1** (F# compiled 
-to JavaScript via Fable) that renders a **photorealistic night sky** with 
+single-file interactive web application — vanilla JavaScript (ES modules),
+no build step required — that renders a **photorealistic night sky** with
 live Hindu Panchangam overlays.
 
 ## Context & Aesthetic
@@ -41,17 +44,17 @@ intelligible.
 
 ## Deliverables
 
-Generate ALL source files for a complete, buildable Fable 5.1 application:
+Generate ALL source files for a complete, buildable JavaScript application:
 
 ### 1. index.html — Entry Point
 - Canvas container for Three.js
 - Import Three.js from CDN
 - Include Noto Sans Devanagari font from Google Fonts
-- Include Fable-generated JavaScript bundle
+- Include the application's ES modules (`<script type="module">`)
 - Responsive full-screen layout
 
-### 2. src/PanchangamData.fs — Complete Reference Tables
-Immutable F# records containing ALL data. No lookups beyond these tables:
+### 2. src/PanchangamData.js — Complete Reference Tables
+Immutable data (frozen objects/arrays) containing ALL data. No lookups beyond these tables:
 
 **30 Tithis** with: Index, Sanskrit name, IAST, Category (Nanda/Bhadra/Jaya/Rikta/Purna), Paksha (Shukla/Krishna), Auspicious activities list
 
@@ -63,46 +66,52 @@ Immutable F# records containing ALL data. No lookups beyond these tables:
 
 **7 Varas** with: Index, Sanskrit name, IAST, Day name, Ruling Planet/Deity
 
-### 3. src/PanchangamMath.fs — Core Computation Functions
-Pure F# functions (no side effects):
+### 3. src/PanchangamMath.js — Core Computation Functions
+Pure functions (no side effects):
 
-```fsharp
+```js
 // Elongation
-let elongation (lSun: float) (lMoon: float) : float =
-    let raw = lMoon - lSun
-    if raw < 0.0 then raw + 360.0 else raw
+export function elongation(lSun, lMoon) {
+  const raw = lMoon - lSun;
+  return raw < 0 ? raw + 360 : raw;
+}
 
 // Tithi index 1..30
-let tithiIndex (elongation: float) : int =
-    (int(elongation / 12.0)) + 1  // clamp 1..30
+export function tithiIndex(dL) {
+  return Math.min(Math.floor(dL / 12) + 1, 30);  // clamp: never 31
+}
 
 // Nakshatra index 1..27
-let nakshatraIndex (moonLon: float) : int =
-    (int(moonLon / 13.333333333333334)) + 1  // 40/3 degrees per nakshatra
+export function nakshatraIndex(moonLon) {
+  return Math.min(Math.floor(moonLon / (40 / 3)) + 1, 27);  // 13°20' per nakshatra
+}
 
 // Yoga index 1..27
-let yogaIndex (sunLon: float) (moonLon: float) : int =
-    let sum = (sunLon + moonLon) % 360.0
-    (int(sum / 13.333333333333334)) + 1
+export function yogaIndex(sunLon, moonLon) {
+  const sum = (sunLon + moonLon) % 360;
+  return Math.min(Math.floor(sum / (40 / 3)) + 1, 27);
+}
 
 // Karana index 1..60
-let karanaIndex (elongation: float) : int =
-    min ((int(elongation / 6.0)) + 1) 60  // clamp: never 61
+export function karanaIndex(dL) {
+  return Math.min(Math.floor(dL / 6) + 1, 60);  // clamp: never 61
+}
 // Fixed (Sthira) karanas are indices 58, 59, 60 AND 1 (Kimstughna)
 
-// Vara from DateTime
-let varaFromDate (date: DateTime) : int =
-    match date.DayOfWeek with
-    | DayOfWeek.Sunday -> 1 | DayOfWeek.Monday -> 2 | DayOfWeek.Tuesday -> 3
-    | DayOfWeek.Wednesday -> 4 | DayOfWeek.Thursday -> 5 | DayOfWeek.Friday -> 6
-    | DayOfWeek.Saturday -> 7
+// Vara 1..7 (Date.getDay(): Sunday = 0 → Ravivara = 1)
+export function varaFromDate(date) {
+  return date.getDay() + 1;
+}
 
-// Main computation
-let computePanchangam (sunLon: float) (moonLon: float) (date: DateTime) : PanchangamRecord = ...
+// Main computation — every index clamped, every record looked up from the
+// frozen tables in PanchangamData.js
+export function computePanchangam(sunLon, moonLon, date) {
+  // returns { vara, tithi, nakshatra, yoga, karana, elongation, sunLon, moonLon }
+}
 ```
 
-### 4. src/Renderer.fs — Three.js Scene
-F# bindings for Three.js rendering. Scene graph:
+### 4. src/Renderer.js — Three.js Scene
+Three.js rendering. Scene graph:
 
 ```
 Scene
@@ -142,7 +151,7 @@ Scene
     └── Auspiciousness indicator (glowing dot)
 ```
 
-### 5. src/Starfield.fs — Photorealistic Stars
+### 5. src/Starfield.js — Photorealistic Stars
 Procedural star generation:
 - 15,000+ stars distributed across sky sphere
 - Brightness follows magnitude distribution (log-normal)
@@ -151,7 +160,7 @@ Procedural star generation:
 - Atmospheric haze near horizon (blue-to-black gradient)
 - Subtle nebula color bands (warm golds, cool blues, deep violets)
 
-### 6. src/ZodiacWheel.fs — 12 Rashi Segments
+### 6. src/ZodiacWheel.js — 12 Rashi Segments
 12 golden segments on a ring:
 - Each segment = 30° of ecliptic
 - Labels: मेष (Mesha), वृषभ (Vrishabha), मिथुन (Mithuna), कर्क (Karka),
@@ -161,7 +170,7 @@ Procedural star generation:
 - Ruling planets: Mangala, Shukra, Budha, Chandra, Surya, Budha, Shukra,
   Mangala, Guru, Shani, Shani, Guru
 
-### 7. src/CelestialBodies.fs — Sun & Moon
+### 7. src/CelestialBodies.js — Sun & Moon
 **Sun:**
 - Golden glowing disc (positioned at L_S on ecliptic circle)
 - Warm white/yellow (#FFD700)
@@ -174,7 +183,7 @@ Procedural star generation:
 - Phase-dependent crescent shape based on elongation
 - Label: चन्द्र (Chandra) / "Chandra"
 
-### 8. src/UI.fs — Interactive Controls
+### 8. src/UI.js — Interactive Controls
 
 **Dual Angular Sliders:**
 - Range: 0° to 359° for both Sun and Moon
@@ -209,7 +218,7 @@ Each card shows:
 - Deep red/orange pulse for Ashubha (overall inauspicious)
 - Combined assessment: if majority of elements are Shubha → auspicious
 
-### 9. src/App.fs — Entry Point & Main Loop
+### 9. src/App.js — Entry Point & Main Loop
 - Initialize Three.js scene, camera, renderer
 - Initialize Panchangam computation with current date
 - Set up animation loop (requestAnimationFrame)
@@ -219,7 +228,7 @@ Each card shows:
 - Update all readout cards on each computation cycle
 
 ### 10. Styles — CSS
-Separate stylesheet or inline in F#:
+Separate stylesheet (styles.css) or an injected `<style>` tag:
 - Dark space background (#0a0a1a)
 - Gold (#DAA520) and silver (#C0C0C0) accents
 - Gold filigree borders on panels
@@ -227,13 +236,11 @@ Separate stylesheet or inline in F#:
 - Responsive layout (flexbox/grid)
 - Smooth transitions on all interactive elements
 
-## Required npm Dependencies
-- Fable.Core
-- Fable.Browser.Dom
-- Three.js (imported via CDN in HTML, or via npm if using bundler)
+## Required Dependencies
+- Three.js (imported via CDN in HTML, or via npm if using a bundler)
 
-NOTE: Do NOT use Fable.PowerPack — it has been deprecated for years.
-Fable.Core + Fable.Browser.* interop packages cover everything needed.
+No other runtime dependencies. The app must run from a static file server
+as-is; a bundler is optional, not required.
 
 ### 11. The Wider Solar System (see SPEC.md §7)
 - The five visible grahas (Budha, Shukra, Mangala, Guru, Shani) along the
@@ -271,8 +278,8 @@ Fable.Core + Fable.Browser.* interop packages cover everything needed.
 
 ## Verification Checklist
 After generation, verify ALL of these work:
-- [ ] npm install completes without errors
-- [ ] dotnet fable build compiles successfully
+- [ ] If a bundler is used: npm install + build complete without errors
+- [ ] App runs from a static file server with no compile step
 - [ ] Browser loads the night sky (photorealistic starfield visible)
 - [ ] Zodiac wheel with 12 Rashi segments renders correctly
 - [ ] Sun and Moon discs glow and move with slider changes
@@ -280,8 +287,14 @@ After generation, verify ALL of these work:
 - [ ] All 5 Panchangam elements (Vara, Tithi, Nakshatra, Yoga, Karana) display correct Sanskrit names
 - [ ] Categories and classifications match the reference tables exactly
 - [ ] Auspiciousness colors work (green/gold for Shubha, red/orange for Ashubha)
-- [ ] All 4 preset buttons function (Amavasya, First Quarter, Purnima, Third Quarter)
-- [ ] Visualization mode toggle switches between Scientific/Religious/Both
+- [ ] All 4 preset buttons function (Amavasya, First Quarter, Purnima,
+      Third Quarter) and show the traditionally expected values
+      (Tithi 30/8/15/23, Karana 60/16/30/46 — the ε-offset convention
+      from SPEC §2, formalized in test-vectors.md §2)
+- [ ] DYNAMIC TIME: initializes to the system clock's current day and
+      computes the live Panchangam from it; scrubbing to or entering any
+      other date recomputes all five limbs for that moment (protocol:
+      test-vectors.md §5). No hardcoded demo date in app logic
 - [ ] MODES: clock face ⇄ celestial sky via the lift-off transition
       (SPEC.md §4 (Modes)): ≤1.7 s, transform/opacity only, readout cards
       morph to HUD chips (continuity), reduced-motion = 300 ms crossfade
@@ -293,7 +306,7 @@ After generation, verify ALL of these work:
       sky-conditions readout matches the five limbs at cursor time
 - [ ] PLACE VIEW: location switch per SPEC.md §6 (Place & Holy Days) —
       panchangam recomputes for the chosen lat/lon/tz, readouts animate
-- [ ] HOLY-DAY FINDER: activity → ranked month grid per docs/11 §2, backed
+- [ ] HOLY-DAY FINDER: activity → ranked month grid per SPEC.md §6.2, backed
       by Hora data/rules.json, guidance-tone copy, disclaimer shown
 - [ ] SOLAR SYSTEM: five grahas pickable with dual-line tooltips; Rahu/Ketu
       nodes + eclipse glow on approach; heliocentric inset labeled not-to-scale
@@ -315,18 +328,17 @@ Generate the complete code in the following structure:
 ```
 PanchangaSky/
 ├── index.html
-├── package.json
-├── fableconfig.json
+├── package.json            (only if a bundler is used — optional)
 ├── src/
-│   ├── App.fs
-│   ├── PanchangamData.fs
-│   ├── PanchangamMath.fs
-│   ├── Renderer.fs
-│   ├── Starfield.fs
-│   ├── ZodiacWheel.fs
-│   ├── CelestialBodies.fs
-│   ├── UI.fs
-│   └── Styles.fs
+│   ├── App.js
+│   ├── PanchangamData.js
+│   ├── PanchangamMath.js
+│   ├── Renderer.js
+│   ├── Starfield.js
+│   ├── ZodiacWheel.js
+│   ├── CelestialBodies.js
+│   ├── UI.js
+│   └── styles.css
 └── README.md
 ```
 
@@ -359,21 +371,15 @@ computation over visual perfection.
 
 Once Opus 5.5 generates the code:
 
-1. **Save** all files to `PanchangaSky/src/`
-2. **Build:**
-   ```bash
-   cd PanchangaSky
-   dotnet restore
-   dotnet fable build
-   ```
-3. **Serve:**
+1. **Save** all files to `PanchangaSky/`
+2. **Serve:**
    ```bash
    npx serve .
    # or python -m http.server
    ```
-4. **Open** browser to the served URL
-5. **Test** all sliders, presets, and readout cards
-6. **Verify** against the reference tables in SPEC §3 (Data Tables)
+3. **Open** browser to the served URL
+4. **Test** all sliders, presets, and readout cards
+5. **Verify** against the reference tables in SPEC §3 (Data Tables)
 
 ---
 
@@ -381,7 +387,7 @@ Once Opus 5.5 generates the code:
 
 | Decision | Rationale |
 |----------|-----------|
-| Fable 5.1 (F# → JS) | Functional, type-safe, compiles clean |
+| Vanilla JS + ES modules | No build step, runs anywhere, easiest to emit complete and verify |
 | Three.js | WebGL rendering, photorealistic 3D |
 | Single prompt | Forces completeness, no incremental handoffs |
 | Static data tables | No external APIs, instant computation |
@@ -404,57 +410,90 @@ Coordinate on the data tables first — everything else derives from them.
 
 ---
 
-## Appendix — F# types & Three.js notes (kept from the build guide)
+## Appendix — Data record shapes & Three.js notes (kept from the build guide)
 
-### F# Data Types
+### Data Record Shapes
 
-The Fable 5.1 code should define:
+The code should define (JSDoc typedefs; freeze instances at runtime):
 
-```fsharp
-// Core types
-type TithiCategory = Nanda | Bhadra | Jaya | Rikta | Purna
-type YogaType = Shubha | Ashubha
-type KaranaType = Movable | Fixed
+```js
+/**
+ * Core types (string unions):
+ *   TithiCategory: "Nanda" | "Bhadra" | "Jaya" | "Rikta" | "Purna"
+ *   YogaType:      "Shubha" | "Ashubha"
+ *   KaranaType:    "Movable" | "Fixed"
+ *
+ * @typedef {Object} TithiInfo
+ * @property {number} Index
+ * @property {string} Name       // Devanagari
+ * @property {string} IAST
+ * @property {TithiCategory} Category
+ * @property {"Shukla"|"Krishna"} Paksha
+ * @property {string[]} AuspiciousFor
+ *
+ * @typedef {Object} NakshatraInfo
+ * @property {number} Index
+ * @property {string} Name
+ * @property {string} IAST
+ * @property {number} Start
+ * @property {number} End
+ * @property {string} Deity
+ * @property {string} Temperament
+ *
+ * @typedef {Object} YogaInfo
+ * @property {number} Index
+ * @property {string} Name
+ * @property {string} IAST
+ * @property {YogaType} Classification
+ * @property {string} Nature
+ *
+ * @typedef {Object} KaranaInfo
+ * @property {number} Index
+ * @property {string} Name
+ * @property {string} IAST
+ * @property {KaranaType} Type
+ * @property {string} Animal
+ * @property {string} Nature
+ * @property {string} Application
+ *
+ * @typedef {Object} VaraInfo
+ * @property {number} Index
+ * @property {string} Name
+ * @property {string} IAST
+ * @property {string} Planet
+ * @property {string} Nature
+ *
+ * @typedef {Object} Panchangam
+ * @property {VaraInfo} Vara
+ * @property {TithiInfo} Tithi
+ * @property {NakshatraInfo} Nakshatra
+ * @property {YogaInfo} Yoga
+ * @property {KaranaInfo} Karana
+ * @property {number} Elongation
+ * @property {number} SunLon
+ * @property {number} MoonLon
+ */
 
-// Reference records
-type TithiInfo = { Index: int; Name: string; IAST: string; Category: TithiCategory; Paksha: string; AuspiciousFor: string list }
-type NakshatraInfo = { Index: int; Name: string; IAST: string; Start: float; End: float; Deity: string; Temperament: string }
-type YogaInfo = { Index: int; Name: string; IAST: string; Classification: YogaType; Nature: string }
-type KaranaInfo = { Index: int; Name: string; IAST: string; Type: KaranaType; Animal: string; Nature: string; Application: string }
-type VaraInfo = { Index: int; Name: string; IAST: string; Planet: string; Nature: string }
-
-// Computation
-type Panchangam = { Vara: VaraInfo; Tithi: TithiInfo; Nakshatra: NakshatraInfo; Yoga: YogaInfo; Karana: KaranaInfo; Elongation: float; SunLon: float; MoonLon: float }
-
-let compute (sunLon: float) (moonLon: float) (date: DateTime) : Panchangam = ...
+// compute(sunLon, moonLon, date) → Panchangam
 ```
 
 ---
 
 ### Build & Deploy Checklist
 
-- [ ] `dotnet restore` — dependencies resolved
-- [ ] `dotnet fable build` — F# compiles to JavaScript
-- [ ] `npm install` — Node.js dependencies installed
-- [ ] Browser opens to `index.html`
-- [ ] Starfield renders correctly (photorealistic)
-- [ ] Zodiac wheel visible with 12 segments
-- [ ] Sun and Moon move with sliders
-- [ ] All 5 Panchangam elements update in real-time
-- [ ] Sanskrit Devanagari text renders correctly
-- [ ] Auspiciousness colors work (green/gold vs red/orange)
-- [ ] All 4 preset buttons function
-- [ ] No console errors
-- [ ] Responsive layout (works on different screen sizes)
+Every item here is already a gate in the Verification Checklist above —
+there is exactly ONE checklist (25 gates). Do not grade from this
+appendix; it is retained only as a quick deploy reminder: serve
+statically, open `index.html`, no compile step.
 
 ---
 
-### Known Considerations for Fable 5.1 + Three.js
+### Known Considerations for the Three.js Build
 
-1. **F# type system:** Opus 5.5 should generate proper discriminated unions and records.
-2. **Three.js interop:** Fable can import JS modules via `import` statements or Fable.Remoting.
-3. **Animation loop:** Use `requestAnimationFrame` from Fable.Browser.Dom.
-4. **CSS:** Either inline styles in F# or external stylesheet linked from index.html.
+1. **Data integrity:** freeze the tables (`Object.freeze`) so no code mutates reference data.
+2. **Three.js:** import as an ES module from a CDN (import map) or bundle — builder's choice.
+3. **Animation loop:** use `requestAnimationFrame`.
+4. **CSS:** external stylesheet linked from index.html, or an injected `<style>` tag.
 5. **Devanagari font:** Include `<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">` in index.html.
 6. **Performance:** Keep star count reasonable (10k-50k particles). Use instanced rendering if needed.
 7. **Mobile:** Touch sliders work via standard browser events. Responsive layout via CSS media queries.
@@ -463,7 +502,7 @@ let compute (sunLon: float) (moonLon: float) (date: DateTime) : Panchangam = ...
 
 ### The Final Output
 
-One single prompt to Opus 5.5, generating a complete Fable 5.1 application that:
+One single prompt to Opus 5.5, generating a complete JavaScript application that:
 - Computes all Panchangam elements from two angles
 - Renders a photorealistic night sky with Three.js
 - Overlays Sanskrit glyphs with religious/cultural context

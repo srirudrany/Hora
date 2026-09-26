@@ -62,16 +62,17 @@ and a holy-day finder.
 ## Core Formulas
 
 ### 1. Elongation (ΔL) — The Fundamental Angle
-```fsharp
+```
 ΔL = (L_M - L_S) mod 360°
 ```
 Where `mod` returns a value in [0, 360).
 
 **In code:**
-```fsharp
-let elongation (lSun: float) (lMoon: float) : float =
-    let raw = lMoon - lSun
-    if raw < 0.0 then raw + 360.0 else raw
+```js
+function elongation(lSun, lMoon) {
+  const raw = lMoon - lSun;
+  return raw < 0 ? raw + 360 : raw;
+}
 ```
 
 **Meaning:** Angular distance from Sun to Moon along the ecliptic (eastward).
@@ -270,17 +271,12 @@ Where:
 - Result: 0=Sunday..6=Saturday (Hora engine/JavaScript convention) or 1=Sunday..7=Saturday (table convention below)
 
 **Simplified (if date is known):**
-```fsharp
-let varaFromDate (date: DateTime) =
-    // 1-based index matching the table below (Zeller's congruence variant or .DayOfWeek)
-    match date.DayOfWeek with
-    | DayOfWeek.Sunday -> 1  // Ravi
-    | DayOfWeek.Monday -> 2  // Soma
-    | DayOfWeek.Tuesday -> 3 // Mangala
-    | DayOfWeek.Wednesday -> 4 // Budha
-    | DayOfWeek.Thursday -> 5 // Guru
-    | DayOfWeek.Friday -> 6 // Shukra
-    | DayOfWeek.Saturday -> 7 // Shani
+```js
+// 1-based index matching the table below. Date.getDay(): Sunday = 0.
+// Mapping: 1=Ravi, 2=Soma, 3=Mangala, 4=Budha, 5=Guru, 6=Shukra, 7=Shani
+function varaFromDate(date) {
+  return date.getDay() + 1;
+}
 ```
 
 > **Convention caveat:** this derives Vara from the *civil* calendar date
@@ -288,7 +284,7 @@ let varaFromDate (date: DateTime) =
 > day at **sunrise** — the Vara in force is the one ruling at that day's
 > sunrise. For the manual slider visualizer this distinction is invisible;
 > for any live/date mode, follow the sunrise convention (see
-> 08-integration-hora.md — Hora's engine implements it).
+> SPEC §10 (Hora Integration) — Hora's engine implements it).
 
 **Vara Names:**
 | Index | Sanskrit | IAST  | English  | Deity/Planet |
@@ -305,56 +301,50 @@ let varaFromDate (date: DateTime) =
 
 ## Complete Computation Function
 
-```fsharp
-type Panchangam = {
-    Vara: int           // 1..7
-    Tithi: int          // 1..30
-    TithiCategory: TithiCategory
-    Paksha: string      // "Shukla" | "Krishna"
-    Nakshatra: int      // 1..27
-    Yoga: int           // 1..27
-    YogaType: YogaType  // Shubha | Ashubha
-    Karana: int         // 1..60
-    KaranaType: KaranaType // Movable | Fixed
-    Elongation: float   // ΔL in degrees
-    SunLon: float
-    MoonLon: float
+```js
+/**
+ * @typedef {Object} Panchangam
+ * @property {number} vara        // 1..7
+ * @property {number} tithi       // 1..30
+ * @property {"Nanda"|"Bhadra"|"Jaya"|"Rikta"|"Purna"} tithiCategory
+ * @property {"Shukla"|"Krishna"} paksha
+ * @property {number} nakshatra   // 1..27
+ * @property {number} yoga        // 1..27
+ * @property {"Shubha"|"Ashubha"} yogaType
+ * @property {number} karana      // 1..60
+ * @property {"Movable"|"Fixed"} karanaType
+ * @property {number} elongation  // dL in degrees
+ * @property {number} sunLon
+ * @property {number} moonLon
+ */
+
+export function computePanchangam(sunLon, moonLon, date) {
+  const elongation = (moonLon - sunLon + 360) % 360;
+
+  // Clamp every index to its max: a floating-point edge just under 360 deg
+  // would otherwise floor one past the end (Tithi 31 / Nakshatra 28 /
+  // Karana 61) and crash the table lookup.
+  const tithiIndex = Math.min(Math.floor(elongation / 12) + 1, 30);
+  const paksha = tithiIndex <= 15 ? "Shukla" : "Krishna";
+  const tithiCategory = categorizeTithi(tithiIndex);
+
+  const nakshatraIndex = Math.min(Math.floor(moonLon / (40 / 3)) + 1, 27);
+
+  const yogaSum = (sunLon + moonLon) % 360;
+  const yogaIndex = Math.min(Math.floor(yogaSum / (40 / 3)) + 1, 27);
+  const yogaType = isShubhaYoga(yogaIndex) ? "Shubha" : "Ashubha";
+
+  const karanaIndex = Math.min(Math.floor(elongation / 6) + 1, 60);
+  // Fixed (Sthira) karanas are indices 58, 59, 60 AND 1 (Kimstughna)
+  const karanaType = karanaIndex >= 58 || karanaIndex === 1 ? "Fixed" : "Movable";
+
+  const vara = varaFromDate(date);
+
+  return { vara, tithi: tithiIndex, tithiCategory, paksha,
+           nakshatra: nakshatraIndex, yoga: yogaIndex, yogaType,
+           karana: karanaIndex, karanaType,
+           elongation, sunLon, moonLon };
 }
-
-let computePanchangam (sunLon: float) (moonLon: float) (date: DateTime) : Panchangam =
-    let elongation = (moonLon - sunLon + 360.0) % 360.0
-
-    // Clamp every index to its max: a floating-point edge just under 360 deg
-    // would otherwise floor one past the end (Tithi 31 / Nakshatra 28 /
-    // Karana 61) and crash the table lookup.
-    let tithiIndex = min (int(elongation / 12.0) + 1) 30
-    let paksha = if tithiIndex <= 15 then "Shukla" else "Krishna"
-    let tithiCategory = categorizeTithi tithiIndex
-
-    let nakshatraIndex = min (int(moonLon / 13.333333333333334) + 1) 27
-
-    let yogaSum = (sunLon + moonLon) % 360.0
-    let yogaIndex = min (int(yogaSum / 13.333333333333334) + 1) 27
-    let yogaType = if isShubhaYoga yogaIndex then Shubha else Ashubha
-
-    let karanaIndex = min (int(elongation / 6.0) + 1) 60
-    // Fixed (Sthira) karanas are indices 58, 59, 60 AND 1 (Kimstughna)
-    let karanaType = if karanaIndex >= 58 || karanaIndex = 1 then Fixed else Movable
-    
-    let vara = varaFromDate date
-    
-    { Vara = vara
-      Tithi = tithiIndex
-      TithiCategory = tithiCategory
-      Paksha = paksha
-      Nakshatra = nakshatraIndex
-      Yoga = yogaIndex
-      YogaType = yogaType
-      Karana = karanaIndex
-      KaranaType = karanaType
-      Elongation = elongation
-      SunLon = sunLon
-      MoonLon = moonLon }
 ```
 
 ---
@@ -392,8 +382,8 @@ instant a user clicks a preset button.
 
 Note: Nakshatra and Yoga depend on absolute L_M and L_S, not just ΔL.
 First/Third Quarter sit mid-interval, so they need no epsilon.
-All values verified against the Karana table in 03-data.md and encoded as
-assertions in 06-test-vectors.md.
+All values verified against the Karana table (§3) and encoded as
+assertions in test-vectors.md (§2, V-KARA-01/06/07 + preset parity).
 
 ---
 
@@ -417,7 +407,7 @@ assertions in 06-test-vectors.md.
 ## Panchanga Sky — Complete Reference Data
 
 All data is **static and complete** — no external APIs or lookups needed.  
-Use these tables as the single source of truth for the Fable 5.1 computation layer.
+Use these tables as the single source of truth for the Panchanga Sky computation layer.
 
 > **Orthography caveat:** Devanagari spellings below follow standard panchangam
 > usage, but Sanskrit orthography varies between sources (e.g. कृत्तिका/कृतिका,
@@ -639,26 +629,24 @@ Columns: Index, Sanskrit Name, IAST, Type (Movable/Fixed), Animal/Symbol, Core N
 
 ## How to Use These Tables in Code
 
-In Fable 5.1, represent each table as an immutable `Map<int, Record>` or a
-simple array/list indexed by 1..N. Example (valid F# — note the list-of-tuples
-construction, NOT `1 -> {...}` arrows):
+Represent each table as a frozen array of records (or a `Map`) indexed by
+1..N. Example (valid JS — frozen so no code can mutate the tables):
 
-```fsharp
-let tithiTable : Map<int, TithiInfo> =
-    Map [
-        (1, { Name = "प्रतिपदा"; IAST = "Pratipada"; Category = Nanda; Paksha = "Shukla" })
-        (2, { Name = "द्वितीया"; IAST = "Dwitiya"; Category = Bhadra; Paksha = "Shukla" })
-        // ... up to 30
-    ]
+```js
+export const TITHI_TABLE = Object.freeze([
+  Object.freeze({ index: 1, name: "प्रतिपदा", iast: "Pratipada", category: "Nanda", paksha: "Shukla" }),
+  Object.freeze({ index: 2, name: "द्वितीया", iast: "Dwitiya", category: "Bhadra", paksha: "Shukla" }),
+  // ... up to 30
+]);
 
-let nakshatraTable : Map<int, NakshatraInfo> =
-    Map [
-        (1, { Name = "अश्विनी"; IAST = "Ashwini"; Start = 0.0; End = 13.333; Deity = "Ashvins" })
-        // ... up to 27
-    ]
+export const NAKSHATRA_TABLE = Object.freeze([
+  Object.freeze({ index: 1, name: "अश्विनी", iast: "Ashwini", start: 0.0, end: 13.333, deity: "Ashvins" }),
+  // ... up to 27
+]);
 ```
 
-Then compute the index from the angles and look up the record.
+Then compute the index from the angles and look up the record
+(`TABLE[index - 1]` — indices are 1-based).
 
 ---
 
@@ -690,7 +678,7 @@ modes and the transition, so the generated build can either adopt that scene
 directly or re-create the behavior.
 
 **These two modes are the product's core.** Feature ideas beyond them live in
-07-desired-features.md; motion principles follow the motion-design discipline
+§9 (Feature Ideas); motion principles follow the motion-design discipline
 (emotional intent first, three motion layers, transform/opacity only).
 
 ---
@@ -911,7 +899,7 @@ except star positions.
 
 Boundary convention while playing: at an exact new-tithi instant, the limb
 flips to its *next* value — that's correct per the half-open interval rule
-(see 02-math.md's preset note), don't "fix" it into off-by-one flicker.
+(see §2's preset note), don't "fix" it into off-by-one flicker.
 
 ## Polish
 
@@ -1093,7 +1081,7 @@ trading off: correctness of the Panchangam > visual impact > feature count.
   default geocentric read.
 - Time controls: scrub the day, play at accelerated speed (see a full month of
   tithis in a minute), jump to sunrise/sunset/moonrise, presets for the four
-  lunar quarters (see 02-math.md for the exact preset values and the ε-offset
+  lunar quarters (see §2 for the exact preset values and the ε-offset
   convention they require).
 
 ## 2. Overlay Layers (all toggleable)
@@ -1105,7 +1093,7 @@ Each layer independent, with sensible group presets ("Religious view",
   Moon's path, each with deity and temperament; the Moon's current mansion
   highlighted.
 - **Rashi wheel** — the 12 zodiac signs with their ruling planets (see the
-  corrected ruling-planet list in 05-implementation.md).
+  corrected ruling-planet list in the build prompt (PROMPT.md)).
 - **Tithi arc** — the current elongation angle rendered as an arc or sector
   from Sun to Moon, growing and shrinking through the month; paksha shading
   (Shukla vs Krishna).
@@ -1139,7 +1127,7 @@ Each layer independent, with sensible group presets ("Religious view",
 ## 4. Readouts & Education
 
 - **Five-limb readout cards**: Tithi, Nakshatra, Yoga, Karana, Vara — each
-  with Devanagari name (from 03-data.md), category, and a one-line meaning.
+  with Devanagari name (from §3), category, and a one-line meaning.
 - **Hover/tap explainers**: what a tithi IS, why yoga is (Sun+Moon)/13°20′,
   with the geometric visualization reinforcing the formula.
 - **Pronunciation**: IAST alongside Devanagari where space allows.
@@ -1196,11 +1184,11 @@ interactive design canvases (see table rows marked NEW).**
   needs real sky data for a date/place (live mode, festival anchoring), call
   Hora's engine — do NOT re-derive ephemerides in the visualization layer.
 - **Panchanga Sky = the experiential layer.** Our manual L_S/L_M slider model
-  (02-math.md) remains perfect for the didactic visualizer; it is the
+  (§2) remains perfect for the didactic visualizer; it is the
   geometry-teaching mode. Hora powers the "real tonight's sky" mode.
 
 ### 2. Sidereal vs our simplified inputs
-Our 02-math.md treats L_S and L_M as **sidereal (nirayana)** longitudes —
+Our §2 (Math) treats L_S and L_M as **sidereal (nirayana)** longitudes —
 that is the convention the whole Panchangam runs on. Hora's engine computes
 *apparent tropical* longitudes internally and subtracts Lahiri ayanamsa
 (~24.22° in 2026) to get sidereal. When wiring the two:
@@ -1220,14 +1208,15 @@ invisible; for any live/day-scrubbing mode, follow Hora's sunrise anchor.
 The Panchanga Reference Guide's §5.2 worked example (Sun 110° + Moon 45° =
 155° → "Ganda Yoga") is **wrong**. 155° falls in segment 12 = **Dhruva**
 (Ganda is segment 10). Hora's CLAUDE.md documents this explicitly.
-Our `02-math.md` and `03-data.md` Yoga tables are already correct
+Our §2 and §3 Yoga tables are already correct
 (Ganda = index 10). If any generated code reproduces the guide's example
-label, treat it as a bug in the port, not in our tables — and add it to
-`06-test-vectors.md` (Sun 110° + Moon 45° ⇒ Yoga 12 Dhruva, Shubha).
+label, treat it as a bug in the port, not in our tables — this is
+formalized as vector V-YOGA-01 in test-vectors.md
+(Sun 110° + Moon 45° ⇒ Yoga 12 Dhruva, Shubha).
 
 ### 5. Cross-validation of our data tables
 Checked against Hora's `names.json` and CLAUDE.md (2026-09-26):
-- Nakshatra order and Devanagari spellings: consistent with our 03-data.md.
+- Nakshatra order and Devanagari spellings: consistent with our §3 tables.
 - Yoga order and the Ashubha set {1,6,9,10,13,15,17,19,27}: consistent.
 - Karana cycle and the four fixed positions (1, 58, 59, 60): consistent.
 - Tithi categories by `((t − 1) mod 5)`: consistent.
@@ -1252,5 +1241,5 @@ pipeline matches verified astronomical ephemeris outputs.
 - Do not fork-patch Hora's engine inside our repo; consume it (file copy with
   provenance header, or import), so their verification stays meaningful.
 - Any number our docs assert must survive `data/test-vectors.json` and
-  `06-test-vectors.md` simultaneously; if the two ever disagree, the
+  `test-vectors.md` simultaneously; if the two ever disagree, the
   discrepancy is a finding — stop and reconcile, never pick one silently.
