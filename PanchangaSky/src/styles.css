@@ -359,3 +359,35 @@ body.pov .dock-body { opacity: .94; }
 /* in the sky the geometry panel leads with locks, overlays and the inset */
 body.sky .presets, body.sky .geo .dl.sub, body.sky .geo > .fine { display: none; }
 body.sky .slider { margin: 6px 0 8px; }
+
+/* ===== agent A: places ===== */
+.place-tools { display: inline-flex; gap: 4px; }
+.place-tools button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: var(--r-pill); border: 1px solid var(--line-2); background: rgba(8,11,24,.7); color: var(--muted); font-size: 12.5px; transition: color .2s, border-color .2s; }
+.place-tools button:hover { color: var(--gold-soft); border-color: var(--line); }
+.placepanel { position: fixed; right: 20px; top: 80px; width: 300px; z-index: 24; padding: 14px 16px; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .3s var(--ease), transform .3s var(--ease);
+  background: linear-gradient(180deg, rgba(16,21,43,.96), rgba(8,11,24,.96)); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+.placepanel.on { opacity: 1; transform: none; pointer-events: auto; }
+.placepanel header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.placepanel .close, .cmpstrip .close { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--line-2); background: transparent; color: var(--muted); display: grid; place-items: center; padding: 0; }
+.placepanel .globe { display: block; width: 100%; height: 250px; margin: 10px 0 4px; cursor: crosshair; touch-action: none; }
+.pl-row { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+.pl-row select { background: rgba(22,32,74,.6); border: 1px solid var(--line); border-radius: var(--r-chip); padding: 5px 8px; color: var(--star); }
+.pl-row select option { background: var(--ink-2); }
+.cmpstrip { position: fixed; left: 50%; top: 76px; width: min(620px, calc(100vw - 700px)); min-width: 460px; transform: translate(-50%, -8px); z-index: 18; padding: 10px 14px 8px; opacity: 0; pointer-events: none; transition: opacity .3s var(--ease), transform .3s var(--ease);
+  background: linear-gradient(180deg, rgba(16,21,43,.94), rgba(8,11,24,.93)); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: 0 10px 40px rgba(0,0,0,.5); backdrop-filter: blur(10px); }
+.cmpstrip.on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.cmpstrip header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.cmp-row { display: grid; grid-template-columns: 78px 1fr 1fr; gap: 10px; align-items: baseline; padding: 4px 6px; border-top: 1px solid var(--line-2); font-size: 12.5px; border-radius: 6px; transition: background-color .3s; }
+.cmp-row.head { border-top: 0; font-weight: 500; }
+.cmp-row.head small { display: block; font-weight: 400; font-size: 11px; color: var(--muted); font-family: var(--f-mono); }
+.cmp-row .cmp-l { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.cmp-row .dv { font-family: var(--f-dv); font-size: 16px; color: var(--gold-soft); margin-right: 6px; }
+.cmp-row em { font-style: italic; margin-right: 6px; }
+.cmp-row small { color: var(--gold); font-size: 11px; }
+.cmp-row.diff { background: rgba(227,174,74,.12); box-shadow: inset 2px 0 0 var(--gold); }
+.cmp-row .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.dot.a { background: #F3D491; box-shadow: 0 0 8px #E3AE4A; } .dot.b { background: #63B8B2; box-shadow: 0 0 8px #63B8B2; }
+.cmp-note { font-size: 11.5px; color: var(--muted); font-style: italic; margin: 6px 0 0; }
+@media (max-width: 1180px) { .place-tools span { display: none; } .cmpstrip { min-width: 0; width: calc(100vw - 600px); } }
+@media (max-width: 860px) { .cmpstrip { top: 64px; width: calc(100vw - 24px); } .placepanel { left: 12px; right: 12px; width: auto; } }
+@media (max-width: 1640px) { .place-tools span, .place:has(+ .place-tools) .place-coords { display: none; } .place-tools button { padding: 7px 9px; } .place select { max-width: 150px; text-overflow: ellipsis; } }

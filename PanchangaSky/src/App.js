@@ -4,6 +4,7 @@ import { UI, SPEEDS } from './UI.js';
 import { CITIES, HORA_ORDER, VARA_TABLE, STARS } from './PanchangamData.js';
 import { Inset } from './Inset.js';
 import { scanMonth } from './HolyDays.js';
+import { Places } from './Places.js';   // agent A: compare slot + globe pin
 import {
   computePanchangam, liveSky, limbEnd, gmstDeg, obliquity, norm360, localParts, jdFromLocal, dayBounds, fmtTime, rahuLon,
 } from './PanchangamMath.js';
@@ -73,6 +74,10 @@ const ui = new UI(document.getElementById('app'), {
     renderer.setLock('nakshatra'); ui.setActive('[data-lock]', 'lock', 'nakshatra');
   },
 });
+
+// ---- agent A: places (compare slot + globe pin-drop) ----
+const places = new Places({ getLoc: () => S.loc, setPrimary: (loc) => { S.loc = loc; invalidate(); } });
+// ---- end agent A ----
 
 const LOCK_OF = { surya: 'sun', chandra: 'moon' };
 function onChip(kind, arg) {
@@ -250,6 +255,7 @@ function tick(now) {
     ui.renderCards(current, ends, !!S.manual);
     ui.renderConditions(current, ends, info, !!S.manual);
     ui.renderTime(current, info);
+    places.tick(S.jd);   // agent A
     const sunsetFrac = (info.day.sunset - info.day.sunrise) / (info.day.nextSunrise - info.day.sunrise);
     const f = (x) => (x - info.day.sunrise) / (info.day.nextSunrise - info.day.sunrise);
     if ($body.classList.contains('sky')) { inset.draw(S.jd, sky.ayanamsa, renderer.lock); ui.renderSkyExtras(current, renderer.planets.eclipse); }
