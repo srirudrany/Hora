@@ -877,20 +877,18 @@ in both modes. Two linked domains:
    pinch/shift-drag narrows the window (year → month → day → hour) so the
    scrubber is a zoomable ladder rather than one impossible scale.
 
-While scrubbing, the "sky conditions" panel shows the five limbs **at the
-cursor time**, Devanagari-first:
+While scrubbing, the "sky conditions" panel shows the five limbs **dynamically evaluated at the cursor date, time, and observer location**, Devanagari-first:
 
 ```
- Tithi      कृष्ण द्वादशी   Kṛṣṇa Dvādaśī · ends 20:17
- Nakshatra  श्रवण          Śravaṇa · ends 11:32
- Yoga       गण्ड            Gaṇḍa · ends 13:17   (Ashubha chip)
- Karana     विष्टि           Viṣṭi · ends 18:55   (avoid chip)
- Vara       गुरुवार         Guruvāra (Thu)
- Sunrise 05:58 · Sunset 18:02 · Moon: Purnima until 22:18
+ Tithi      {tithi.sanskrit}      {tithi.name} · ends {tithi.endTime}
+ Nakshatra  {nakshatra.sanskrit}  {nakshatra.name} · ends {nakshatra.endTime}
+ Yoga       {yoga.sanskrit}       {yoga.name} · ends {yoga.endTime}   ({yoga.nature} chip)
+ Karana     {karana.sanskrit}     {karana.name} · ends {karana.endTime}   ({karana.nature} chip)
+ Vara       {vara.sanskrit}       {vara.name} ({vara.abbr})
+ Sunrise {sunriseTime} · Sunset {sunsetTime} · Moon: {moonPhase} · {tithiAtSunrise} until {tithiEnd}
 ```
 
-(This is the externally verified Chennai day of 2026-09-26 — keep it as the
-smoke-test vector for the scrubber.)
+All values (sunrise, sunset, and limb transitions) are resolved dynamically per frame/scrub step from the astronomical engine (`panchanga(y, m, d, loc)` and `angaAt(...)`) for the active date and observer coordinates. For validation, the test vector `2026-09-26, Chennai` serves as the reference benchmark to verify dynamic calculation accuracy against known ephemeris data.
 
 ## Playback speeds
 
@@ -1239,12 +1237,13 @@ Devanagari. Both are correct — pick per UI context, don't merge styles
 mid-screen.
 
 ### 6. Live smoke test available today
-Hora's externally verified vector is **2026-09-26, Chennai**: sunrise 05:58,
+Hora's externally verified benchmark vector is **2026-09-26, Chennai**: sunrise 05:58,
 sunset 18:02, Purnima until 22:18, Purva Bhadrapada until 11:32, Ganda yoga
 until 13:17, Vishti karana until 10:46/10:47 followed by Bava karana until 22:18.
-Once "live mode" exists, reproducing this day end-to-end (Hora engine → sidereal
-longitudes → our index math → same limb names) is the single best integration
-test we have.
+In "live mode", all values are dynamically calculated for the observer's current
+day and coordinates (using `sunriseOn`, `sunsetOn`, and `panchanga(y, m, d, loc)`),
+with the benchmark serving as the integration test to confirm the calculation
+pipeline matches verified astronomical ephemeris outputs.
 
 ## Ground rules
 
