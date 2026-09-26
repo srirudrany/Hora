@@ -4,6 +4,7 @@ import { GLOSSARY, CITIES, GRAHAS, NAKSHATRA_TABLE, RASHI_TABLE, TITHI_TABLE, TI
 import { ACTIVITIES, scanMonth, DISCLAIMER } from './HolyDays.js';
 import { nameHTML } from './Script.js';   // agent B: primary names follow the script preference
 const nm = (kind, rec) => nameHTML(kind, rec);
+import { OUTER_BODIES, EXTRA_MOONS, MOONS } from './PanchangamData.js';   // agent C
 import { fmtTime, fmtDate, fmtDeg, localParts, jdFromLocal, pad2 } from './PanchangamMath.js';
 
 // Phosphor-style inline icons (no emoji anywhere)
@@ -126,8 +127,10 @@ export class UI {
         <span class="cap">Camera lock</span>
         <div class="lockrow">${['overview', 'earth', 'sun', 'moon', 'nakshatra', 'tithi', 'yoga', 'karana'].map((k) => `<button data-lock="${k}">${k}</button>`).join('')}</div>
         <div class="lockrow grahas">${['budha', 'shukra', 'mangala', 'guru', 'shani', 'rahu', 'ketu'].map((k) => `<button data-lock="${k}"><i style="background:${GRAHAS[k].color}"></i>${GRAHAS[k].iast}</button>`).join('')}</div>
+        <span class="cap">Beyond the ${g('graha', 'grahas')}</span>
+        <div class="lockrow grahas beyond">${Object.entries(OUTER_BODIES).map(([k, B]) => `<button data-lock="${k}"><i style="background:${B.color}"></i>${B.iast}</button>`).join('')}</div>
         <span class="cap">Overlays</span>
-        <div class="toggles">${[['constellations', 'Constellations'], ['grahas', 'Navagraha'], ['nakshatra', 'Nakṣatra band'], ['rashi', 'Rāśi wheel']].map(([k, l]) => `<button class="on" data-layer="${k}">${l}</button>`).join('')}</div>
+        <div class="toggles">${[['constellations', 'Constellations'], ['grahas', 'Navagraha'], ['nakshatra', 'Nakṣatra band'], ['rashi', 'Rāśi wheel'], ['deepsky', 'Deep sky']].map(([k, l]) => `<button class="on" data-layer="${k}">${l}</button>`).join('')}</div>
         <div class="inset-wrap"><span class="cap">${g('graha', 'Grahas')} around the Sun</span><canvas class="inset" data-f="inset"></canvas></div>
         <p class="fine eclipse" data-f="eclipse"></p>
       </div>
@@ -392,6 +395,23 @@ export class UI {
           ? `<button data-chip="system" data-arg="${hit.key}">Lunar nodes · ${g('eclipse', 'eclipses')} — view ${I.arrow}</button>`
           : `<button data-chip="system" data-arg="${hit.key}">Solar System — view ${I.arrow}</button>${today ? `<button data-chip="find" data-arg="${hit.key}">${G.iast} rules today</button>` : ''}`;
       }
+    } else if (hit.kind === 'outer') {   // agent C
+      const B = OUTER_BODIES[hit.key];
+      h = `<h4>${B.name ? `<span class="dv">${B.name}</span> ` : ''}${B.iast}</h4><p class="w">${g(B.kind, B.kind === 'dwarfplanet' ? 'Dwarf planet' : 'Outer planet')} · not a classical ${g('graha', 'graha')} — invisible to the naked eye${hit.key === 'uranus' ? ' (Uranus is at the limit)' : ''}</p>
+        <p>${B.science}</p><p class="myth">${B.culture}${B.nameNote ? ` “${B.name}” is a ${B.nameNote}.` : ''}</p>
+        <p class="co mono">${g('sidereal', 'Sidereal')} λ ${fmtDeg(hit.lon)} (approximate) · ${RASHI_TABLE[Math.floor(hit.lon / 30)].iast}</p>`;
+      chip = `<button data-chip="system" data-arg="${hit.key}">Solar System — view ${I.arrow}</button>`;
+    } else if (hit.kind === 'moon') {
+      const M = MOONS[hit.key] || EXTRA_MOONS[hit.key], host = GRAHAS[M.host];
+      h = `<h4>${M.name}</h4><p class="w">${g('satellite', 'Moon')} of ${host.western} · ${host.iast}</p><p>${M.science}</p>
+        <p class="co mono">Orbits every ${M.period} days · distance stylized</p>`;
+      chip = `<button data-chip="system" data-arg="${M.host}">${host.iast} system — view ${I.arrow}</button>`;
+    } else if (hit.kind === 'dso') {
+      const o = hit.dso, n = NAKSHATRA_TABLE[hit.nak - 1];
+      h = `<h4>${o.name ? `<span class="dv">${o.name}</span> ` : ''}${o.iast}</h4><p class="w">${g('deepsky', 'Deep-sky object')}</p><p>${o.science}</p>
+        ${o.culture ? `<p class="myth">${o.culture}</p>` : ''}
+        <p class="co mono">${g('ecliptic', 'Ecliptic')} λ ${fmtDeg(hit.lon)} β ${hit.lat.toFixed(1)}° · ${g('sidereal', 'sidereal')}</p>`;
+      chip = `<button data-chip="constellation" data-arg="|${hit.nak}">${Math.abs(hit.lat) > 30 ? 'Far from the ecliptic · nearest sector' : 'In the sector of'} ${n.iast} — view ${I.arrow}</button>`;
     } else if (hit.kind === 'star') {
       const st = hit.star, n = NAKSHATRA_TABLE[hit.nak - 1], C = CONSTELLATIONS[st.constellation];
       h = `<h4><span class="dv">${st.yogatara ? n.name : '★'}</span> ${st.name}</h4><p class="w">${st.bayer} · ${st.constellation} · mag ${st.mag.toFixed(2)}</p>
@@ -435,6 +455,12 @@ export class UI {
         ${C ? `<p>${C.note}</p>` : '<p>No western stick figure is drawn here; the sector is shown on the gold band.</p>'}
         ${members.length ? `<p class="members">${members.map((m) => `<span class="${m.yogatara ? 'yt' : ''}">${m.name}</span>`).join('')}</p>` : ''}
         <p class="co mono">${g('ecliptic', 'Ecliptic')} ${fmtDeg(n.start)}–${fmtDeg(n.end)}</p>`;
+    } else if (kind === 'system' && OUTER_BODIES[arg]) {   // agent C
+      const B = OUTER_BODIES[arg];
+      h = `<span class="cap">Solar System · beyond the ${g('navagraha', 'navagraha')}</span><h3>${B.iast}${B.name ? ` <small>· ${B.name}</small>` : ''}</h3>
+        <p>${B.science}</p><p class="myth">${B.culture}</p>
+        <p>Shown in the inset around the Sun — distances log-compressed, <b>not to scale</b>.</p>
+        <button class="xlink" data-chip="find" data-arg="${arg}">Lock camera on ${B.iast} ${I.arrow}</button>`;
     } else if (kind === 'system') {
       const G = GRAHAS[arg], node = ['rahu', 'ketu'].includes(arg);
       h = node ? `<span class="cap">${g('rahu', 'Lunar nodes')}</span><h3>Rāhu · Ketu</h3>
