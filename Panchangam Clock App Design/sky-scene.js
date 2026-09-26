@@ -367,7 +367,7 @@
   async function create(el, opts = {}) {
     T = window.THREE; P = window.Panchanga; _up = new T.Vector3(0, 1, 0);
     await Promise.all(['40px "Tiro Devanagari Sanskrit"', 'italic 40px "Tiro Devanagari Sanskrit"', '40px "Tiro Tamil"', '500 40px "IBM Plex Mono"', '600 40px "IBM Plex Mono"', '600 22px "Noto Sans"'].map((f) => document.fonts.load(f).catch(() => {})));
-    const loc = opts.loc || { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5 };
+    let loc = opts.loc || { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5 };
     const renderer = new T.WebGLRenderer({ antialias: true, powerPreference: 'high-performance', preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); renderer.setClearColor(0x04060D);
     renderer.domElement.style.cssText = 'display:block;width:100%;height:100%;touch-action:none;cursor:grab';
@@ -623,6 +623,7 @@
     lockTo(opts.lock || 'overview', true); hLockTo('moon', true);
     Object.assign(ctrl, {
       setTime(jd) { S.jd = jd; },
+      setLoc(l) { loc = l; S.day = null; },
       setDirection(d) { if (d === S.dir) return; S.dir = d; if (d === 'liftoff') { S.liftGoal = 0; S.lift = 0; } else if (d === 'bridge') { S.liftGoal = 1; S.lift = 1; } if (d === 'horizon') hLockTo(S.hLock || 'moon', true); },
       liftOff(on) { S.liftGoal = on ? 1 : 0; if (on) lockTo('overview', true); },
       lock(k) { if (S.dir === 'horizon') hLockTo(k); else lockTo(k); },

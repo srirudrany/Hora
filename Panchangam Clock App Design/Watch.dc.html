@@ -12,13 +12,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Tiro+Tamil&display=swap" rel="stylesheet">
 <script src="./panchanga.js"></script>
+<script src="./location.js"></script>
 <style>html,body{margin:0;background:#020308;color:#EFE8D8}*{box-sizing:border-box}a{color:#F3D491}a:hover{color:#E3AE4A}</style>
 </helmet>
 <section style="padding:64px 64px 96px;font-family:'Noto Sans',sans-serif;display:flex;flex-direction:column;gap:40px;--faceR:{{ th.face }};--ink2R:{{ th.ink2 }};--gR:{{ th.g }};--gsR:{{ th.gs }};--tR:{{ th.t }};--mR:{{ th.m }};--moR:{{ th.mo }};--kR:{{ th.k }};--bgR:{{ th.bg }};--tj:{{ th.tj }};--dots:{{ th.dots }}">
   <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
     <div style="font:600 12px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Turn 1 · Watch</div>
     <div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:40px;color:rgb(var(--gsR,243,212,145))">Pañcāṅga Clock · watch</div>
-    <div style="font-size:15px;color:rgb(var(--mR,138,145,176));line-height:1.5">Three 2D faces (no WebGL, per spec §4.4) and six complications, all live for Chennai. <a href="Phone Screens.dc.html">Phone screens</a> · <a href="Sky Navigator.dc.html">Sky Navigator</a></div>
+    <div style="font-size:15px;color:rgb(var(--mR,138,145,176));line-height:1.5">Three 2D faces (no WebGL, per spec §4.4) and six complications, all live for {{ placeLabel }}. <a href="Phone Screens.dc.html">Phone screens</a> · <a href="Sky Navigator.dc.html">Sky Navigator</a></div>
     <div style="display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(8,11,24,0.78);border:1px solid rgba(var(--mR,138,145,176),0.22);width:max-content;align-items:center;margin-top:8px">
       <sc-for list="{{ pageThemes }}" as="t" hint-placeholder-count="2">
         <button onClick="{{ t.onClick }}" style="appearance:none;border:0;cursor:pointer;padding:6px 14px;border-radius:999px;background:{{ t.bg }};color:{{ t.fg }};font:600 11px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;display:flex;gap:7px;align-items:center"><i style="width:7px;height:7px;border-radius:50%;display:block;background:{{ t.dot }}"></i>{{ t.label }}</button>
@@ -173,7 +174,7 @@
 </section>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;night&quot;,&quot;festival&quot;],&quot;default&quot;:&quot;night&quot;,&quot;tsType&quot;:&quot;'night'|'festival'&quot;},&quot;mood&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;deepavali&quot;,&quot;pongal&quot;,&quot;temple&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;'auto'|'deepavali'|'pongal'|'temple'&quot;}}">
-const LOC = { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5 };
+let LOC = { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5 }; // replaced by HoraLocation (device position) once loaded
 const pad = (n) => String(n).padStart(2, '0');
 const WDS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const ASUBHA = [1, 6, 9, 10, 13, 15, 17, 19, 27];
@@ -205,12 +206,12 @@ class Component extends DCLogic {
     const ms = this.state.mood ?? this.props.mood ?? 'auto', mk = this.moodKey(), festive = !!mk, W = WP[mk || 'night'];
     const th = { face: rgbOf(W.face), ink2: rgbOf(W.ink2), g: rgbOf(W.g), gs: rgbOf(W.gs), t: rgbOf(W.t), m: rgbOf(W.m), mo: rgbOf(W.mo), k: rgbOf(W.k), bg: rgbOf(W.bg),
       tj: festive ? `inset 0 0 0 3px #07080f, inset 0 0 0 4.5px rgba(${rgbOf(W.g)},0.5)` : 'none', dots: festive ? 'radial-gradient(rgba(255,248,236,0.13) 1.2px, transparent 1.7px)' : 'none' };
-    return { th, festive, leaves: LEAVES, beadsA: BEADS_A, beadsC: BEADS_C,
+    return { th, festive, placeLabel: LOC.source === 'gps' ? `your location (${LOC.coord})` : LOC.name, leaves: LEAVES, beadsA: BEADS_A, beadsC: BEADS_C,
       moodLabel: festive ? (ms === 'auto' ? `Auto · ${MOODN[mk]}${this.P && this.tm != null ? ' · ' + this.P.N.monthTaLat[this.tm] : ''}` : MOODN[mk]) : '',
       pageThemes: [['night', 'Night', '#CBD5DE'], ['festival', festive ? 'Festival ↻' : 'Festival', '#D9483E']].map(([id, label, dot]) => { const on = (id === 'festival') === festive; return { label, dot, bg: on ? 'rgba(227,174,74,0.18)' : 'transparent', fg: on ? '#F3D491' : '#8A91B0', onClick: () => { if (id === 'night') this.setState({ theme: 'night' }); else if (festive) this.setState({ theme: 'festival', mood: MOODS[(MOODS.indexOf(ms) + 1) % MOODS.length] }); else this.setState({ theme: 'festival' }); } }; }) };
   }
-  componentDidMount() { const t0 = Date.now(); const wait = () => { if (window.Panchanga) { this.P = window.Panchanga; this.compute(); this.iv = setInterval(() => this.compute(), 15000); } else if (Date.now() - t0 < 20000) setTimeout(wait, 60); }; wait(); }
-  componentWillUnmount() { clearInterval(this.iv); }
+  componentDidMount() { const t0 = Date.now(); const wait = () => { if (window.Panchanga && window.HoraLocation) { this.P = window.Panchanga; LOC = window.HoraLocation.get(); this.unsub = window.HoraLocation.subscribe((l) => { LOC = l; this.compute(); }); this.compute(); this.iv = setInterval(() => this.compute(), 15000); } else if (Date.now() - t0 < 20000) setTimeout(wait, 60); }; wait(); }
+  componentWillUnmount() { clearInterval(this.iv); this.unsub && this.unsub(); }
   fmt12(jd) { const d = this.P.dateFromJd(jd + LOC.tz / 24 + 1 / 86400); let h = d.getUTCHours() % 12; if (!h) h = 12; return `${h}:${pad(d.getUTCMinutes())} ${d.getUTCHours() < 12 ? 'am' : 'pm'}`; }
   dayFor(jd) { const P = this.P; const d = P.dateFromJd(jd + LOC.tz / 24); let p = P.panchanga(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), LOC); if (jd < p.sunrise) { const d2 = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - 1)); p = P.panchanga(d2.getUTCFullYear(), d2.getUTCMonth() + 1, d2.getUTCDate(), LOC); } p.civ = P.dateFromJd(p.sunrise + LOC.tz / 24 + 0.3); return p; }
   compute() {

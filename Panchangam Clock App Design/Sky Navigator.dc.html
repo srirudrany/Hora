@@ -13,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
 <script src="./panchanga.js"></script>
 <script src="./stars.js"></script>
+<script src="./location.js"></script>
 <script src="./sky-scene.js"></script>
 <style>html,body{margin:0;height:100%;background:#04060D;color:#EFE8D8}*{box-sizing:border-box}a{color:#F3D491}a:hover{color:#E3AE4A}button{font:inherit;color:inherit}</style>
 </helmet>
@@ -245,8 +246,8 @@
     </div>
     <div style="position:absolute;left:{{ hcL }};right:{{ hcR }};bottom:{{ hcB }};top:{{ hcT }};width:{{ hcW }};display:flex;flex-direction:column;gap:10px">
       <div style="padding:16px 18px;border-radius:14px;background:rgba(var(--pR,8,11,24),0.84);border:1px solid rgba(var(--gR,227,174,74),0.26);box-shadow:var(--tj,none);display:flex;flex-direction:column;gap:8px">
-        <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--acR,227,174,74))">Observer · Chennai</div>
-        <div style="font:500 12px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">13.08°N 80.27°E · looking up</div>
+        <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--acR,227,174,74))">Observer · {{ obsName }}</div>
+        <div style="font:500 12px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ obsCoord }} · looking up</div>
         <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin-top:4px">
           <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:16px;color:rgb(var(--gsR,243,212,145))">Sūrya</span><span ref="{{ sunAltRef }}" style="font:500 12px/22px 'IBM Plex Mono',monospace;text-align:right">—</span>
           <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:16px;color:rgb(var(--tR,239,232,216))">Candra</span><span ref="{{ moonAltRef }}" style="font:500 12px/22px 'IBM Plex Mono',monospace;text-align:right">—</span>
@@ -293,7 +294,7 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;direction&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bridge&quot;,&quot;liftoff&quot;,&quot;horizon&quot;],&quot;default&quot;:&quot;bridge&quot;,&quot;tsType&quot;:&quot;'bridge'|'liftoff'|'horizon'&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;night&quot;,&quot;festival&quot;],&quot;default&quot;:&quot;night&quot;,&quot;tsType&quot;:&quot;'night'|'festival'&quot;},&quot;mood&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;deepavali&quot;,&quot;pongal&quot;,&quot;temple&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;'auto'|'deepavali'|'pongal'|'temple'&quot;},&quot;scrubDays&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;min&quot;:3,&quot;max&quot;:30,&quot;default&quot;:15,&quot;tsType&quot;:&quot;number&quot;},&quot;hudFrame&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;embedded&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
-const LOC = { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5 };
+let LOC = { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5, coord: '13.08°N 80.27°E' }; // replaced by HoraLocation (device position) once loaded
 const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const pad = (n) => String(n).padStart(2, '0');
@@ -341,7 +342,7 @@ class Component extends DCLogic {
     this.keyH = (e) => this.onKey(e); window.addEventListener('keydown', this.keyH);
     this.boot();
   }
-  componentWillUnmount() { this.dead = true; this.ro && this.ro.disconnect(); window.removeEventListener('keydown', this.keyH); clearInterval(this.tick); cancelAnimationFrame(this.pr); this.ctrl && this.ctrl.dispose(); }
+  componentWillUnmount() { this.dead = true; this.ro && this.ro.disconnect(); window.removeEventListener('keydown', this.keyH); clearInterval(this.tick); cancelAnimationFrame(this.pr); this.unsub && this.unsub(); this.ctrl && this.ctrl.dispose(); }
   componentDidUpdate(pp) {
     if (pp.direction !== this.props.direction && this.props.direction) this.setDir(this.props.direction);
     if (pp.scrubDays !== this.props.scrubDays && this.P) { this.buildTrack(); this.forceUpdate(); }
@@ -351,14 +352,15 @@ class Component extends DCLogic {
 
   async boot() {
     const t0 = Date.now();
-    while (!(window.THREE && window.Panchanga && window.PanchangaSky && window.Yogatara)) { if (this.dead) return; if (Date.now() - t0 > 20000) { this.setState({ msg: 'Could not load the sky engine' }); return; } await new Promise((r) => setTimeout(r, 60)); }
-    this.P = window.Panchanga;
+    while (!(window.THREE && window.Panchanga && window.PanchangaSky && window.Yogatara && window.HoraLocation)) { if (this.dead) return; if (Date.now() - t0 > 20000) { this.setState({ msg: 'Could not load the sky engine' }); return; } await new Promise((r) => setTimeout(r, 60)); }
+    this.P = window.Panchanga; LOC = window.HoraLocation.get();
     this.buildTrack();
     const compact = (this.rootRef.current?.clientWidth || 1200) < 720;
     const dir = this.dir();
     this.ctrl = await window.PanchangaSky.create(this.sceneRef.current, { direction: dir, jd: this.nowJd(), shiftX: compact ? 0 : 0.2, shiftY: compact ? 0.2 : -0.06, loc: LOC });
     if (this.dead) { this.ctrl.dispose(); return; }
     this.ctrl.onFrame = (i) => this.onFrame(i);
+    this.unsub = window.HoraLocation.subscribe((l) => { LOC = l; this.dc = null; this.ctrl.setLoc(l); this.buildTrack(); this.pushTime(true); });
     this.ctrl.onPick = (i) => { if (i >= 0) this.selectStar(i); };
     if (dir === 'horizon') { const hl = this.ctrl.bestHorizon(); this.setState({ hLock: hl }); this.ctrl.lock(hl); }
     this.dayFor(this.nowJd());
@@ -479,7 +481,7 @@ class Component extends DCLogic {
     switch (key) {
       case 'sun': return { name: 'Sūrya', gloss: 'The Sun', coord: `λ ${degStr(b.ls)}`, text: `The Sun moves about 1° a day along the ecliptic. It is in ${rasiS} now, so the Tamil solar month is ${month}.`, rows: [R('Longitude', degStr(b.ls)), R('Rāśi', rasiS, 's'), R('Sunrise', this.fmt12(day.sunrise)), R('Sunset', this.fmt12(day.sunset))] };
       case 'moon': return { name: 'Candra', gloss: 'The Moon', coord: `λ ${degStr(b.lm)}`, text: 'The Moon moves about 13° a day against the stars. Its place among them gives the nakṣatra; its angle from the Sun gives the tithi.', rows: [R('Longitude', degStr(b.lm)), R('Nakṣatra', `${nak} · ${pada}`, 's'), R('Lit', `${illum}%`), R('Elongation', degStr(b.e))] };
-      case 'earth': return { name: 'Pṛthvī', gloss: 'You are here', coord: '13.08°N 80.27°E', text: `Every limb is measured from here. The day begins at sunrise in ${LOC.name} and runs 60 nāḻigai to the next sunrise; today's daylight is ${nzLen} nāḻigai.`, rows: [R('Sunrise', this.fmt12(day.sunrise)), R('Sunset', this.fmt12(day.sunset)), R('Next sunrise', this.fmt12(day.nextSunrise))] };
+      case 'earth': return { name: 'Pṛthvī', gloss: 'You are here', coord: LOC.coord, text: `Every limb is measured from here. The day begins at sunrise in ${LOC.name} and runs 60 nāḻigai to the next sunrise; today's daylight is ${nzLen} nāḻigai.`, rows: [R('Sunrise', this.fmt12(day.sunrise)), R('Sunset', this.fmt12(day.sunset)), R('Next sunrise', this.fmt12(day.nextSunrise))] };
       case 'nakshatra': return { name: nak, gloss: `Nakṣatra ${ni} of 27`, coord: `${degStr((ni - 1) * 360 / 27)}–${degStr(ni * 360 / 27)}`, text: 'The ecliptic is divided into 27 lunar mansions of 13°20′ each, and each mansion into 4 padas. The Moon crosses one in about a day.', rows: [R('Moon at', degStr(b.lm)), R('Pada', `${pada} of 4`), R('Ends', this.fmt12(A.nakshatra.e))] };
       case 'tithi': return { name: tN, gloss: `Tithi ${ti} of 30`, coord: `E ${degStr(b.e)}`, text: 'A tithi is each 12° the Moon gains on the Sun. The gold arc around Earth is that angle; thirty tithis make one synodic month.', rows: [R('E = λ☾ − λ☉', degStr(b.e)), R('⌊E ÷ 12°⌋ + 1', String(ti)), R('Karaṇa ⌊E ÷ 6°⌋ + 1', `${ki} · ${kar}`), R('Ends', this.fmt12(A.tithi.e))] };
       case 'yoga': return { name: yg, gloss: `Yoga ${yi} of 27 · ${ASUBHA.includes(yi) ? 'aśubha' : 'śubha'}`, coord: `Σ ${degStr(b.ys)}`, text: "Add the Sun's and the Moon's longitudes. The sum, split into 27 parts of 13°20′, names the yoga. The ring now shows yoga names; 17 and 27 are marked red.", rows: [R('Σ = λ☉ + λ☾', degStr(b.ys)), R('⌊Σ ÷ 13°20′⌋ + 1', String(yi)), R('Ends', this.fmt12(A.yoga.e))] };
@@ -499,6 +501,7 @@ class Component extends DCLogic {
     const skyC = d === 'bridge' || (d === 'liftoff' && st.lifted);
     const cosmosOn = skyC && st.cosmos;
     const base = {
+      obsName: LOC.name, obsCoord: LOC.coord,
       rootRef: this.rootRef, sceneRef: this.sceneRef, retRef: this.retRef, warpRef: this.warpRef, tagSunRef: this.tagSunRef, tagMoonRef: this.tagMoonRef, tagNakRef: this.tagNakRef, compRef: this.compRef, altRef: this.altRef, sunAltRef: this.sunAltRef, moonAltRef: this.moonAltRef,
       rootH: this.props.embedded ? '100%' : '100vh', notReady: !st.ready, loadMsg: st.msg, wide, th, festive, leaves: LEAVES, kolam: KOLAM,
       moodLabel: festive ? (ms === 'auto' ? `Auto · ${MOODN[mk]}${this.dc ? ' · ' + this.P.N.monthTaLat[this.dc.tamilMonth] : ''}` : MOODN[mk]) : '',
