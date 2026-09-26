@@ -261,17 +261,18 @@ Karana 60: Naga (Fixed #3) — 2nd half of Amavasya
 **Formula (from Julian Day Number):**
 ```
 JDN = floor(365.25 * (Y + 4716)) + floor(30.6001 * (M + 1)) + D + B - 1524.5
-Vara Index = (JDN + 1) mod 7
+Vara Index (0-based) = (JDN + 1) mod 7   // 0=Sunday (Ravi), 1=Monday (Soma)... 6=Saturday (Shani)
+Vara Index (1-based) = ((JDN + 1) mod 7) + 1  // 1=Sunday (Ravi)... 7=Saturday (Shani)
 ```
 Where:
 - Y, M, D = Gregorian year, month, day
 - B = correction for Gregorian calendar (0 for Julian)
-- Result: 0=Sunday (Ravi), 1=Monday (Soma), ..., 6=Saturday (Shani)
+- Result: 0=Sunday..6=Saturday (Hora engine/JavaScript convention) or 1=Sunday..7=Saturday (table convention below)
 
 **Simplified (if date is known):**
 ```fsharp
 let varaFromDate (date: DateTime) =
-    // Zeller's congruence variant or use .DayOfWeek
+    // 1-based index matching the table below
     match date.DayOfWeek with
     | DayOfWeek.Sunday -> 1  // Ravi
     | DayOfWeek.Monday -> 2  // Soma
@@ -1240,9 +1241,10 @@ mid-screen.
 ### 6. Live smoke test available today
 Hora's externally verified vector is **2026-09-26, Chennai**: sunrise 05:58,
 sunset 18:02, Purnima until 22:18, Purva Bhadrapada until 11:32, Ganda yoga
-until 13:17, Vishti karana until (see the JSON). Once "live mode" exists,
-reproducing this day end-to-end (Hora engine → sidereal longitudes → our
-index math → same limb names) is the single best integration test we have.
+until 13:17, Vishti karana until 10:46/10:47 followed by Bava karana until 22:18.
+Once "live mode" exists, reproducing this day end-to-end (Hora engine → sidereal
+longitudes → our index math → same limb names) is the single best integration
+test we have.
 
 ## Ground rules
 
