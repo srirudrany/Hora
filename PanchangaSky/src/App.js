@@ -1,9 +1,11 @@
 // App.js — one time state (jd, place) for the whole app; the render loop; wiring UI ⇄ scene.
 import { Renderer } from './Renderer.js';
 import { UI, SPEEDS } from './UI.js';
-import { CITIES, HORA_ORDER, VARA_TABLE } from './PanchangamData.js';
+import { CITIES, HORA_ORDER, VARA_TABLE, STARS } from './PanchangamData.js';
+import { Inset } from './Inset.js';
+import { scanMonth } from './HolyDays.js';
 import {
-  computePanchangam, liveSky, limbEnd, gmstDeg, obliquity, norm360, localParts, jdFromLocal, dayBounds, fmtTime,
+  computePanchangam, liveSky, limbEnd, gmstDeg, obliquity, norm360, localParts, jdFromLocal, dayBounds, fmtTime, rahuLon,
 } from './PanchangamMath.js';
 
 const P = window.Panchanga;
@@ -56,7 +58,39 @@ const ui = new UI(document.getElementById('app'), {
     S.jd = jdFromLocal(y, m, dd, hh, mm, S.loc.tz); pauseForScrub();
   },
   scrub: (f) => { S.jd = win.start + f * (win.end - win.start); pauseForScrub(); },
+  layer: (k, on) => { renderer.layers[k] = on; },
+  chip: (kind, arg) => onChip(kind, arg),
+  finderOpen: (refresh) => {
+    const F = ui.finder;
+    if (!refresh) { const lp = localParts(S.jd, S.loc.tz); F.y = lp.y; F.m = lp.m; F.pinned = null; }
+    F.pinned = null;
+    ui.renderFinder(scanMonth(F.y, F.m, S.loc, F.act), F.y, F.m, S.loc);
+  },
+  scrubTo: (jd) => {
+    S.jd = jd; pauseForScrub();
+    // the sky shows *why*: lift off (if needed) and lock the Moon's nakshatra
+    if (renderer.mode === 'clock') setMode('sky');
+    renderer.setLock('nakshatra'); ui.setActive('[data-lock]', 'lock', 'nakshatra');
+  },
 });
+
+const LOCK_OF = { surya: 'sun', chandra: 'moon' };
+function onChip(kind, arg) {
+  if (kind === 'find') {
+    if (renderer.mode === 'clock') setMode('sky');
+    const k = LOCK_OF[arg] ?? arg; renderer.setLock(k); ui.setActive('[data-lock]', 'lock', k); ui.hideCard(); return;
+  }
+  if (kind === 'close') { ui.hideCard(); renderer.constellations.highlight(null); renderer.stars.setHighlight([]); return; }
+  ui.hidePick();
+  if (kind === 'constellation') {
+    const name = arg.split('|')[0];
+    renderer.constellations.highlight(name);
+    renderer.stars.setHighlight(STARS.filter((st) => st.constellation === name).map((st) => st.name));
+    if (!renderer.layers.constellations) { renderer.layers.constellations = true; document.querySelector('[data-layer="constellations"]').classList.add('on'); }
+  }
+  ui.showCard(kind, arg, { ...current, rahu: rahuLon(S.jd) });
+}
+const inset = new Inset(document.querySelector('[data-f="inset"]'));
 
 function pauseForScrub() {
   S.manual = null;
@@ -71,17 +105,18 @@ function goNow() {
 // ---------- lift-off ----------
 function setMode(m) {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lift = (renderer.mode === 'clock') !== (m === 'clock');
   // anticipation beat: the face scales 1 → 0.97 for 50 ms before the lift
   $body.classList.add('antic');
   setTimeout(() => {
     $body.classList.remove('antic');
-    const busy = !!renderer.anim;
-    const ok = renderer.setMode(m, () => { $body.classList.toggle('sky', m === 'sky'); $body.classList.toggle('clock', m === 'clock'); });
-    if (!ok || busy) return;
+    const busy = !!renderer.anim || !!renderer.pov.dir;
+    const ok = renderer.setMode(m, () => applyModeClasses(m));
+    if (!ok) return;
+    ui.setActive('[data-mode]', 'mode', m);
+    if (busy || !lift) return;
     $body.classList.add(reduced ? 'xfade' : 'warp');
     setTimeout(() => $body.classList.remove('warp', 'xfade'), reduced ? 320 : 1650);
-    ui.setActive('[data-mode]', 'mode', m);
-    if (m === 'sky') ui.setActive('[data-lock]', 'lock', '');
   }, 50);
 }
 
@@ -156,11 +191,19 @@ function buildWindow(info) {
 // ---------- canvas picking ----------
 const canvas = renderer.renderer.domElement;
 let downAt = null;
-canvas.addEventListener('pointerdown', (e) => { downAt = [e.clientX, e.clientY]; });
+let dragAt = null;
+canvas.addEventListener('pointerdown', (e) => { downAt = [e.clientX, e.clientY]; dragAt = [e.clientX, e.clientY]; });
+canvas.addEventListener('pointermove', (e) => {
+  if (!dragAt || renderer.mode !== 'pov') return;
+  renderer.povDrag(e.clientX - dragAt[0], e.clientY - dragAt[1]); dragAt = [e.clientX, e.clientY];
+});
+addEventListener('pointerup', () => { dragAt = null; });
+canvas.addEventListener('wheel', (e) => { if (renderer.mode === 'pov') renderer.povFov = Math.min(90, Math.max(20, (renderer.povFov ?? 62) + e.deltaY * 0.03)); }, { passive: true });
 canvas.addEventListener('pointerup', (e) => {
   if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
   const hit = renderer.pick(e.clientX, e.clientY);
   if (!hit) { ui.hidePick(); return; }
+  if (hit.kind === 'graha' && renderer.planets.lons[hit.key] !== undefined) hit.lon = renderer.planets.lons[hit.key];
   if (renderer.mode === 'clock' && hit.kind !== 'graha') {
     // a deep interaction on the face just lifts off and locks the target
     ui.showPick(hit, { x: e.clientX, y: e.clientY }, current);
@@ -209,15 +252,20 @@ function tick(now) {
     ui.renderTime(current, info);
     const sunsetFrac = (info.day.sunset - info.day.sunrise) / (info.day.nextSunrise - info.day.sunrise);
     const f = (x) => (x - info.day.sunrise) / (info.day.nextSunrise - info.day.sunrise);
+    if ($body.classList.contains('sky')) { inset.draw(S.jd, sky.ayanamsa, renderer.lock); ui.renderSkyExtras(current, renderer.planets.eclipse); }
     renderer.wheel.drawDial({ frac, sunsetFrac, rahu: info.rahu.map(f), yama: info.yama.map(f), gulika: info.gulika.map(f), horaIdx, horaCount: 24 });
   }
   ui.renderGeometry(current, !!S.manual);
   buildWindow(info); win.cursor = S.jd; ui.renderTimeline(win);
 
-  renderer.frame({ sunLon: S.shown.sun, moonLon: S.shown.moon, pan: shownPan, gmst: gmstDeg(S.jd), obliquity: obliquity(S.jd), ayanamsa: sky.ayanamsa }, dt, S.view);
+  renderer.frame({ sunLon: S.shown.sun, moonLon: S.shown.moon, pan: shownPan, gmst: gmstDeg(S.jd), obliquity: obliquity(S.jd), ayanamsa: sky.ayanamsa,
+    jd: S.jd, lat: S.loc.lat, lon: S.loc.lon, dayLord: VARA_TABLE[sky.day.weekday].graha }, dt, S.view);
   requestAnimationFrame(tick);
 }
 
+function applyModeClasses(m) {
+  $body.classList.toggle('sky', m !== 'clock'); $body.classList.toggle('clock', m === 'clock'); $body.classList.toggle('pov', m === 'pov');
+}
 renderer.onPending = (m) => ui.setActive('[data-mode]', 'mode', m);
 function measureSafe() {
   const r = (sel) => document.querySelector(sel).getBoundingClientRect();

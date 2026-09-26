@@ -278,3 +278,84 @@ body.ready .dock { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .15s !important; transition-delay: 0s !important; }
 }
+
+/* ================= second pass: grahas, POV, two-stage tooltips, finder ================= */
+.lbl-graha .dv { font-size: 14px; color: var(--star); font-family: var(--f-dv2); }
+.lbl-node .dv { font-size: 14px; color: #c4a8e6; font-family: var(--f-dv2); }
+.lbl-star .sn { font-size: 11px; color: rgba(203,213,222,.7); letter-spacing: .03em; }
+.lbl-card b { font: 600 15px var(--f-mono); color: var(--gold-soft); padding: 2px 8px; border: 1px solid var(--line); border-radius: var(--r-chip); background: rgba(8,11,24,.6); }
+.lockrow.grahas button { display: inline-flex; align-items: center; gap: 5px; text-transform: none; }
+.lockrow.grahas i { width: 7px; height: 7px; border-radius: 50%; }
+.locks .cap { display: block; margin-top: 10px; }
+.toggles { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.toggles button { padding: 3px 10px; font-size: 12px; border-radius: var(--r-pill); border: 1px solid var(--line-2); background: transparent; color: var(--muted); transition: color .2s, border-color .2s, background-color .2s; }
+.toggles button.on { color: var(--gold-soft); border-color: var(--line); background: rgba(227,174,74,.1); }
+.inset-wrap { margin-top: 10px; }
+.inset { display: block; width: 100%; height: 190px; margin-top: 6px; border-radius: var(--r-chip); border: 1px solid var(--line-2); background: radial-gradient(circle at center, rgba(36,51,107,.35), rgba(4,6,13,.6)); }
+.eclipse { color: #c4a8e6; min-height: 0; }
+.eclipse:empty { display: none; }
+.finder-btn, .xlink { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); background: rgba(8,11,24,.7); color: var(--gold-soft); border-radius: var(--r-pill); padding: 6px 13px; font-size: 13px; transition: background-color .2s, box-shadow .2s; }
+.finder-btn:hover, .xlink:hover { background: rgba(227,174,74,.12); box-shadow: 0 0 16px rgba(227,174,74,.18); }
+.xlink { padding: 1px 9px; font-size: 11.5px; margin-left: 4px; }
+.xlink svg { width: 11px; height: 11px; }
+
+/* stand here: the side panels step back so the horizon reads */
+body.pov .cards { transform: translate(0, -10px) scale(.72); opacity: .92; }
+body.pov .dock-body { opacity: .94; }
+
+/* two-stage tooltip: body box + system/constellation chip */
+.pickchip { position: fixed; left: 0; top: 0; z-index: 21; display: flex; flex-direction: column; gap: 5px; opacity: 0; pointer-events: none; transition: opacity .2s var(--ease) .08s; will-change: transform, opacity; }
+.pickchip.on { opacity: 1; pointer-events: auto; }
+.pickchip button { display: inline-flex; align-items: center; gap: 7px; width: max-content; max-width: 320px; padding: 5px 12px; font-size: 12.5px; border-radius: var(--r-pill); border: 1px solid var(--line); background: rgba(10,13,28,.94); color: var(--gold-soft); box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+.pickchip button:hover { background: rgba(28,32,58,.96); }
+.ccard { position: fixed; left: 336px; top: 84px; width: 340px; padding: 16px 18px 14px; z-index: 19; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity .3s var(--ease), transform .3s var(--ease);
+  background: linear-gradient(180deg, rgba(16,21,43,.93), rgba(8,11,24,.92)); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: 0 10px 40px rgba(0,0,0,.45); backdrop-filter: blur(10px); }
+.ccard.on { opacity: 1; transform: none; pointer-events: auto; }
+.ccard h3 { margin: 2px 26px 6px 0; font-weight: 500; font-size: 19px; }
+.ccard h3 small { color: var(--muted); font-size: 13px; font-weight: 400; }
+.ccard p { margin: 6px 0; font-size: 13px; }
+.ccard .dvrow .dv { font-size: 20px; color: var(--gold-soft); margin-right: 6px; }
+.ccard .myth { font-style: italic; color: rgba(239,232,216,.85); }
+.ccard .members { display: flex; flex-wrap: wrap; gap: 4px; }
+.ccard .members span { font-size: 11.5px; padding: 1px 7px; border-radius: var(--r-chip); border: 1px solid var(--line-2); color: var(--moon); }
+.ccard .members span.yt { border-color: var(--line); color: var(--gold-soft); }
+.ccard .co { font-size: 11.5px; color: var(--gold); border-top: 1px solid var(--line-2); padding-top: 6px; }
+.ccard .close, .finder .close { position: absolute; right: 12px; top: 12px; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line-2); background: transparent; color: var(--muted); display: grid; place-items: center; }
+
+/* holy-day finder */
+.finder { position: fixed; right: 20px; top: 80px; width: min(560px, calc(100vw - 40px)); max-height: calc(100vh - 100px); overflow-y: auto; z-index: 25; padding: 16px 18px;
+  background: linear-gradient(180deg, rgba(16,21,43,.96), rgba(8,11,24,.96)); border: 1px solid var(--line); border-radius: var(--r-panel); box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  opacity: 0; transform: translateX(24px); pointer-events: none; transition: opacity .35s var(--ease), transform .35s var(--ease); }
+.finder.on { opacity: 1; transform: none; pointer-events: auto; }
+.finder header { position: relative; }
+.finder h3 { margin: 2px 0 10px; font-weight: 500; font-size: 19px; }
+.fcontrols { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.fcontrols select { background: rgba(22,32,74,.6); border: 1px solid var(--line); border-radius: var(--r-chip); padding: 6px 10px; color: var(--star); }
+.fcontrols select option { background: var(--ink-2); }
+.mnav { display: flex; align-items: center; gap: 8px; }
+.mnav b { font-weight: 500; min-width: 140px; text-align: center; }
+.mnav .icon { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line-2); background: transparent; color: var(--gold-soft); display: grid; place-items: center; }
+.fgrid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-top: 12px; }
+.fgrid .wd { font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: center; padding-bottom: 2px; }
+.fday { display: flex; flex-direction: column; align-items: flex-start; gap: 0; padding: 5px 7px; min-height: 64px; border-radius: 9px; border: 1px solid var(--line-2); background: rgba(22,32,74,.35); text-align: left; overflow: hidden; transition: border-color .2s, transform .15s var(--ease-out); }
+.fday:hover { transform: translateY(-1px); border-color: var(--line); }
+.fday b { font: 500 13px var(--f-mono); }
+.fday .dv { font-size: 14px; line-height: 1.35; color: var(--star); white-space: nowrap; font-family: var(--f-dv2); }
+.fday small { font-size: 10.5px; color: var(--muted); font-style: italic; }
+.fday.v-fav { background: linear-gradient(160deg, rgba(227,174,74,.28), rgba(227,174,74,.08)); border-color: rgba(227,174,74,.5); }
+.fday.v-fav b { color: var(--gold-soft); }
+.fday.v-avoid { background: linear-gradient(160deg, rgba(217,72,62,.22), rgba(217,72,62,.05)); border-color: rgba(217,72,62,.4); }
+.fday.v-avoid .dv { color: rgba(239,232,216,.6); }
+.fday.sel { box-shadow: 0 0 0 1.5px var(--gold-soft); }
+.freason { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line-2); min-height: 70px; }
+.frhead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.frhead b { font-weight: 500; } .frhead .v-fav { color: var(--gold-soft); } .frhead .v-avoid { color: #f1a097; }
+.fchips { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.fchips .chip { font-size: 12px; } .fchips em { font-style: normal; text-transform: uppercase; letter-spacing: .08em; font-size: 10px; color: var(--muted); margin-right: 4px; }
+.disclaimer { font-size: 11.5px; color: var(--muted); margin: 12px 0 0; font-style: italic; }
+@media (max-width: 1180px) { .ccard { left: 296px; } .pill span { display: none; } }
+@media (max-width: 860px) { .ccard { left: 12px; right: 12px; width: auto; top: 70px; } .finder-btn span { display: none; } }
+
+/* in the sky the geometry panel leads with locks, overlays and the inset */
+body.sky .presets, body.sky .geo .dl.sub, body.sky .geo > .fine { display: none; }
+body.sky .slider { margin: 6px 0 8px; }

@@ -30,7 +30,19 @@ node tests/vectors.test.mjs     # 48 checks: §2 unit vectors, preset parity, §
 - **Glossary hover:** every term uses one shared `GLOSSARY` object, and `g()` throws on a missing entry. **Views:** Scientific (RA/Dec grid, radial measurement lines, ΔL label), Religious (Devanagari names, deity lines), or Both.
 - **Click to learn:** clicking the Sun, Moon, Earth, a nakshatra, a rashi or a tithi cell opens a tooltip. Clicking a ring on the clock face lifts off into the sky.
 
-**Deferred to a second pass:** the heliocentric inset, the five grahas and Rahu/Ketu in the sky, the holy-day finder (activity → ranked month grid), the "Stand here" horizon POV, and the two-stage constellation/system tooltips. The data for these is already in `PanchangamData.js`: `GRAHAS`, `MOONS`, `CONSTELLATIONS`, star yogataras, and the planet and node math in `PanchangamMath.js`.
+### Second pass
+
+- **Grahas:** Budha, Shukra, Mangala, Guru and Shani sit on the ecliptic at approximate longitudes from JPL mean elements, with stylized distances. Each can be clicked (science line, myth line, weekday ruler) and has a camera lock. Guru shows its four Galilean moons and Shani its tilted rings. Today's day-lord pulses, and the Vara card has a "find ‹graha›" link.
+- **Rahu and Ketu:** the mean lunar nodes appear as shadow points joined by a dashed axis. They glow when the Sun, and more strongly the Moon, comes near, and an eclipse-season note appears in the sky panel.
+- **Heliocentric inset:** orbit rings on a log-compressed radius with motion trails, Galilean moons and Saturn's ring. Mesha points up, and it is labelled **NOT TO SCALE**.
+- **"Stand here" (POV):** the same scene seen from the selected place at the scrubber time. An opaque ground hemisphere hides everything below the horizon, with a haze band and N/E/S/W markers. The pole altitude matches the latitude because the sky frame turns by GMST around the fixed Earth. Drag to look around and scroll to zoom. The Sun, Moon, nakshatra and graha locks become "look at" in this view. Switching between clock, sky and POV keeps the scrub position, locks and toggles.
+- **Two-stage tooltips:** clicking a star, planet or node opens the body box plus a chip, such as "Part of Mrigashira (Orion) — view →" or "Solar System — view →". The chip opens a card: constellation cards highlight the stick figure and pulse the member stars. There are 12 stick figures, each with a note comparing it to its nakshatra, and bright stars and yogataras are labelled.
+- **Holy-day finder ("Find a day"):** pick an activity and get a month grid tinted gold (favourable), muted (neutral) or kumkum (avoid). Days are judged at sunrise using only Hora's `rules.json`, and each day lists reason chips that name the limb they come from. "Show in the sky" scrubs to that day and locks the Moon's nakshatra. The disclaimer is shown. Riktā tithis, Amāvāsyā, Vyatīpāta/Vaidhṛti and months avoided for weddings count as hard avoids. Ugra/Tīkṣṇa stars and Viṣṭi only reduce the score.
+- **Overlay toggles** in the sky: constellations, navagraha, nakshatra band and rashi wheel.
+
+Tests: `node tests/vectors.test.mjs` runs 79 checks. They add finder semantics, a check that every `rules.json` nakshatra nature matches the SPEC table, and a check that Rahu and Ketu stay opposite.
+
+**Still open:** the compare-two-places slot, globe pin-drop, a year-domain zoom ladder on the scrubber, and the Tamil-script option.
 
 ## Files
 
@@ -51,7 +63,7 @@ node tests/vectors.test.mjs     # 48 checks: §2 unit vectors, preset parity, §
 - **Vara is anchored at sunrise** in every mode, following the Tamil convention in SPEC §10.3. It is not taken from `Date.getDay()`.
 - **Labels are HTML**, positioned each frame with `transform`, so Devanagari stays crisp and never drops below 14 px. Only the Moon's nakshatra is named on the face, since the ring already numbers all 27.
 - **Time zones are fixed offsets per city.** The engine takes a fixed `tz`, and daylight saving time is not modelled.
-- **Planet placement (next pass) uses JPL mean elements.** It is labelled approximate.
+- **Planet placement uses JPL mean elements** (inclination ignored). It is labelled approximate in the tooltips. On 2026-09-26 Guru sits at about 18° Leo tropical and Rahu is in Kumbha, which is plausible.
 
 ## Findings in `docs/test-vectors.md` (per its §7 discrepancy rule — not silently picked)
 

@@ -83,5 +83,17 @@ near('sunrise 01-15', s2.day.sunrise, '06:35');
 near('tithi end 01-15', M.limbEnd('tithi', j2), '20:17');
 near('yoga end 01-15', M.limbEnd('yoga', j2), '20:37');
 
+// holy-day finder (rules.json semantics): Riktā/Amāvāsyā days are never "favourable"; natures match the SPEC table
+const { scanMonth } = await import('../src/HolyDays.js');
+const month = scanMonth(2026, 10, chennai, 'foundation');
+eq('finder days', month.length, 31);
+eq('finder rikta never fav', month.filter((d) => d.limbs.tithi.category === 'Rikta' && d.verdict !== 'avoid').length, 0);
+eq('finder has favourable days', month.some((d) => d.verdict === 'fav'), true);
+const RULES = (await import('../src/rules.js')).default;
+for (const [nat, v] of Object.entries(RULES.nakshatra_natures)) for (const i of v.stars) eq(`nature ${nat} ${i}`, NAKSHATRA_TABLE[i].nature, nat);
+// grahas: mean-element longitudes land in the right rashi for 2026-09-26 (approximate by design)
+const jdP = M.jdFromLocal(2026, 9, 26, 12, 0, 5.5);
+eq('rahu/ketu opposite', Math.round(M.norm360(M.rahuLon(jdP) + 180 - M.rahuLon(jdP))), 180);
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

@@ -1,6 +1,7 @@
 // UI.js — HTML overlay: readout cards, sliders + presets, mode/view toggles, place picker,
 // the "Sky conditions" dock with the time scrubber, glossary hover and the pick tooltip.
-import { GLOSSARY, CITIES, GRAHAS, NAKSHATRA_TABLE, RASHI_TABLE, TITHI_TABLE, TITHI_CATEGORY_INFO, VARA_TABLE, HORA_ORDER } from './PanchangamData.js';
+import { GLOSSARY, CITIES, GRAHAS, NAKSHATRA_TABLE, RASHI_TABLE, TITHI_TABLE, TITHI_CATEGORY_INFO, VARA_TABLE, HORA_ORDER, CONSTELLATIONS, STARS } from './PanchangamData.js';
+import { ACTIVITIES, scanMonth, DISCLAIMER } from './HolyDays.js';
 import { fmtTime, fmtDate, fmtDeg, localParts, jdFromLocal, pad2 } from './PanchangamMath.js';
 
 // Phosphor-style inline icons (no emoji anywhere)
@@ -14,6 +15,11 @@ const I = {
   x: '<svg viewBox="0 0 256 256"><path d="M64 64l128 128M192 64L64 192" stroke="currentColor" stroke-width="18" stroke-linecap="round"/></svg>',
   caret: '<svg viewBox="0 0 256 256"><path d="M64 160l64-64 64 64" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   rocket: '<svg viewBox="0 0 256 256"><path d="M128 24c40 24 56 72 48 120l-20 32h-56l-20-32c-8-48 8-96 48-120Z M100 176l-28 36 44-8M156 176l28 36-44-8" fill="none" stroke="currentColor" stroke-width="14" stroke-linejoin="round"/><circle cx="128" cy="96" r="16" fill="currentColor"/></svg>',
+  horizon: '<svg viewBox="0 0 256 256"><path d="M24 168h208M56 200h144" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><path d="M72 168a56 56 0 0 1 112 0" fill="none" stroke="currentColor" stroke-width="16"/></svg>',
+  calendar: '<svg viewBox="0 0 256 256"><rect x="40" y="48" width="176" height="168" rx="12" fill="none" stroke="currentColor" stroke-width="16"/><path d="M40 96h176M88 32v32M168 32v32" stroke="currentColor" stroke-width="16" stroke-linecap="round"/><circle cx="128" cy="152" r="14" fill="currentColor"/></svg>',
+  arrow: '<svg viewBox="0 0 256 256"><path d="M56 128h144M144 72l56 56-56 56" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  left: '<svg viewBox="0 0 256 256"><path d="M160 56l-72 72 72 72" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  right: '<svg viewBox="0 0 256 256"><path d="M96 56l72 72-72 72" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   clock: '<svg viewBox="0 0 256 256"><circle cx="128" cy="128" r="92" fill="none" stroke="currentColor" stroke-width="16"/><path d="M128 72v56l40 24" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round"/></svg>',
 };
 
@@ -86,8 +92,10 @@ export class UI {
         <button class="pill" data-mode="clock">${I.clock}<span>Clock</span></button>
         <button class="liftoff" data-act="lift" title="Lift off into the sky (Space)">${I.rocket}<span>Lift off</span></button>
         <button class="pill" data-mode="sky">${I.target}<span>Sky</span></button>
+        <button class="pill" data-mode="pov" title="Stand here: the sky from the selected place">${I.horizon}<span>Stand here</span></button>
       </nav>
       <div class="right">
+        <button class="finder-btn" data-act="finder">${I.calendar}<span>Find a day</span></button>
         <div class="seg" role="group" aria-label="View">
           <button data-view="scientific">Scientific</button><button data-view="religious">Religious</button><button data-view="both">Both</button>
         </div>
@@ -114,6 +122,11 @@ export class UI {
       <div class="locks sky-only">
         <span class="cap">Camera lock</span>
         <div class="lockrow">${['overview', 'earth', 'sun', 'moon', 'nakshatra', 'tithi', 'yoga', 'karana'].map((k) => `<button data-lock="${k}">${k}</button>`).join('')}</div>
+        <div class="lockrow grahas">${['budha', 'shukra', 'mangala', 'guru', 'shani', 'rahu', 'ketu'].map((k) => `<button data-lock="${k}"><i style="background:${GRAHAS[k].color}"></i>${GRAHAS[k].iast}</button>`).join('')}</div>
+        <span class="cap">Overlays</span>
+        <div class="toggles">${[['constellations', 'Constellations'], ['grahas', 'Navagraha'], ['nakshatra', 'Nakṣatra band'], ['rashi', 'Rāśi wheel']].map(([k, l]) => `<button class="on" data-layer="${k}">${l}</button>`).join('')}</div>
+        <div class="inset-wrap"><span class="cap">${g('graha', 'Grahas')} around the Sun</span><canvas class="inset" data-f="inset"></canvas></div>
+        <p class="fine eclipse" data-f="eclipse"></p>
       </div>
     </aside>
 
@@ -146,6 +159,19 @@ export class UI {
     </section>
 
     <div class="pickbox" data-f="pick" role="dialog" aria-live="polite"></div>
+    <div class="pickchip" data-f="chip"></div>
+    <aside class="ccard" data-f="ccard" aria-live="polite"></aside>
+    <section class="finder" data-f="finder" aria-label="Holy-day finder">
+      <header><div><span class="cap">${g('muhurta', 'Muhūrta')} finder</span><h3>When is it traditionally good to…</h3></div>
+        <button class="icon close" data-act="finder-close" aria-label="Close">${I.x}</button></header>
+      <div class="fcontrols">
+        <select data-f="activity" aria-label="Activity">${ACTIVITIES.map((a) => `<option value="${a.key}">${a.label}</option>`).join('')}</select>
+        <div class="mnav"><button class="icon" data-act="mprev" aria-label="Previous month">${I.left}</button><b data-f="mlabel"></b><button class="icon" data-act="mnext" aria-label="Next month">${I.right}</button></div>
+      </div>
+      <div class="fgrid" data-f="fgrid"></div>
+      <div class="freason" data-f="freason"><span class="fine">Hover or tap a day to see why. Click “Show in the sky” to scrub there.</span></div>
+      <p class="disclaimer">${DISCLAIMER} Rules from Hora <span class="mono">data/rules.json</span>; judged at local ${g('sunrise', 'sunrise')}.</p>
+    </section>
     <footer class="credit">Engine &amp; name tables: <b>Hora</b> (srirudrany) · Meeus + Lahiri</footer>`;
   }
 
@@ -186,6 +212,21 @@ export class UI {
     document.addEventListener('focusin', (e) => { if (e.target.dataset?.g) show(e.target); });
     document.addEventListener('focusout', () => this.tip.classList.remove('on'));
     this.$('[data-f="pick"]').addEventListener('click', (e) => { if (e.target.closest('[data-act="close"]')) this.hidePick(); });
+    this.$$('[data-layer]').forEach((b) => b.addEventListener('click', () => { b.classList.toggle('on'); h.layer(b.dataset.layer, b.classList.contains('on')); }));
+    this.$('[data-f="chip"]').addEventListener('click', (e) => { const b = e.target.closest('[data-chip]'); if (b) h.chip(b.dataset.chip, b.dataset.arg); });
+    this.$('[data-f="ccard"]').addEventListener('click', (e) => { if (e.target.closest('[data-act="cclose"]')) h.chip('close'); const b = e.target.closest('[data-chip]'); if (b) h.chip(b.dataset.chip, b.dataset.arg); });
+    this.$('[data-card="vara"]').addEventListener('click', (e) => { const b = e.target.closest('[data-chip]'); if (b) h.chip(b.dataset.chip, b.dataset.arg); });
+    // finder
+    const F = this.finder = { y: 0, m: 0, act: 'foundation', days: [] };
+    this.$('[data-act="finder"]').addEventListener('click', () => { const on = !this.$('[data-f="finder"]').classList.contains('on'); this.$('[data-f="finder"]').classList.toggle('on', on); if (on) h.finderOpen(); });
+    this.$('[data-act="finder-close"]').addEventListener('click', () => this.$('[data-f="finder"]').classList.remove('on'));
+    this.$('[data-f="activity"]').addEventListener('change', (e) => { F.act = e.target.value; h.finderOpen(true); });
+    this.$('[data-act="mprev"]').addEventListener('click', () => { F.m--; if (F.m < 1) { F.m = 12; F.y--; } h.finderOpen(true); });
+    this.$('[data-act="mnext"]').addEventListener('click', () => { F.m++; if (F.m > 12) { F.m = 1; F.y++; } h.finderOpen(true); });
+    const grid = this.$('[data-f="fgrid"]');
+    grid.addEventListener('pointerover', (e) => { const c = e.target.closest('[data-day]'); if (c) this.finderReason(+c.dataset.day); });
+    grid.addEventListener('click', (e) => { const c = e.target.closest('[data-day]'); if (c) this.finderReason(+c.dataset.day, true); });
+    this.$('[data-f="freason"]').addEventListener('click', (e) => { const b = e.target.closest('[data-scrub]'); if (b) h.scrubTo(+b.dataset.scrub); });
   }
 
   hoverTimeline() {}
@@ -210,7 +251,7 @@ export class UI {
     this.setField('vara', 'idx', dev(p.vara.index));
     this.setField('vara', 'dv', p.vara.name);
     this.setField('vara', 'iast', `${p.vara.iast} · ${p.vara.day}`);
-    this.setField('vara', 'meta', `Lord: ${p.vara.planet}`);
+    this.setField('vara', 'meta', `Lord: ${p.vara.planet} <button class="xlink" data-chip="find" data-arg="${p.vara.graha}">find ${GRAHAS[p.vara.graha].iast} ${I.arrow}</button>`);
     this.setField('vara', 'ctx', p.vara.nature);
     this.setField('vara', 'ends', manual ? 'sunrise-anchored day' : `${g('sunrise', 'sunrise')} ${fmtTime(s.day.sunrise, s.loc.tz)} → ${fmtTime(s.day.nextSunrise, s.loc.tz)}`);
     aus('vara', true);
@@ -324,16 +365,27 @@ export class UI {
 
   // ---------- pick tooltip (Devanagari-first, one "why it matters" line, coordinates tie myth to math) ----------
   showPick(hit, at, s) {
-    let h = '';
+    let h = '', chip = '';
     if (hit.kind === 'graha') {
       if (hit.key === 'earth') {
         h = `<h4><span class="dv">पृथ्वी</span> Pṛthvī</h4><p class="w">Earth — the fixed centre of this geocentric stage</p><p>The Panchangam is Earth-centred time: every limb is an angle measured from here.</p>`;
       } else {
-        const G = GRAHAS[hit.key], lon = hit.key === 'surya' ? s.sunLon : s.moonLon;
-        const vara = VARA_TABLE[G.vara - 1];
-        h = `<h4><span class="dv">${G.name}</span> ${G.iast}</h4><p class="w">${G.western}</p><p>${G.science}</p><p class="myth">${G.myth}</p>
-          <p class="co mono">${g('sidereal', 'Sidereal')} λ ${fmtDeg(lon)} · ${RASHI_TABLE[Math.floor(lon / 30)].iast} · rules ${vara.iast}</p>`;
+        const G = GRAHAS[hit.key], lon = hit.key === 'surya' ? s.sunLon : hit.key === 'chandra' ? s.moonLon : hit.lon;
+        const vara = G.vara ? VARA_TABLE[G.vara - 1] : null;
+        const approx = ['surya', 'chandra'].includes(hit.key) ? '' : ' (approximate)';
+        h = `<h4><span class="dv">${G.name}</span> ${G.iast}</h4><p class="w">${G.western}${['rahu', 'ketu'].includes(hit.key) ? ` · ${g(hit.key, 'shadow graha')}` : ''}</p><p>${G.science}</p><p class="myth">${G.myth}</p>
+          <p class="co mono">${g('sidereal', 'Sidereal')} λ ${fmtDeg(lon)}${approx} · ${RASHI_TABLE[Math.floor(lon / 30)].iast}${vara ? ` · rules ${vara.iast}` : ''}</p>`;
+        const today = vara && s.pan.vara.index === vara.index;
+        chip = ['rahu', 'ketu'].includes(hit.key)
+          ? `<button data-chip="system" data-arg="${hit.key}">Lunar nodes · ${g('eclipse', 'eclipses')} — view ${I.arrow}</button>`
+          : `<button data-chip="system" data-arg="${hit.key}">Solar System — view ${I.arrow}</button>${today ? `<button data-chip="find" data-arg="${hit.key}">${G.iast} rules today</button>` : ''}`;
       }
+    } else if (hit.kind === 'star') {
+      const st = hit.star, n = NAKSHATRA_TABLE[hit.nak - 1], C = CONSTELLATIONS[st.constellation];
+      h = `<h4><span class="dv">${st.yogatara ? n.name : '★'}</span> ${st.name}</h4><p class="w">${st.bayer} · ${st.constellation} · mag ${st.mag.toFixed(2)}</p>
+        <p>${st.yogatara ? `The ${g('yogatara', 'yogatārā')} of ${n.iast} — ${n.deity}, ${n.temperament.toLowerCase()}.` : `Sits over the ${n.iast} sector of the ecliptic (${n.deity}).`}</p>
+        <p class="co mono">${g('ecliptic', 'Ecliptic')} λ ${fmtDeg(hit.lon)} β ${hit.lat.toFixed(1)}° · ${g('sidereal', 'sidereal')}</p>`;
+      chip = `<button data-chip="constellation" data-arg="${C ? st.constellation : ''}|${hit.nak}">Part of ${n.iast}${C ? ` (${st.constellation})` : ''} — view ${I.arrow}</button>`;
     } else if (hit.kind === 'nakshatra') {
       const n = NAKSHATRA_TABLE[hit.index - 1];
       h = `<h4><span class="dv">${n.name}</span> ${n.iast}</h4><p class="w">${g('nakshatra', 'Nakṣatra')} ${n.index} of 27</p>
@@ -353,8 +405,63 @@ export class UI {
     const x = Math.min(innerWidth - 340, Math.max(12, at.x + 18)), y = Math.min(innerHeight - 220, Math.max(70, at.y - 40));
     box.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     box.classList.add('on');
+    const ch = this.$('[data-f="chip"]');
+    ch.innerHTML = chip;
+    requestAnimationFrame(() => { const hgt = box.offsetHeight; ch.style.transform = `translate3d(${x}px, ${y + hgt + 8}px, 0)`; ch.classList.toggle('on', !!chip); });
   }
-  hidePick() { this.$('[data-f="pick"]').classList.remove('on'); }
+  hidePick() { this.$('[data-f="pick"]').classList.remove('on'); this.$('[data-f="chip"]').classList.remove('on'); }
+
+  /** Constellation / system card — the second hop of the two-stage tooltip. */
+  showCard(kind, arg, s) {
+    const el = this.$('[data-f="ccard"]');
+    let h = '';
+    if (kind === 'constellation') {
+      const [name, nakIdx] = arg.split('|'), n = NAKSHATRA_TABLE[(+nakIdx || 1) - 1], C = CONSTELLATIONS[name];
+      const members = STARS.filter((st) => st.constellation === name);
+      h = `<span class="cap">${name ? 'Constellation' : g('nakshatra', 'Nakṣatra')}</span><h3>${name || n.iast}${name ? ` <small>· ${n.iast}</small>` : ''}</h3>
+        <p class="dvrow"><span class="dv">${n.name}</span> ${g('nakshatra', 'nakṣatra')} ${n.index} · ${g('deity', 'deity')} ${n.deity} · ${n.temperament}</p>
+        ${C ? `<p>${C.note}</p>` : '<p>No western stick figure is drawn here; the sector is shown on the gold band.</p>'}
+        ${members.length ? `<p class="members">${members.map((m) => `<span class="${m.yogatara ? 'yt' : ''}">${m.name}</span>`).join('')}</p>` : ''}
+        <p class="co mono">${g('ecliptic', 'Ecliptic')} ${fmtDeg(n.start)}–${fmtDeg(n.end)}</p>`;
+    } else if (kind === 'system') {
+      const G = GRAHAS[arg], node = ['rahu', 'ketu'].includes(arg);
+      h = node ? `<span class="cap">${g('rahu', 'Lunar nodes')}</span><h3>Rāhu · Ketu</h3>
+          <p>The Moon's orbit is tilted 5° to the ecliptic; it crosses it at two points 180° apart. ${g('eclipse', 'Eclipses')} happen only when a new or full Moon falls near one of them — the swallowing of the myth.</p>
+          <p class="co mono">Rāhu λ ${fmtDeg(s.rahu)} · Ketu λ ${fmtDeg((s.rahu + 180) % 360)} · regress ~19.3°/yr</p>`
+        : `<span class="cap">Solar System</span><h3>${G.iast} <small>· ${G.western}</small></h3>
+          <p>${G.science}</p><p class="myth">${G.myth}</p>
+          <p>The inset in the sky panel shows it around the Sun — distances log-compressed, <b>not to scale</b>.${arg === 'guru' ? ' Lock on Guru to see the four Galilean moons.' : arg === 'shani' ? ' Lock on Shani to see its rings.' : ''}</p>
+          <button class="xlink" data-chip="find" data-arg="${arg}">Lock camera on ${G.iast} ${I.arrow}</button>`;
+    }
+    el.innerHTML = `<button class="icon close" data-act="cclose" aria-label="Close">${I.x}</button>${h}`;
+    el.classList.add('on');
+  }
+  hideCard() { this.$('[data-f="ccard"]').classList.remove('on'); }
+
+  renderSkyExtras(s, eclipse) {
+    const e = this.$('[data-f="eclipse"]');
+    const txt = eclipse ? `The Sun is near ${GRAHAS[eclipse.node].iast} — eclipse season${s.pan.elongation < 15 || s.pan.elongation > 345 ? ' (new Moon: solar eclipse possible)' : Math.abs(s.pan.elongation - 180) < 15 ? ' (full Moon: lunar eclipse possible)' : ''}` : '';
+    if (e.textContent !== txt) e.textContent = txt;
+  }
+
+  // ---------- holy-day finder ----------
+  renderFinder(days, y, m, loc) {
+    const F = this.finder; F.days = days; F.loc = loc;
+    this.$('[data-f="mlabel"]').textContent = new Date(Date.UTC(y, m - 1, 1)).toLocaleString('en', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+    const lead = new Date(Date.UTC(y, m - 1, 1)).getUTCDay();
+    const head = ['Ravi', 'Soma', 'Maṅgala', 'Budha', 'Guru', 'Śukra', 'Śani'].map((d) => `<span class="wd">${d}</span>`).join('');
+    const cells = Array.from({ length: lead }, () => '<i></i>').join('') + days.map((d) =>
+      `<button class="fday v-${d.verdict}" data-day="${d.d}"><b>${d.d}</b><span class="dv">${d.limbs.nak.name}</span><small>${d.limbs.tithi.iast.replace(' (Krishna)', '').slice(0, 9)}</small></button>`).join('');
+    this.$('[data-f="fgrid"]').innerHTML = head + cells;
+  }
+  finderReason(d, pin) {
+    const F = this.finder, day = F.days.find((x) => x.d === d); if (!day) return;
+    if (F.pinned && !pin) return; if (pin) F.pinned = d;
+    const verdict = { fav: 'Traditionally favourable', neutral: 'Neutral', avoid: 'Commonly avoided' }[day.verdict];
+    this.$$('.fday').forEach((b) => b.classList.toggle('sel', +b.dataset.day === d));
+    this.$('[data-f="freason"]').innerHTML = `<div class="frhead"><b class="v-${day.verdict}">${d} · ${verdict}</b><button class="xlink" data-scrub="${day.jd}">Show in the sky ${I.arrow}</button></div>
+      <div class="fchips">${day.chips.map((c) => `<span class="chip ${c.tone === 'fav' ? 'shubha' : c.tone === 'avoid' ? 'ashubha' : ''}"><em>${c.limb}</em> ${c.text}</span>`).join('')}</div>`;
+  }
 
   setPlaying(playing) { this.$('[data-act="play"]').innerHTML = playing ? I.pause : I.play; }
 }

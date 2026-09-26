@@ -15,6 +15,8 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { Starfield } from './Starfield.js';
 import { ZodiacWheel, R } from './ZodiacWheel.js';
 import { CelestialBodies } from './CelestialBodies.js';
+import { Planets, Constellations } from './Planets.js';
+import { STARS, CONSTELLATIONS, NAKSHATRA_TABLE } from './PanchangamData.js';
 
 const D2R = Math.PI / 180;
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -44,6 +46,12 @@ export class Renderer {
     this.bodies = new CelestialBodies(); this.ecliptic.add(this.bodies.group);
     this.earth = CelestialBodies.makeEarth(); this.scene.add(this.earth);
     this.grid = this.makeGrid(); this.equatorial.add(this.grid);
+    this.planets = new Planets(); this.ecliptic.add(this.planets.group);
+    this.constellations = new Constellations(this.stars); this.equatorial.add(this.constellations.group);
+    this.ground = this.makeGround(); this.scene.add(this.ground);
+    this.scene.add(new THREE.PointLight(0xfff0d0, 2.5, 0, 0));   // lights the planets from the geocentre (stylized)
+    this.layers = { constellations: true, grahas: true, nakshatra: true, rashi: true };
+    this.pov = { k: 0, dir: 0, az: 90, alt: 14, skyPos: new THREE.Vector3() };
     this.scene.add(new THREE.AmbientLight(0x3a4a8a, 0.4));
 
     this.composer = new EffectComposer(this.renderer);
@@ -66,6 +74,52 @@ export class Renderer {
     this.clockUp = new THREE.Vector3(); this.clockPos = new THREE.Vector3();
     this.resize(); addEventListener('resize', () => this.resize());
     this.t0 = performance.now();
+  }
+
+  makeGround() {
+    // "Stand here": an opaque ground hemisphere just outside the camera; everything below the horizon is hidden
+    const g = new THREE.Group();
+    const mat = new THREE.ShaderMaterial({
+      uniforms: { uOpacity: { value: 0 } }, transparent: true, depthWrite: true, side: THREE.BackSide,
+      vertexShader: 'varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
+      fragmentShader: `uniform float uOpacity; varying vec3 vP;
+        void main(){ float h = -vP.y; vec3 c = mix(vec3(0.06,0.07,0.13), vec3(0.015,0.018,0.035), smoothstep(0.0, 0.5, h));
+          c += vec3(0.25,0.3,0.55) * exp(-h * 40.0) * 0.5; gl_FragColor = vec4(c, uOpacity); }`,
+    });
+    const hemi = new THREE.Mesh(new THREE.SphereGeometry(4.6, 64, 32, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2), mat);
+    hemi.renderOrder = -1; g.add(hemi);
+    // atmospheric haze band above the horizon
+    const haze = new THREE.Mesh(new THREE.CylinderGeometry(4.55, 4.55, 1.1, 64, 1, true), new THREE.ShaderMaterial({
+      uniforms: { uOpacity: mat.uniforms.uOpacity }, transparent: true, depthWrite: false, side: THREE.BackSide, blending: THREE.AdditiveBlending,
+      vertexShader: 'varying float vY; void main(){ vY = position.y / 1.1 + 0.5; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
+      fragmentShader: 'uniform float uOpacity; varying float vY; void main(){ gl_FragColor = vec4(vec3(0.22,0.3,0.6) * pow(1.0 - vY, 2.5) * 0.6, uOpacity); }',
+    }));
+    haze.position.y = 0.55; g.add(haze);
+    g.visible = false; g.userData.mat = mat;
+    return g;
+  }
+
+  /** Observer frame at (lat, lon), Earth-fixed world coordinates. */
+  observerFrame(lat, lon) {
+    const Z = new THREE.Vector3(Math.cos(lat * D2R) * Math.cos(lon * D2R), Math.sin(lat * D2R), -Math.cos(lat * D2R) * Math.sin(lon * D2R));
+    const N = new THREE.Vector3(0, 1, 0).addScaledVector(Z, -Z.y);
+    if (N.lengthSq() < 1e-6) N.set(-1, 0, 0); N.normalize();
+    const E = new THREE.Vector3().crossVectors(N, Z);
+    return { Z, N, E };
+  }
+  povDir(f, az, alt) {
+    const a = az * D2R, h = alt * D2R;
+    return new THREE.Vector3().addScaledVector(f.N, Math.cos(h) * Math.cos(a)).addScaledVector(f.E, Math.cos(h) * Math.sin(a)).addScaledVector(f.Z, Math.sin(h));
+  }
+  povLookAt(worldPos) {   // "look at" locks from the horizon
+    const f = this.observerFrame(this.state.lat, this.state.lon), d = worldPos.clone().normalize();
+    this.pov.targetAlt = Math.asin(THREE.MathUtils.clamp(d.dot(f.Z), -1, 1)) / D2R;
+    this.pov.targetAz = Math.atan2(d.dot(f.E), d.dot(f.N)) / D2R;
+  }
+  povDrag(dx, dy) {
+    this.pov.targetAz = undefined; this.pov.targetAlt = undefined;
+    const k = this.camera.fov / this.height;
+    this.pov.az -= dx * k; this.pov.alt = THREE.MathUtils.clamp(this.pov.alt + dy * k, -10, 89);
   }
 
   makeGrid() {
@@ -91,7 +145,7 @@ export class Renderer {
     const el = document.createElement('div');
     el.className = `lbl ${cls}`; el.innerHTML = html;
     this.labelLayer.appendChild(el);
-    const L = { el, obj, local, visible: true, on: true };
+    const L = { el, obj, local, visible: true, on: true, cls };
     this.labels.push(L); return L;
   }
   buildLabels() {
@@ -101,6 +155,10 @@ export class Renderer {
     this.sunLabel = this.addLabel('<span class="dv">सूर्य</span><span class="ia">Surya</span>', this.bodies.sun, new THREE.Vector3(0, 1.1, 0), 'lbl-body');
     this.moonLabel = this.addLabel('<span class="dv">चन्द्र</span><span class="ia">Chandra</span>', this.bodies.moonGroup, new THREE.Vector3(0, 0.8, 0), 'lbl-body');
     this.dLLabel = this.addLabel('', this.ecliptic, new THREE.Vector3(), 'lbl-dl');
+    this.planetLabels = Object.entries(this.planets.bodies).map(([k, b]) => this.addLabel(`<span class="dv">${{ budha: 'बुध', shukra: 'शुक्र', mangala: 'मङ्गल', guru: 'गुरु', shani: 'शनि' }[k]}</span>`, b.group, new THREE.Vector3(0, 0.75, 0), 'lbl-graha'));
+    this.nodeLabels = ['rahu', 'ketu'].map((k) => this.addLabel(`<span class="dv">${k === 'rahu' ? 'राहु' : 'केतु'}</span>`, this.planets.nodes[k].group, new THREE.Vector3(0, 0.55, 0), 'lbl-node'));
+    this.cardinals = ['N', 'E', 'S', 'W'].map((c) => this.addLabel(`<b>${c}</b>`, this.scene, new THREE.Vector3(), 'lbl-card'));
+    this.starLabels = STARS.filter((s) => s.mag < 1.4 || s.yogatara).map((s) => this.addLabel(`<span class="sn">${s.name}</span>`, this.stars.group, this.stars.starPosition(s.name, new THREE.Vector3()).clone(), 'lbl-star'));
   }
 
   updateLabels() {
@@ -109,11 +167,13 @@ export class Renderer {
     for (const L of this.labels) {
       if (!L.on) { if (L.visible) { L.el.style.opacity = 0; L.visible = false; } continue; }
       v.copy(L.local); L.obj.localToWorld(v);
+      const worldV = v.clone();
       const toP = v.clone().sub(this.camera.position);
       const front = toP.dot(camDir) > 0;
       v.project(this.camera);
       const x = (v.x * 0.5 + 0.5) * w, y = (-v.y * 0.5 + 0.5) * h;
-      const vis = front && x > -80 && x < w + 80 && y > -40 && y < h + 40;
+      const aboveHorizon = !this.povZ || this.pov.k < 0.5 || L.cls === 'lbl-card' || worldV.normalize().dot(this.povZ) > -0.01;
+      const vis = front && aboveHorizon && x > -80 && x < w + 80 && y > -40 && y < h + 40;
       if (vis) L.el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) translate(-50%, -50%)`;
       const op = vis ? (L.opacityOverride ?? 1) : 0;
       if (L.lastOp !== op) { L.el.style.opacity = op; L.lastOp = op; }
@@ -152,13 +212,23 @@ export class Renderer {
   }
 
   setMode(mode, onMid) {
-    if (this.anim) { this.pending = { mode, onMid }; return true; }
+    if (this.anim || this.pov.dir) { this.pending = { mode, onMid }; return true; }
     if (mode === this.mode) return false;
+    if (mode === 'pov') {
+      if (this.mode === 'clock') { this.setMode('sky', onMid); this.pending = { mode: 'pov', onMid }; return true; }
+      this.pov.skyPos.copy(this.camera.position); this.pov.dir = 1; this.controls.enabled = false; this.lock = null;
+      this.mode = 'pov'; onMid?.(); return true;
+    }
+    if (this.mode === 'pov') {   // leave the horizon first, then continue
+      this.pov.dir = -1; this.mode = 'sky';
+      if (mode === 'clock') this.pending = { mode: 'clock', onMid }; else onMid?.();
+      return true;
+    }
     const toSky = mode === 'sky';
     const startPos = this.camera.position.clone(), startUp = this.camera.up.clone();
     const endPos = new THREE.Vector3(), endUp = new THREE.Vector3(0, 1, 0);
     if (toSky) endPos.copy(this.skyPoseFor()); else { this.skyPose.copy(this.camera.position); this.computeClockPose(endPos, endUp); }
-    this.controls.enabled = false; this.lock = null;
+    this.controls.enabled = false; if (!toSky) this.lock = null;
     this.anim = { t: 0, dur: reducedMotion.matches ? 0.3 : 1.6, toSky, startPos, startUp, endPos, endUp, reduced: reducedMotion.matches, onMid, mid: false };
     this.mode = mode;
     return true;
@@ -195,13 +265,49 @@ export class Renderer {
     if (A.t >= 1) {
       this.anim = null; this.fov = 40; this.swell = 1;
       if (A.toSky) { this.controls.enabled = true; this.camera.up.set(0, 1, 0); }
-      if (this.pending) { const p = this.pending; this.pending = null; if (this.setMode(p.mode, p.onMid)) this.onPending?.(p.mode); }
+      this.flushPending();
     }
     return A;
   }
 
+  flushPending() {
+    if (!this.pending) return;
+    const p = this.pending; this.pending = null;
+    if (this.setMode(p.mode, p.onMid)) this.onPending?.(p.mode);
+  }
+
+  stepPov(dt, state) {
+    const P = this.pov;
+    if (P.dir) {
+      P.k = THREE.MathUtils.clamp(P.k + P.dir * dt / (reducedMotion.matches ? 0.3 : 0.9), 0, 1);
+      if (P.k === 1 && P.dir > 0) P.dir = 0;
+      if (P.k === 0 && P.dir < 0) { P.dir = 0; this.camera.position.copy(P.skyPos); this.camera.up.set(0, 1, 0); this.controls.enabled = true; this.flushPending(); }
+    }
+    this.ground.visible = P.k > 0.001;
+    this.povZ = null;
+    if (P.k <= 0) return false;
+    if (P.targetAz !== undefined) {
+      const k = 1 - Math.exp(-dt * 3);
+      P.az += ((((P.targetAz - P.az) % 360) + 540) % 360 - 180) * k; P.alt += (P.targetAlt - P.alt) * k;
+    }
+    const f = this.observerFrame(state.lat, state.lon), e = easeInOut(P.k);
+    this.povZ = f.Z;
+    this.ground.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), f.Z);
+    this.ground.userData.mat.uniforms.uOpacity.value = Math.min(1, e * 1.4);
+    const eye = f.Z.clone().multiplyScalar(0.02);
+    this.camera.position.copy(P.skyPos).lerp(eye, e);
+    this.camera.up.set(0, 1, 0).lerp(f.Z, e).normalize();
+    const target = new THREE.Vector3().lerp(eye.clone().add(this.povDir(f, P.az, P.alt)), e);
+    this.camera.lookAt(target);
+    ['N', 'E', 'S', 'W'].forEach((c, i) => this.cardinals[i].local.copy(this.povDir(f, i * 90, 3).multiplyScalar(4.2)));
+    return true;
+  }
+
   /** Camera locks (sky mode): overview / earth / sun / moon / nakshatra / tithi / yoga / karana. */
-  setLock(k) { this.lock = k; if (this.mode !== 'sky') return; this.lockBlend = 0; }
+  setLock(k) {
+    if (this.mode === 'pov') { if (!['overview', 'earth'].includes(k)) this.povLookAt(this.lockTarget(k, new THREE.Vector3())); return; }
+    this.lock = k;
+  }
 
   lockTarget(k, out) {
     const P = (lon, r) => this.ecliptic.localToWorld(out.set(r * Math.cos(lon * D2R), 0, -r * Math.sin(lon * D2R)));
@@ -213,6 +319,8 @@ export class Renderer {
       case 'tithi': return P(s.sunLon + s.pan.elongation / 2, R.moon);
       case 'karana': return P(s.sunLon + (s.pan.karana.index - 0.5) * 6, R.tithi1);
       case 'yoga': return P(s.pan.yogaSum, R.ecl);
+      case 'budha': case 'shukra': case 'mangala': case 'guru': case 'shani': return this.planets.bodies[k].group.getWorldPosition(out);
+      case 'rahu': case 'ketu': return this.planets.nodes[k].group.getWorldPosition(out);
       default: return out.set(0, 0, 0);
     }
   }
@@ -222,8 +330,19 @@ export class Renderer {
     const rect = this.renderer.domElement.getBoundingClientRect();
     const ndc = new THREE.Vector2(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
     this.raycaster.setFromCamera(ndc, this.camera);
-    const hits = this.raycaster.intersectObjects([this.bodies.sun.children[0], this.bodies.moon, this.earth], false);
-    if (hits.length) return { kind: 'graha', key: hits[0].object.userData.pick };
+    const pickables = [this.bodies.sun.children[0], this.bodies.moon, ...(this.layers.grahas ? this.planets.pickables : [])];
+    if (this.pov.k < 0.5) pickables.push(this.earth);
+    const hits = this.raycaster.intersectObjects(pickables, false);
+    if (hits.length) return { kind: 'graha', key: hits[0].object.userData.pick, obj: hits[0].object };
+    this.raycaster.params.Points.threshold = 2.4;
+    const sh = this.raycaster.intersectObject(this.stars.named.points, false);
+    if (sh.length) {
+      const star = STARS[sh[0].index];
+      const wp = this.stars.starPosition(star.name, new THREE.Vector3()); this.stars.group.localToWorld(wp);
+      const lp = this.ecliptic.worldToLocal(wp.clone());
+      const lon = ((Math.atan2(-lp.z, lp.x) / D2R) + 360) % 360, lat = Math.asin(lp.y / lp.length()) / D2R;
+      return { kind: 'star', star, lon, lat, nak: star.yogatara || Math.min(27, Math.floor(lon / (40 / 3)) + 1), world: wp };
+    }
     // ring sectors: intersect the ecliptic plane and read the angle/radius
     const inv = new THREE.Matrix4().copy(this.ecliptic.matrixWorld).invert();
     const ray = this.raycaster.ray.clone().applyMatrix4(inv);
@@ -243,7 +362,9 @@ export class Renderer {
   /** Project a pick result to screen for anchoring the tooltip. */
   screenOf(hit) {
     const v = new THREE.Vector3();
-    if (hit.kind === 'graha') {
+    if (hit.kind === 'star') v.copy(hit.world);
+    else if (hit.kind === 'graha' && hit.obj && !['surya', 'chandra', 'earth'].includes(hit.key)) hit.obj.getWorldPosition(v);
+    else if (hit.kind === 'graha') {
       if (hit.key === 'surya') this.bodies.sun.getWorldPosition(v);
       else if (hit.key === 'chandra') this.bodies.moon.getWorldPosition(v);
       else v.set(0, 0, 0);
@@ -267,6 +388,10 @@ export class Renderer {
     this.equatorial.rotation.y = -state.gmst * D2R * this.w;
 
     this.wheel.update(state.sunLon, state.moonLon, state.pan, dt);
+    this.planets.update(state.jd, state.sunLon, state.moonLon, t, state.dayLord);
+    this.planets.group.visible = this.layers.grahas && this.w > 0.15;
+    this.constellations.group.visible = this.layers.constellations && this.w > 0.5;
+    this.wheel.nakMesh.visible = this.layers.nakshatra; this.wheel.rashiMesh.visible = this.layers.rashi;
     this.bodies.update(state.sunLon, state.moonLon, t);
 
     // temporal overlays belong to the clock only; they fade out as we lift off
@@ -281,7 +406,10 @@ export class Renderer {
     const sci = view !== 'religious', rel = view !== 'scientific';
     this.grid.visible = sci;
     for (const l of this.wheel.science) l.visible = sci;
-    this.earth.visible = true;
+    this.earth.visible = this.pov.k < 0.5;
+    const nearHidden = this.pov.k > 0.3;   // anything inside the ground radius goes when standing on Earth
+    this.wheel.tithiPivot.visible = !nearHidden; this.wheel.tithiHL.visible = !nearHidden;
+    for (const l of this.wheel.science) l.visible = l.visible && !nearHidden;
 
     if (!this.anim && this.mode === 'clock') {
       this.computeClockPose(this.clockPos, this.clockUp);
@@ -292,7 +420,12 @@ export class Renderer {
     if (this.mode === 'sky' && !this.anim && this.lock) {
       const target = this.lockTarget(this.lock, new THREE.Vector3());
       this.controls.target.lerp(target, 1 - Math.exp(-dt * 4));
-      if (this.lock !== 'overview' && this.lock !== 'earth') {
+      if (this.planets.bodies[this.lock]) {
+        // grahas are lit from the geocentre: view them from the Earth side so the lit face shows
+        const side = new THREE.Vector3().crossVectors(target, new THREE.Vector3(0, 1, 0)).setLength(2.6);
+        const want = target.clone().multiplyScalar(1 - 4.2 / target.length()).add(side).add(new THREE.Vector3(0, 0.8, 0));
+        this.camera.position.lerp(want, 1 - Math.exp(-dt * 2.5));
+      } else if (this.lock !== 'overview' && this.lock !== 'earth') {
         const want = target.clone().add(target.clone().normalize().multiplyScalar(-0.2)).add(new THREE.Vector3(0, 3.5, 0)).setLength(target.length() + 7);
         this.camera.position.lerp(want, 1 - Math.exp(-dt * 2.5));
       } else if (this.lock === 'earth') {
@@ -303,10 +436,11 @@ export class Renderer {
     } else if (this.mode === 'sky' && !this.anim && !this.lock) {
       this.controls.target.lerp(new THREE.Vector3(), 1 - Math.exp(-dt * 3));
     }
-    if (this.controls.enabled) this.controls.update(); else this.camera.lookAt(0, 0, 0);
+    const inPov = this.stepPov(dt, state);
+    if (!inPov) { if (this.controls.enabled) this.controls.update(); else this.camera.lookAt(0, 0, 0); }
 
-    this.camera.fov = this.fov ?? 40;
-    const k = 1 - this.w, vo = this.viewOffset;
+    this.camera.fov = inPov ? THREE.MathUtils.lerp(40, this.povFov ?? 62, easeInOut(this.pov.k)) : (this.fov ?? 40);
+    const k = Math.max(1 - this.w, easeInOut(this.pov.k)), vo = this.viewOffset;
     if (vo && k > 0.001) this.camera.setViewOffset(this.width, this.height, vo.x * k, vo.y * k, this.width, this.height);
     else this.camera.clearViewOffset();
     this.camera.updateProjectionMatrix();
@@ -322,7 +456,11 @@ export class Renderer {
     this.rashiLabels.forEach((L, i) => L.el.classList.toggle('on', i === state.pan.rashiMoon.index - 1));
     const midLon = state.sunLon + state.pan.elongation / 2;
     this.dLLabel.local.set((R.moon - 0.6) * Math.cos(midLon * D2R), 0, -(R.moon - 0.6) * Math.sin(midLon * D2R));
-    this.dLLabel.on = sci && state.pan.elongation > 8;
+    this.dLLabel.on = sci && state.pan.elongation > 8 && this.pov.k < 0.5;
+    this.planetLabels.forEach((L) => { L.on = this.layers.grahas && this.w > 0.3; });
+    this.nodeLabels.forEach((L) => { L.on = this.layers.grahas && this.w > 0.3; });
+    this.cardinals.forEach((L) => { L.on = this.pov.k > 0.6; });
+    this.starLabels.forEach((L) => { L.on = this.layers.constellations && this.w > 0.6; });
     const txt = `ΔL ${state.pan.elongation.toFixed(1)}°`;
     if (this.dLLabel.el.textContent !== txt) this.dLLabel.el.textContent = txt;
 
