@@ -75,15 +75,22 @@
     const sp = new T.Sprite(new T.SpriteMaterial({ map: TX.glow, blending: T.AdditiveBlending, transparent: true, depthWrite: false }));
     sp.scale.setScalar(r * glow); grp.add(sp); return grp;
   }
-  function makeStars(seed, mats) {
-    const r = rng(seed), grp = new T.Group(); const R = 420; const buckets = [[[], []], [[], []], [[], []]];
+  function makeStars(seed, mats, gal) {
+    const r = rng(seed), grp = new T.Group(); const R = 420; const buckets = [[[], []], [[], []], [[], []], [[], []]];
     const push = (v, k, bright) => { const t = r(); const c = t < 0.14 ? [0.72, 0.8, 1] : t < 0.3 ? [1, 0.86, 0.7] : [1, 0.97, 0.92]; buckets[k][0].push(v.x, v.y, v.z); buckets[k][1].push(c[0] * bright, c[1] * bright, c[2] * bright); };
     for (let i = 0; i < 3400; i++) { const u = r() * 2 - 1, th = r() * 6.2832, s = Math.sqrt(1 - u * u); const v = new T.Vector3(R * s * Math.cos(th), R * u, R * s * Math.sin(th)); const m = r(); const k = m < 0.82 ? 0 : m < 0.975 ? 1 : 2; push(v, k, k ? 0.65 + 0.35 * r() : 0.25 + 0.45 * r()); }
-    const q = new T.Quaternion().setFromAxisAngle(new T.Vector3(1, 0, 0.4).normalize(), 62 * D2R);
-    for (let i = 0; i < 4200; i++) { const th = r() * 6.2832; const gs = (r() + r() + r() - 1.5) * 0.16; const v = new T.Vector3(Math.cos(th) * Math.cos(gs), Math.sin(gs), Math.sin(th) * Math.cos(gs)).multiplyScalar(R).applyQuaternion(q); push(v, 0, 0.12 + 0.3 * r()); }
+    if (gal) {
+      const e1 = gal.gc.clone().normalize(), e3 = gal.pole.clone().normalize(), e2 = new T.Vector3().crossVectors(e3, e1).normalize();
+      const at = (th, gs) => new T.Vector3().addScaledVector(e1, Math.cos(th) * Math.cos(gs)).addScaledVector(e2, Math.sin(th) * Math.cos(gs)).addScaledVector(e3, Math.sin(gs)).multiplyScalar(R);
+      for (let i = 0; i < 5600; i++) { const th = r() < 0.4 ? (r() + r() + r() - 1.5) * 1.3 : r() * 6.2832; const bu = 1 + 1.4 * Math.exp(-th * th * 2); push(at(th, (r() + r() + r() - 1.5) * 0.12 * bu), 0, 0.12 + 0.3 * r()); }
+      for (let i = 0; i < 700; i++) { const th = r() < 0.5 ? (r() + r() - 1) * 1.2 : r() * 6.2832; const bu = 1 + 1.4 * Math.exp(-th * th * 2); push(at(th, (r() + r() + r() - 1.5) * 0.09 * bu), 3, 0.04 + 0.04 * r() + 0.07 * Math.exp(-th * th * 3)); }
+    } else {
+      const q = new T.Quaternion().setFromAxisAngle(new T.Vector3(1, 0, 0.4).normalize(), 62 * D2R);
+      for (let i = 0; i < 4200; i++) { const th = r() * 6.2832; const gs = (r() + r() + r() - 1.5) * 0.16; const v = new T.Vector3(Math.cos(th) * Math.cos(gs), Math.sin(gs), Math.sin(th) * Math.cos(gs)).multiplyScalar(R).applyQuaternion(q); push(v, 0, 0.12 + 0.3 * r()); }
+    }
     buckets.forEach(([p, c], k) => {
       const gg = new T.BufferGeometry(); gg.setAttribute('position', new T.Float32BufferAttribute(p, 3)); gg.setAttribute('color', new T.Float32BufferAttribute(c, 3));
-      const m = new T.PointsMaterial({ size: [1.5, 2.6, 4.2][k], sizeAttenuation: false, vertexColors: true, map: TX.dot, transparent: true, depthWrite: false, blending: T.AdditiveBlending });
+      const m = new T.PointsMaterial({ size: [1.5, 2.6, 4.2, 30][k], sizeAttenuation: false, vertexColors: true, map: TX.dot, transparent: true, depthWrite: false, blending: T.AdditiveBlending });
       m.userData.base = m.size; mats.push(m); grp.add(new T.Points(gg, m));
     });
     return grp;
@@ -273,6 +280,68 @@
     if (C.last.y !== yi) { C.last.y = yi; C.yHi.geometry.dispose(); C.yHi.geometry = new T.RingGeometry(1.75, 2.35, 16, 1, (90 + yi * 360 / 27) * D2R, 360 / 27 * D2R); }
   }
 
+  // ---------- festival ----------
+  function flameCanvas() { const c = mkCanvas(128, 256), g = c.getContext('2d'); g.translate(64, 180); g.scale(1, 2.2); const gr = g.createRadialGradient(0, 0, 0, 0, 0, 58); gr.addColorStop(0, 'rgba(255,255,232,1)'); gr.addColorStop(0.18, 'rgba(255,221,120,0.95)'); gr.addColorStop(0.45, 'rgba(255,140,40,0.5)'); gr.addColorStop(1, 'rgba(200,60,10,0)'); g.fillStyle = gr; g.beginPath(); g.arc(0, 0, 58, 0, 7); g.fill(); return c; }
+  function kolamCanvas() {
+    const S2 = 2048, c = mkCanvas(S2, S2), g = c.getContext('2d'), cx = S2 / 2, s = S2 / 2 / 11.62, rm = 11.12, A = 0.3, N = 108;
+    const P2 = (r, th) => [cx + r * s * Math.cos(th), cx - r * s * Math.sin(th)];
+    const curve = (fr, col, w) => { g.beginPath(); for (let k = 0; k <= 4320; k++) { const th = k / 4320 * 2 * Math.PI; const [x, y] = P2(fr(th), th); k ? g.lineTo(x, y) : g.moveTo(x, y); } g.strokeStyle = col; g.lineWidth = w; g.stroke(); };
+    g.lineCap = 'round'; g.lineJoin = 'round';
+    for (const sg of [1, -1]) curve((th) => rm + sg * A * Math.sin(N / 2 * th), 'rgba(255,248,236,0.92)', 4);
+    curve((th) => 11.52 - 0.09 * Math.abs(Math.sin(27 * th)), 'rgba(245,185,10,0.85)', 3);
+    curve(() => 10.7, 'rgba(245,185,10,0.7)', 2.5);
+    for (let k = 0; k < N; k++) { const th = (k + 0.5) / N * 2 * Math.PI; const [x, y] = P2(rm, th); g.fillStyle = k % 4 === 0 ? '#E8452E' : 'rgba(255,248,236,0.95)'; g.beginPath(); g.arc(x, y, k % 4 === 0 ? 6 : 4.5, 0, 7); g.fill(); }
+    return c;
+  }
+  function garland(nSwag, per, pos, r) {
+    const im = new T.InstancedMesh(new T.SphereGeometry(r, 10, 8), new T.MeshLambertMaterial({ color: 0xffffff, emissive: 0x2a1204 }), nSwag * per);
+    const M = new T.Matrix4(), c = new T.Color(), cols = [0xF08A12, 0xF6B41F, 0xF08A12, 0xE8741A, 0xF6B41F, 0xFFF4DE, 0xFFF4DE]; let k = 0;
+    for (let j = 0; j < nSwag; j++) for (let q = 0; q < per; q++) { const p = pos(j, (q + 0.5) / per); M.makeTranslation(p.x, p.y, p.z); im.setMatrixAt(k, M); c.setHex(cols[q % cols.length]); im.setColorAt(k, c); k++; }
+    im.instanceMatrix.needsUpdate = true; if (im.instanceColor) im.instanceColor.needsUpdate = true; return im;
+  }
+  function lamp(scale) {
+    const grp = new T.Group();
+    const bowl = new T.Mesh(new T.LatheGeometry([new T.Vector2(0, 0), new T.Vector2(0.1, 0.01), new T.Vector2(0.17, 0.06), new T.Vector2(0.19, 0.11), new T.Vector2(0.17, 0.12)], 20), new T.MeshStandardMaterial({ color: 0xC99A3E, metalness: 0.75, roughness: 0.35, emissive: 0x3a2008, emissiveIntensity: 0.7 }));
+    const f = new T.Sprite(new T.SpriteMaterial({ map: TX.flame, blending: T.AdditiveBlending, transparent: true, depthWrite: false })); f.center.set(0.5, 0.2); f.position.y = 0.1; f.userData.ph = Math.random() * 20;
+    grp.add(bowl, f); grp.scale.setScalar(scale); grp.userData.flame = f; return grp;
+  }
+  function makeBursts(parent, count, spawnC, speed) {
+    const out = [];
+    for (let k = 0; k < count; k++) {
+      const n = 80, geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(new Float32Array(n * 3), 3)); geo.setAttribute('color', new T.Float32BufferAttribute(new Float32Array(n * 3), 3));
+      const pts = new T.Points(geo, new T.PointsMaterial({ size: 3.4, sizeAttenuation: false, vertexColors: true, map: TX.dot, transparent: true, depthWrite: false, blending: T.AdditiveBlending }));
+      pts.frustumCulled = false; pts.visible = false; parent.add(pts); out.push({ pts, vel: new Float32Array(n * 3), c: new T.Vector3(), t0: -1, wait: Math.random() * 3, n, spawnC, speed });
+    }
+    return out;
+  }
+  const BPAL = [[1, 0.8, 0.35], [1, 0.45, 0.2], [1, 0.35, 0.6], [1, 0.95, 0.8], [0.6, 1, 0.5]];
+  function tickBursts(list, t, dt, on) {
+    for (const B of list) {
+      if (!on) { B.pts.visible = false; B.t0 = -1; continue; }
+      if (B.t0 < 0) { B.wait -= dt; if (B.wait > 0) continue; B.spawnC(B.c); const pc = BPAL[Math.floor(Math.random() * BPAL.length)], col = B.pts.geometry.attributes.color;
+        for (let i = 0; i < B.n; i++) { const u = Math.random() * 2 - 1, th = Math.random() * 6.283, s = Math.sqrt(1 - u * u), sp = B.speed * (0.8 + Math.random() * 0.5); B.vel[i * 3] = sp * s * Math.cos(th); B.vel[i * 3 + 1] = sp * u; B.vel[i * 3 + 2] = sp * s * Math.sin(th); const w = 0.7 + 0.3 * Math.random(); col.setXYZ(i, pc[0] * w, pc[1] * w, pc[2] * w); }
+        col.needsUpdate = true; B.t0 = t; }
+      const age = t - B.t0; if (age > 2.2) { B.t0 = -1; B.wait = 0.4 + Math.random() * 3; B.pts.visible = false; continue; }
+      B.pts.visible = true; const p = B.pts.geometry.attributes.position, k = age * (1 - age * 0.18), gy = 0.09 * B.speed * age * age;
+      for (let i = 0; i < B.n; i++) p.setXYZ(i, B.c.x + B.vel[i * 3] * k, B.c.y + B.vel[i * 3 + 1] * k - gy, B.c.z + B.vel[i * 3 + 2] * k);
+      p.needsUpdate = true; B.pts.material.opacity = Math.pow(1 - age / 2.2, 1.5);
+    }
+  }
+  const GRADE = { deepavali: [0.955, 1.0, 1.05, 0.025, [1.0, 0.5, 0.15]], pongal: [0.035, 0.95, 1.0, 0.1, [1.0, 0.72, 0.22]], temple: [0.075, 0.14, 0.95, 0.02, [1.0, 0.5, 0.2]] };
+  const GRADE_FS = `uniform sampler2D tD; uniform vec4 uH; uniform vec3 uGlow; varying vec2 vUv;
+    vec3 rgb2hsv(vec3 c){ vec4 K=vec4(0.,-1./3.,2./3.,-1.); vec4 p=mix(vec4(c.bg,K.wz),vec4(c.gb,K.xy),step(c.b,c.g)); vec4 q=mix(vec4(p.xyw,c.r),vec4(c.r,p.yzx),step(p.x,c.r)); float d=q.x-min(q.w,q.y); float e=1.0e-10; return vec3(abs(q.z+(q.w-q.y)/(6.*d+e)),d/(q.x+e),q.x); }
+    vec3 hsv2rgb(vec3 c){ vec4 K=vec4(1.,2./3.,1./3.,3.); vec3 p=abs(fract(c.xxx+K.xyz)*6.-K.www); return c.z*mix(K.xxx,clamp(p-K.xxx,0.,1.),c.y); }
+    void main(){ vec3 c=texture2D(tD,vUv).rgb; vec3 h=rgb2hsv(c);
+      float hd=abs(h.x-0.64); hd=min(hd,1.-hd);
+      float w=(1.-smoothstep(0.09,0.17,hd))*smoothstep(0.06,0.22,h.y)*(1.-smoothstep(0.5,0.85,h.z));
+      float dark=1.-smoothstep(0.0,0.035,h.z);
+      vec3 g=hsv2rgb(vec3(uH.x, clamp(h.y*uH.y,0.,1.), clamp(uH.w+h.z*uH.z,0.,1.)));
+      vec3 bgc=hsv2rgb(vec3(uH.x, 0.75*uH.y, uH.w+0.02));
+      vec3 o=mix(c,g,w); o=mix(o,max(o,bgc),dark);
+      float dy=distance(vUv,vec2(0.5,-0.2)); o+=uGlow*0.14*(1.-smoothstep(0.,1.0,dy));
+      float vg=smoothstep(1.2,0.3,distance(vUv,vec2(0.5))); o*=0.78+0.22*vg;
+      gl_FragColor=vec4(o,1.); }`;
+
   // ---------- horizon helpers ----------
   function moonLat(jd) { const T_ = (jd - 2451545) / 36525; const om = 125.04452 - 1934.136261 * T_; return 5.145 * Math.sin((P.moonLon(jd) - om) * D2R); }
   function altaz(lamSid, beta, jd, loc) {
@@ -305,10 +374,13 @@
     el.appendChild(renderer.domElement);
     initTextures(renderer);
     const starMats = [];
+    const jd0 = opts.jd || P.jdFromDate(new Date());
+    const eclDir = (lamTrop, beta) => { const T0 = (jd0 - 2451545) / 36525; const l = (lamTrop + 1.3969713 * T0 - P.ayanamsa(jd0)) * D2R, b = beta * D2R; return new T.Vector3(Math.cos(b) * Math.cos(l), Math.sin(b), -Math.cos(b) * Math.sin(l)); };
+    const GAL = { pole: eclDir(180.02, 29.81), gc: eclDir(266.84, -5.54) };
     // ----- orbital scene -----
     const scene = new T.Scene();
     const cam = new T.PerspectiveCamera(40, 1, 0.05, 2000);
-    const stars = makeStars(7, starMats); scene.add(stars);
+    const stars = makeStars(7, starMats, GAL); scene.add(stars);
     const amb = new T.AmbientLight(0x6070a0, 0.25); scene.add(amb);
     const sunLight = new T.PointLight(0xfff0dc, 1.7, 0, 0); scene.add(sunLight);
     const cl1 = new T.DirectionalLight(0xfff0dc, 1.2); cl1.position.set(-4, 6, 10); const cl2 = new T.DirectionalLight(0x9fb8ff, 0.4); cl2.position.set(6, -3, 4); const clAmb = new T.AmbientLight(0x6070a0, 0.6); scene.add(cl1, cl2, clAmb);
@@ -329,6 +401,50 @@
     // lift-off clock
     const lift = new T.Group(); scene.add(lift);
     const C = buildClock(lift);
+    // ----- cosmos: yogatāras at real distances -----
+    const YT = (window.Yogatara && window.Yogatara.list) || [];
+    const Rd = (ly) => 22 + 110 * Math.log10(ly / 10);
+    const COS = { g: new T.Group(), items: [], sel: -1, depth: 1, depthGoal: 1, v: 0 }; sky.add(COS.g);
+    const sAtt = (sp) => { sp.material.sizeAttenuation = false; return sp; };
+    YT.forEach((st, i) => {
+      const e = window.Yogatara.eclSid(st, jd0, P), lr = e.lam * D2R, br = e.beta * D2R;
+      const glow = new T.Sprite(new T.SpriteMaterial({ map: TX.dot, color: new T.Color(st.tint), blending: T.AdditiveBlending, transparent: true, depthWrite: false, sizeAttenuation: false }));
+      const base = clamp(0.03 - 0.0042 * st.mag, 0.009, 0.034); glow.scale.setScalar(base); glow.renderOrder = 5; COS.g.add(glow);
+      const lb = sAtt(label([{ t: P.N.nakshatra[i], f: `italic 44px ${F.skt}`, c: COL.goldSoft, lh: 1.15 }, { t: st.name, f: `500 26px ${F.mono}`, c: COL.muted, lh: 1.2 }], 0.034, { pad: 10 })); lb.center.set(0.5, 1.3); COS.g.add(lb);
+      COS.items.push({ st, lam: e.lam, beta: e.beta, dir: new T.Vector3(Math.cos(br) * Math.cos(lr), Math.sin(br), -Math.cos(br) * Math.sin(lr)), glow, lb, base, pos: new T.Vector3(), ring: onRing(ZR.nk1, e.lam) });
+    });
+    { const g2 = new T.BufferGeometry(); g2.setAttribute('position', new T.Float32BufferAttribute(new Float32Array(Math.max(1, YT.length) * 6), 3)); COS.thr = new T.LineSegments(g2, new T.LineBasicMaterial({ color: COL.gold, transparent: true, opacity: 0, depthWrite: false })); COS.thr.frustumCulled = false; COS.g.add(COS.thr); }
+    COS.rings = [10, 100, 1000].map((ly) => { const pts = []; for (let a = 0; a <= 360; a += 2) pts.push(onRing(Rd(ly), a)); const line = new T.Line(new T.BufferGeometry().setFromPoints(pts), new T.LineBasicMaterial({ color: COL.muted, transparent: true, opacity: 0, depthWrite: false })); const lb = sAtt(label([{ t: ly === 1000 ? '1,000 ly' : `${ly} ly`, f: `500 30px ${F.mono}`, c: COL.muted }], 0.02)); lb.position.copy(onRing(Rd(ly), 300)); COS.g.add(line, lb); return { line, lb }; });
+    COS.gc = new T.Sprite(new T.SpriteMaterial({ map: TX.glow, blending: T.AdditiveBlending, transparent: true, depthWrite: false, sizeAttenuation: false })); COS.gc.scale.setScalar(0.09); COS.g.add(COS.gc);
+    COS.gcL = sAtt(label([{ t: 'Galactic centre', f: `600 30px ${F.sans}`, c: COL.goldSoft }, { t: '26,000 ly · toward Mūla', f: `500 24px ${F.mono}`, c: COL.muted }], 0.032)); COS.gcL.center.set(0.5, 1.4); COS.g.add(COS.gcL);
+    COS.sunL = sAtt(label([{ t: 'Sūrya', f: `italic 40px ${F.skt}`, c: COL.goldSoft }, { t: 'you are here', f: `500 24px ${F.mono}`, c: COL.muted }], 0.03)); COS.sunL.center.set(0.5, -0.3); COS.g.add(COS.sunL);
+    // ----- festival dressing (built on first use) -----
+    const FEST = { mood: null, built: false, lamps: [], bursts: [], hBursts: [] };
+    function buildFest() {
+      if (FEST.built) return; FEST.built = true;
+      TX.flame = TX.flame || tex(flameCanvas()); TX.kolam = TX.kolam || tex(kolamCanvas());
+      FEST.sky = new T.Group(); sky.add(FEST.sky);
+      FEST.kol = new T.Mesh(new T.RingGeometry(10.62, 11.62, 360, 1), new T.MeshBasicMaterial({ map: TX.kolam, transparent: true, depthWrite: false, side: T.DoubleSide })); FEST.kol.rotation.x = -Math.PI / 2; FEST.kol.position.y = 0.01; FEST.sky.add(FEST.kol);
+      for (let j = 0; j < 27; j++) { const l = lamp(1); l.position.copy(onRing(11.12, j * 360 / 27)); FEST.sky.add(l); FEST.lamps.push(l); }
+      FEST.sky.add(garland(27, 22, (j, u) => { const a = (j + u) * 360 / 27, sg = Math.sin(Math.PI * u); return onRing(11.12 + 0.12 * sg, a, 0.14 - 0.75 * sg); }, 0.075));
+      FEST.clock = garland(12, 16, (j, u) => { const a = 90 - (j + u) * 30, sg = Math.sin(Math.PI * u); return cpos(5.52 + 0.3 * sg, a, 0.12); }, 0.085); C.g.add(FEST.clock);
+      FEST.hor = new T.Group(); H.scene.add(FEST.hor);
+      for (let k = 0; k < 12; k++) { const l = lamp(7); l.position.copy(dirV(0.2, k * 30 + 15, 86)); FEST.hor.add(l); FEST.lamps.push(l); }
+      FEST.bursts = makeBursts(scene, 6, (c) => { const R = 16 + Math.random() * 26, a = Math.random() * 6.283; c.set(R * Math.cos(a), 4 + Math.random() * 14, R * Math.sin(a)); }, 2.4);
+      FEST.hBursts = makeBursts(H.scene, 5, (c) => { c.copy(dirV(14 + Math.random() * 30, Math.random() * 360, 70)); }, 6);
+    }
+    const GR = { rt: null, scene: new T.Scene(), cam: new T.OrthographicCamera(-1, 1, 1, -1, 0, 1) };
+    GR.mat = new T.ShaderMaterial({ uniforms: { tD: { value: null }, uH: { value: new T.Vector4(0, 1, 1, 0) }, uGlow: { value: new T.Color() } }, depthTest: false, depthWrite: false,
+      vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }', fragmentShader: GRADE_FS });
+    GR.scene.add(new T.Mesh(new T.PlaneGeometry(2, 2), GR.mat));
+    const _sz = new T.Vector2();
+    function draw(sc) {
+      if (!FEST.mood) { renderer.render(sc, cam); return; }
+      renderer.getDrawingBufferSize(_sz);
+      if (!GR.rt || GR.rt.width !== _sz.x || GR.rt.height !== _sz.y) { if (GR.rt) GR.rt.dispose(); GR.rt = new T.WebGLRenderTarget(_sz.x, _sz.y, { samples: 4 }); }
+      renderer.setRenderTarget(GR.rt); renderer.render(sc, cam); renderer.setRenderTarget(null);
+      GR.mat.uniforms.tD.value = GR.rt.texture; renderer.render(GR.scene, GR.cam);
+    }
     // ----- horizon scene -----
     const H = {}; H.scene = new T.Scene(); H.bg = new T.Color(0x04060D); H.scene.background = H.bg;
     H.stars = makeStars(9, starMats); H.scene.add(H.stars);
@@ -369,10 +485,12 @@
       nakshatra: (b) => ({ t: onRing(9.45, b.lm), dist: 8, el: 40, az: b.lm - 20 }),
       tithi: (b) => ({ t: new T.Vector3(), dist: 9.5, el: 80, az: b.ls - 90 }),
       yoga: (b) => ({ t: new T.Vector3(), dist: 28, el: 64, az: b.ys - 90 }),
+      cosmos: (b) => ({ t: new T.Vector3(), dist: 560, el: 28, az: b.lm - 110 }),
+      star: (b) => { const it = COS.items[COS.sel]; if (!it) return GOALS.cosmos(b); return { t: it.pos.clone(), dist: 34, el: it.beta + 12, az: it.lam }; },
     };
     function lockTo(key, instant) {
       const b = bodies(); const g = GOALS[key](b);
-      S.anim = { t0: performance.now(), dur: instant ? 1 : (key === S.lock ? 900 : 1700), from: { t: S.tgt.clone(), dist: S.dist, az: S.az, el: S.el }, key, gaz: angNear(S.az, g.az) };
+      S.anim = { t0: performance.now(), dur: instant ? 1 : (key === S.lock ? 900 : key === 'star' || key === 'cosmos' ? 2300 : 1700), from: { t: S.tgt.clone(), dist: S.dist, az: S.az, el: S.el }, key, gaz: angNear(S.az, g.az) };
       S.lock = key;
     }
     function hLockTo(key, instant) { S.hLock = key; S.hAnim = { t0: performance.now(), dur: instant ? 1 : 1500, fy: S.yaw, fp: S.pitch }; }
@@ -385,15 +503,16 @@
     }
     // ----- input -----
     const cv = renderer.domElement; let px = 0, py = 0;
-    cv.addEventListener('pointerdown', (e) => { S.dragging = true; px = e.clientX; py = e.clientY; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
+    cv.addEventListener('pointerdown', (e) => { S.dragging = true; px = e.clientX; py = e.clientY; S.downX = e.clientX; S.downY = e.clientY; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
     cv.addEventListener('pointermove', (e) => {
       if (!S.dragging) return; const dx = e.clientX - px, dy = e.clientY - py; px = e.clientX; py = e.clientY;
       if (S.dir === 'horizon') { S.hAnim = null; S.yaw = (S.yaw - dx * 0.15 + 360) % 360; S.pitch = clamp(S.pitch + dy * 0.15, -20, 88); }
       else if (S.lift > 0.5) { if (S.anim) { S.anim = null; } S.az -= dx * 0.3; S.el = clamp(S.el + dy * 0.2, -10, 88); }
     });
-    const up = () => { S.dragging = false; cv.style.cursor = 'grab'; };
+    const pick = (e) => { if (S.dir === 'horizon' || COS.v < 0.5 || !ctrl.onPick) return; const r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top; let best = -1, bd = 34; COS.items.forEach((it, i) => { const p = proj(it.pos); if (!p.vis) return; const d = Math.hypot(p.x - x, p.y - y); if (d < bd) { bd = d; best = i; } }); ctrl.onPick(best); };
+    const up = (e) => { S.dragging = false; cv.style.cursor = 'grab'; if (e && e.type === 'pointerup' && Math.hypot(e.clientX - S.downX, e.clientY - S.downY) < 6) pick(e); };
     cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
-    cv.addEventListener('wheel', (e) => { e.preventDefault(); if (S.dir !== 'horizon' && S.lift > 0.5) S.dist = clamp(S.dist * (1 + e.deltaY * 0.001), 1.6, 60); else if (S.dir === 'horizon') { cam.userData.hfov = clamp((cam.userData.hfov || 70) * (1 + e.deltaY * 0.001), 20, 100); } }, { passive: false });
+    cv.addEventListener('wheel', (e) => { e.preventDefault(); if (S.dir !== 'horizon' && S.lift > 0.5) S.dist = clamp(S.dist * (1 + e.deltaY * 0.001), 1.6, 900); else if (S.dir === 'horizon') { cam.userData.hfov = clamp((cam.userData.hfov || 70) * (1 + e.deltaY * 0.001), 20, 100); } }, { passive: false });
     // ----- resize -----
     const ro = new ResizeObserver(() => { const w = el.clientWidth, h = el.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); cam.aspect = w / h; S.lastW = w; S.lastH = h; });
     ro.observe(el);
@@ -427,7 +546,8 @@
         H.ground.material.color.setRGB(lerp(0.027, 0.06, day2), lerp(0.035, 0.07, day2), lerp(0.07, 0.13, day2));
         if (S.hAnim) { const tg = hTarget(S.hLock); const k = ease(clamp((now - S.hAnim.t0) / S.hAnim.dur)); S.yaw = lerp(S.hAnim.fy, angNear(S.hAnim.fy, tg.az), k); S.pitch = lerp(S.hAnim.fp, clamp(tg.alt, -15, 80), k); if (k >= 1) { S.hAnim = null; S.yaw = ((S.yaw % 360) + 360) % 360; } }
         cam.fov = cam.userData.hfov || 70; cam.position.set(0, 0, 0); cam.up.set(0, 1, 0); cam.lookAt(dirV(S.pitch, S.yaw, 10)); cam.clearViewOffset(); cam.updateProjectionMatrix();
-        renderer.render(H.scene, cam);
+        if (FEST.built) { FEST.hor.visible = !!FEST.mood; tickBursts(FEST.hBursts, now / 1000, dt, FEST.mood === 'deepavali'); }
+        draw(H.scene);
         info.pos = { sun: proj(H.sun.position), moon: proj(H.moon.position), nakshatra: proj(H.nak[Math.floor(b.lm / (360 / 27))].position) };
         info.alt = { sun: sa, moon: ma }; info.heading = S.yaw; info.pitch = S.pitch; info.lst = lstv;
       } else {
@@ -467,9 +587,35 @@
         earth.visible = moon.visible = sun.visible = sOp > 0.01; earth.scale.setScalar(Math.max(0.001, sOp));
         cl1.intensity = 1.2 * (1 - e); cl2.intensity = 0.4 * (1 - e); clAmb.intensity = 0.6 * (1 - e); sunLight.intensity = 1.7 * e;
         starMats.forEach((m) => { m.size = m.userData.base * (1 + 2.2 * S.warp); m.opacity = 1; });
-        renderer.render(scene, cam);
+        // cosmos
+        const cosT = (S.lock === 'cosmos' || S.lock === 'star') ? 1 : sm(45, 140, S.dist);
+        COS.v = Math.abs(COS.v - cosT) < 0.002 ? cosT : lerp(COS.v, cosT, Math.min(1, dt * 4));
+        COS.depth += (COS.depthGoal - COS.depth) * Math.min(1, dt * 2.5);
+        const cv2 = COS.v * sOp; COS.g.visible = cv2 > 0.01;
+        if (COS.g.visible) {
+          const tp = COS.thr.geometry.attributes.position;
+          COS.items.forEach((it, i) => {
+            it.pos.copy(it.dir).multiplyScalar(lerp(160, Rd(it.st.ly), COS.depth)); it.glow.position.copy(it.pos); it.lb.position.copy(it.pos);
+            const on = i === COS.sel; it.glow.material.opacity = cv2; it.glow.scale.setScalar(it.base * (on ? 1.6 : 1));
+            it.lb.material.opacity = cv2 * (on ? 1 : COS.sel >= 0 ? 0.42 : 0.82);
+            tp.setXYZ(i * 2, it.ring.x, it.ring.y, it.ring.z); tp.setXYZ(i * 2 + 1, it.pos.x, it.pos.y, it.pos.z);
+          });
+          tp.needsUpdate = true; COS.thr.material.opacity = 0.2 * cv2;
+          COS.rings.forEach((r) => { r.line.material.opacity = 0.32 * cv2 * COS.depth; r.lb.material.opacity = 0.85 * cv2 * COS.depth; });
+          COS.gc.position.copy(GAL.gc).multiplyScalar(lerp(190, Rd(26000), COS.depth)); COS.gcL.position.copy(COS.gc.position); COS.gc.material.opacity = 0.7 * cv2; COS.gcL.material.opacity = 0.9 * cv2;
+          COS.sunL.material.opacity = cv2 * sm(0.6, 1, COS.v);
+        }
+        // festival
+        if (FEST.built) {
+          const on = !!FEST.mood; FEST.sky.visible = on && sOp > 0.05; FEST.clock.visible = on; FEST.kol.material.opacity = 0.9 * sOp;
+          tickBursts(FEST.bursts, now / 1000, dt, FEST.mood === 'deepavali');
+        }
+        if (FEST.mood) FEST.lamps.forEach((l) => { const f = l.userData.flame, p = f.userData.ph, tt = now / 1000; f.scale.set(0.26 * (1 + 0.08 * Math.sin(tt * 9 + p)), 0.46 * (1 + 0.12 * Math.sin(tt * 7.3 + p * 1.3) + 0.05 * Math.sin(tt * 23 + p)), 1); });
+        stars.position.copy(cam.position);
+        draw(scene);
         info.warp = S.warp;
-        info.pos = { sun: proj(sp2), moon: proj(mp), earth: proj(new T.Vector3()), nakshatra: proj(onRing(9.45, b.lm)), tithi: proj(onRing(2.55, b.ls + ti * 12 + 6)), yoga: proj(onRing(ZR.nk1 + 0.3, b.ys)) };
+        info.pos = { sun: proj(sp2), moon: proj(mp), earth: proj(new T.Vector3()), nakshatra: proj(onRing(9.45, b.lm)), tithi: proj(onRing(2.55, b.ls + ti * 12 + 6)), yoga: proj(onRing(ZR.nk1 + 0.3, b.ys)), star: COS.sel >= 0 && COS.items[COS.sel] ? proj(COS.items[COS.sel].pos) : null, cosmos: proj(new T.Vector3()) };
+        info.cosmos = COS.v;
       }
       if (ctrl.onFrame) ctrl.onFrame(info);
     }
@@ -482,6 +628,9 @@
       lock(k) { if (S.dir === 'horizon') hLockTo(k); else lockTo(k); },
       setShift(x, y) { S.shiftX = x; S.shiftY = y || 0; },
       bestHorizon() { const b = bodies(); return altaz(b.lm, moonLat(S.jd), S.jd, loc).alt > -2 ? 'moon' : 'sun'; },
+      selectStar(i) { COS.sel = i; },
+      setDepth(on) { COS.depthGoal = on ? 1 : 0; },
+      setTheme(m) { m = GRADE[m] ? m : null; if (m) buildFest(); FEST.mood = m; if (m) { const g = GRADE[m]; GR.mat.uniforms.uH.value.set(g[0], g[1], g[2], g[3]); GR.mat.uniforms.uGlow.value.setRGB(g[4][0], g[4][1], g[4][2]); } },
       isLifted() { return S.liftGoal === 1; },
       dispose() { cancelAnimationFrame(raf); ro.disconnect(); renderer.dispose(); renderer.forceContextLoss && renderer.forceContextLoss(); cv.remove(); },
     });

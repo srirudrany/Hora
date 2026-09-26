@@ -16,65 +16,72 @@
 <script src="./sky-scene.js"></script>
 <style>html,body{margin:0;background:#020308;color:#EFE8D8}*{box-sizing:border-box}a{color:#F3D491}a:hover{color:#E3AE4A}button{font:inherit;color:inherit}</style>
 </helmet>
-<section style="padding:64px 64px 96px;font-family:'Noto Sans',sans-serif;display:flex;flex-direction:column;gap:36px">
+<section style="padding:64px 64px 96px;font-family:'Noto Sans',sans-serif;display:flex;flex-direction:column;gap:36px;--bgR:{{ th.bg }};--inkR:{{ th.ink }};--ink2R:{{ th.ink2 }};--gR:{{ th.g }};--gsR:{{ th.gs }};--tR:{{ th.t }};--mR:{{ th.m }};--moR:{{ th.mo }};--kR:{{ th.k }};--pR:{{ th.p }};--acR:{{ th.ac }};--dayR:{{ th.day }};--nightR:{{ th.night }};--night2R:{{ th.night2 }};--tj:{{ th.tj }}">
   <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
-    <div style="font:600 12px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#8A91B0">Turn 1 · Phone</div>
-    <div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:40px;color:#F3D491">Pañcāṅga Clock · phone</div>
-    <div style="font-size:15px;color:#8A91B0;line-height:1.5">Three sky directions running live on the real engine (Chennai, now), plus the Day timeline and Month grid. Tap the screens: Lift off, lock targets, scrub time. Full desktop version: <a href="Sky Navigator.dc.html">Sky Navigator</a>. Watch: <a href="Watch.dc.html">Watch faces</a>.</div>
+    <div style="font:600 12px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Turn 1 · Phone</div>
+    <div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:40px;color:rgb(var(--gsR,243,212,145))">Pañcāṅga Clock · phone</div>
+    <div style="font-size:15px;color:rgb(var(--mR,138,145,176));line-height:1.5">Three sky directions running live on the real engine (Chennai, now), plus the Day timeline and Month grid. Tap the screens: Lift off, lock targets, scrub time. Full desktop version: <a href="Sky Navigator.dc.html">Sky Navigator</a>. Watch: <a href="Watch.dc.html">Watch faces</a>.</div>
+    <div style="display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(var(--pR,8,11,24),0.78);border:1px solid rgba(var(--mR,138,145,176),0.22);width:max-content;align-items:center;margin-top:8px">
+      <sc-for list="{{ pageThemes }}" as="t" hint-placeholder-count="2">
+        <button onClick="{{ t.onClick }}" style="appearance:none;border:0;cursor:pointer;padding:6px 14px;border-radius:999px;background:{{ t.bg }};color:{{ t.fg }};font:600 11px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;display:flex;gap:7px;align-items:center"><i style="width:7px;height:7px;border-radius:50%;display:block;background:{{ t.dot }}"></i>{{ t.label }}</button>
+      </sc-for>
+      <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}"><span style="font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176));padding:0 12px 0 4px;white-space:nowrap">{{ moodLabel }}</span></sc-if>
+    </div>
   </div>
   <div style="display:flex;flex-wrap:wrap;gap:56px;align-items:flex-start">
 
     <div id="1a" style="display:flex;flex-direction:column;gap:14px">
-      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1a</span><span style="font-size:14px;color:#EFE8D8">Now → Lift-off</span><span style="font-size:13px;color:#8A91B0">clock face lies flat and becomes the sky</span></div>
-      <div style="width:410px;height:864px;border-radius:58px;background:#04060D;border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
-        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:#EFE8D8;z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ statusNz }}</span></div>
-        <dc-import name="Sky Navigator" direction="liftoff" embedded="{{ true }}" hint-size="390px,800px" style="position:absolute;left:0;top:44px;width:390px;height:800px"></dc-import>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1a</span><span style="font-size:14px;color:rgb(var(--tR,239,232,216))">Now → Lift-off</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">clock face lies flat and becomes the sky</span></div>
+      <div style="width:410px;height:864px;border-radius:58px;background:rgb(var(--bgR,4,6,13));border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
+        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:rgb(var(--tR,239,232,216));z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ statusNz }}</span></div>
+        <dc-import name="Sky Navigator" direction="liftoff" embedded="{{ true }}" theme="{{ themeP }}" mood="{{ moodP }}" hint-size="390px,800px" style="position:absolute;left:0;top:44px;width:390px;height:800px"></dc-import>
       </div>
     </div>
 
     <div id="1b" style="display:flex;flex-direction:column;gap:14px">
-      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1b</span><span style="font-size:14px;color:#EFE8D8">Bridge</span><span style="font-size:13px;color:#8A91B0">lock on, warp between limbs</span></div>
-      <div style="width:410px;height:864px;border-radius:58px;background:#04060D;border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
-        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:#EFE8D8;z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ statusNz }}</span></div>
-        <dc-import name="Sky Navigator" direction="bridge" embedded="{{ true }}" hint-size="390px,800px" style="position:absolute;left:0;top:44px;width:390px;height:800px"></dc-import>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1b</span><span style="font-size:14px;color:rgb(var(--tR,239,232,216))">Bridge</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">lock on, warp between limbs</span></div>
+      <div style="width:410px;height:864px;border-radius:58px;background:rgb(var(--bgR,4,6,13));border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
+        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:rgb(var(--tR,239,232,216));z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ statusNz }}</span></div>
+        <dc-import name="Sky Navigator" direction="bridge" embedded="{{ true }}" theme="{{ themeP }}" mood="{{ moodP }}" hint-size="390px,800px" style="position:absolute;left:0;top:44px;width:390px;height:800px"></dc-import>
       </div>
     </div>
 
     <div id="1c" style="display:flex;flex-direction:column;gap:14px">
-      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1c</span><span style="font-size:14px;color:#EFE8D8">Horizon</span><span style="font-size:13px;color:#8A91B0">first-person sky from your city</span></div>
-      <div style="width:410px;height:864px;border-radius:58px;background:#04060D;border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
-        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:#EFE8D8;z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ statusNz }}</span></div>
-        <dc-import name="Sky Navigator" direction="horizon" embedded="{{ true }}" hint-size="390px,800px" style="position:absolute;left:0;top:44px;width:390px;height:800px"></dc-import>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1c</span><span style="font-size:14px;color:rgb(var(--tR,239,232,216))">Horizon</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">first-person sky from your city</span></div>
+      <div style="width:410px;height:864px;border-radius:58px;background:rgb(var(--bgR,4,6,13));border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
+        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:rgb(var(--tR,239,232,216));z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ statusNz }}</span></div>
+        <dc-import name="Sky Navigator" direction="horizon" embedded="{{ true }}" theme="{{ themeP }}" mood="{{ moodP }}" hint-size="390px,800px" style="position:absolute;left:0;top:44px;width:390px;height:800px"></dc-import>
       </div>
     </div>
 
     <div id="1d" style="display:flex;flex-direction:column;gap:14px">
-      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1d</span><span style="font-size:14px;color:#EFE8D8">Day timeline</span><span style="font-size:13px;color:#8A91B0">sunrise to sunrise</span></div>
-      <div style="width:410px;height:864px;border-radius:58px;background:#04060D;border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
-        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:#EFE8D8;z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ statusNz }}</span></div>
-        <div style="position:absolute;left:0;right:0;top:44px;bottom:76px;overflow-y:auto;scrollbar-width:none;padding:10px 20px 24px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1d</span><span style="font-size:14px;color:rgb(var(--tR,239,232,216))">Day timeline</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">sunrise to sunrise</span></div>
+      <div style="width:410px;height:864px;border-radius:58px;background:rgb(var(--bgR,4,6,13));border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
+        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:rgb(var(--tR,239,232,216));z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ statusNz }}</span></div>
+        <div style="position:absolute;left:0;right:0;top:{{ cTop }};bottom:{{ cBot }};overflow-y:auto;scrollbar-width:none;padding:10px 20px 24px;display:flex;flex-direction:column;gap:14px">
           <div style="display:flex;flex-direction:column;gap:2px">
-            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#8A91B0">Today</div>
-            <div style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:32px;color:#F3D491">{{ vara }}</span><span style="font-family:'Tiro Tamil',serif;font-size:20px;color:#8A91B0">{{ varaTa }}</span></div>
+            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Today</div>
+            <div style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:32px;color:rgb(var(--gsR,243,212,145))">{{ vara }}</span><span style="font-family:'Tiro Tamil',serif;font-size:20px;color:rgb(var(--mR,138,145,176))">{{ varaTa }}</span></div>
             <div style="font-size:14px">{{ sub }}</div>
+            <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}"><div style="height:8px;margin-top:6px;background-image:radial-gradient(circle at 4px 4px,#F28A12 3px,transparent 3.5px),radial-gradient(circle at 12px 4px,#FFF6E4 2px,transparent 2.5px);background-size:16px 8px"></div></sc-if>
           </div>
           <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="position:relative;height:30px;border-radius:8px;overflow:hidden;background:#0F1A4D;border:1px solid rgba(227,174,74,0.26)">
-              <div style="position:absolute;left:0;top:0;bottom:0;width:{{ dayPct }};background:#6B4D14"></div>
+            <div style="position:relative;height:30px;border-radius:8px;overflow:hidden;background:rgb(var(--nightR,15,26,77));border:1px solid rgba(var(--gR,227,174,74),0.26)">
+              <div style="position:absolute;left:0;top:0;bottom:0;width:{{ dayPct }};background:rgb(var(--dayR,107,77,20))"></div>
               <sc-for list="{{ kalaBands }}" as="k" hint-placeholder-count="3">
                 <div style="position:absolute;left:{{ k.l }};width:{{ k.w }};bottom:0;height:9px;background:{{ k.c }}"></div>
               </sc-for>
-              <div style="position:absolute;left:{{ nowPct }};top:0;bottom:0;width:2px;margin-left:-1px;background:#F3D491;box-shadow:0 0 8px #E3AE4A"></div>
+              <div style="position:absolute;left:{{ nowPct }};top:0;bottom:0;width:2px;margin-left:-1px;background:rgb(var(--gsR,243,212,145));box-shadow:0 0 8px rgb(var(--gR,227,174,74))"></div>
             </div>
-            <div style="display:flex;justify-content:space-between;font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0"><span>00 · {{ srT }}</span><span>{{ ssNz }} · {{ ssT }}</span><span>60</span></div>
+            <div style="display:flex;justify-content:space-between;font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))"><span>00 · {{ srT }}</span><span>{{ ssNz }} · {{ ssT }}</span><span>60</span></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#8A91B0">Horā</div>
+            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Horā</div>
             <div style="display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px">
               <sc-for list="{{ horas }}" as="h" hint-placeholder-count="8">
                 <div style="flex:none;display:flex;flex-direction:column;gap:2px;padding:6px 8px;border-radius:9px;border:1px solid {{ h.bd }};background:{{ h.bg }};min-width:62px">
                   <span style="display:flex;align-items:center;gap:5px"><i style="width:7px;height:7px;border-radius:50%;display:block;background:{{ h.c }}"></i><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:14px;color:{{ h.fg }}">{{ h.lord }}</span></span>
-                  <span style="font:500 10px 'IBM Plex Mono',monospace;color:#8A91B0">{{ h.t }}</span>
+                  <span style="font:500 10px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ h.t }}</span>
                 </div>
               </sc-for>
             </div>
@@ -82,18 +89,31 @@
           <div style="display:flex;flex-direction:column">
             <sc-for list="{{ events }}" as="ev" hint-placeholder-count="10">
               <div style="display:grid;grid-template-columns:66px 18px 1fr;gap:0 10px;opacity:{{ ev.op }}">
-                <div style="display:flex;flex-direction:column;align-items:flex-end;padding-top:10px"><span style="font:500 12.5px 'IBM Plex Mono',monospace;color:#EFE8D8;white-space:nowrap">{{ ev.time }}</span><span style="font:500 10.5px 'IBM Plex Mono',monospace;color:#8A91B0">{{ ev.nz }}</span></div>
-                <div style="position:relative;display:flex;justify-content:center"><div style="position:absolute;top:0;bottom:0;width:2px;background:{{ ev.rail }}"></div><div style="position:relative;margin-top:14px;width:10px;height:10px;border-radius:50%;background:{{ ev.dot }};box-shadow:0 0 0 3px #04060D"></div></div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;padding-top:10px"><span style="font:500 12.5px 'IBM Plex Mono',monospace;color:rgb(var(--tR,239,232,216));white-space:nowrap">{{ ev.time }}</span><span style="font:500 10.5px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ ev.nz }}</span></div>
+                <div style="position:relative;display:flex;justify-content:center"><div style="position:absolute;top:0;bottom:0;width:2px;background:{{ ev.rail }}"></div><div style="position:relative;margin-top:14px;width:10px;height:10px;border-radius:50%;background:{{ ev.dot }};box-shadow:0 0 0 3px rgb(var(--bgR,4,6,13))"></div></div>
                 <div style="padding:8px 0 12px;display:flex;flex-direction:column;gap:2px">
                   <span style="font:600 10px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:{{ ev.kc }}">{{ ev.kind }}</span>
                   <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:18px;line-height:1.2">{{ ev.title }}</span>
-                  <span style="font-size:12.5px;color:#8A91B0">{{ ev.sub }}</span>
+                  <span style="font-size:12.5px;color:rgb(var(--mR,138,145,176))">{{ ev.sub }}</span>
                 </div>
               </div>
             </sc-for>
           </div>
         </div>
-        <div style="position:absolute;left:0;right:0;bottom:0;height:76px;padding:10px 26px 22px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(138,145,176,0.22);background:rgba(4,6,13,0.95)">
+        <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:0;right:0;top:44px;height:34px;overflow:hidden;display:flex;pointer-events:none;padding-left:6px">
+            <div style="position:absolute;left:0;right:0;top:3px;height:2px;background:rgb(var(--gR,227,174,74))"></div>
+            <sc-for list="{{ leaves }}" as="lf" hint-placeholder-count="0">
+              <svg width="24" height="34" viewBox="0 0 34 46" style="flex:none;display:block;overflow:visible"><path d="M17 7 C 25 16, 24 31, 17 44 C 10 31, 9 16, 17 7 Z" style="fill:{{ lf.c }}"></path><circle cx="0" cy="6" r="5.5" fill="#F28A12"></circle><circle cx="0" cy="6" r="2.4" fill="#F9BE25"></circle></svg>
+            </sc-for>
+          </div>
+          <div style="position:absolute;left:0;right:0;bottom:78px;height:14px;overflow:hidden;display:flex;justify-content:center;pointer-events:none">
+            <sc-for list="{{ kolam }}" as="k" hint-placeholder-count="0">
+              <svg width="20" height="14" viewBox="0 0 24 16" style="flex:none;display:block"><path d="M0 8 Q6 -1 12 8 Q18 17 24 8" fill="none" stroke="rgba(255,248,236,0.75)" stroke-width="1.3"></path><path d="M0 8 Q6 17 12 8 Q18 -1 24 8" fill="none" stroke="rgba(255,248,236,0.75)" stroke-width="1.3"></path><circle cx="6" cy="8" r="1.8" fill="{{ k.a }}"></circle><circle cx="18" cy="8" r="1.8" fill="{{ k.b }}"></circle></svg>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:76px;padding:10px 26px 22px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(var(--mR,138,145,176),0.22);background:rgba(var(--bgR,4,6,13),0.95)">
           <sc-for list="{{ tabsDay }}" as="t" hint-placeholder-count="4">
             <span style="display:flex;flex-direction:column;align-items:center;gap:5px;font:600 11px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:{{ t.fg }}"><i style="width:5px;height:5px;border-radius:50%;display:block;background:{{ t.dot }}"></i>{{ t.label }}</span>
           </sc-for>
@@ -102,44 +122,66 @@
     </div>
 
     <div id="1e" style="display:flex;flex-direction:column;gap:14px">
-      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1e</span><span style="font-size:14px;color:#EFE8D8">Month</span><span style="font-size:13px;color:#8A91B0">Tamil solar month, tithi at sunrise</span></div>
-      <div style="width:410px;height:864px;border-radius:58px;background:#04060D;border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
-        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:#EFE8D8;z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ statusNz }}</span></div>
-        <div style="position:absolute;left:0;right:0;top:44px;bottom:76px;overflow-y:auto;scrollbar-width:none;padding:10px 16px 24px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1e</span><span style="font-size:14px;color:rgb(var(--tR,239,232,216))">Month</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">Tamil solar month, tithi at sunrise</span></div>
+      <div style="width:410px;height:864px;border-radius:58px;background:rgb(var(--bgR,4,6,13));border:10px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 40px 80px rgba(0,0,0,.6);overflow:hidden;position:relative">
+        <div style="position:absolute;left:0;right:0;top:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font:600 14px 'Noto Sans';color:rgb(var(--tR,239,232,216));z-index:2"><span>{{ statusTime }}</span><span style="font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ statusNz }}</span></div>
+        <div style="position:absolute;left:0;right:0;top:{{ cTop }};bottom:{{ cBot }};overflow-y:auto;scrollbar-width:none;padding:10px 16px 24px;display:flex;flex-direction:column;gap:14px">
           <div style="display:flex;flex-direction:column;gap:2px;padding:0 4px">
-            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#8A91B0">{{ mYear }}</div>
-            <div style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:32px;color:#F3D491">{{ mName }}</span><span style="font-family:'Tiro Tamil',serif;font-size:20px;color:#8A91B0">{{ mTa }}</span></div>
-            <div style="font:500 12px 'IBM Plex Mono',monospace;color:#8A91B0">{{ mRange }}</div>
+            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">{{ mYear }}</div>
+            <div style="display:flex;gap:10px;align-items:baseline"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:32px;color:rgb(var(--gsR,243,212,145))">{{ mName }}</span><span style="font-family:'Tiro Tamil',serif;font-size:20px;color:rgb(var(--mR,138,145,176))">{{ mTa }}</span></div>
+            <div style="font:500 12px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ mRange }}</div>
+            <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}"><div style="height:8px;margin-top:6px;background-image:radial-gradient(circle at 4px 4px,#F28A12 3px,transparent 3.5px),radial-gradient(circle at 12px 4px,#FFF6E4 2px,transparent 2.5px);background-size:16px 8px"></div></sc-if>
           </div>
           <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px">
             <sc-for list="{{ wdh }}" as="w" hint-placeholder-count="7">
-              <div style="text-align:center;font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0;padding:4px 0">{{ w }}</div>
+              <div style="text-align:center;font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176));padding:4px 0">{{ w }}</div>
             </sc-for>
             <sc-for list="{{ cells }}" as="c" hint-placeholder-count="35">
               <div style="height:66px;border-radius:9px;padding:5px 5px 4px;display:flex;flex-direction:column;justify-content:space-between;background:{{ c.bg }};border:1px solid {{ c.bd }};opacity:{{ c.op }}">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font:500 15px 'IBM Plex Mono',monospace;color:{{ c.fg }}">{{ c.td }}</span><i style="width:9px;height:9px;border-radius:50%;display:block;margin-top:3px;background:{{ c.moonBg }};border:1px solid {{ c.moonBd }}"></i></div>
-                <span style="font:500 9.5px 'IBM Plex Mono',monospace;color:#8A91B0">{{ c.civ }}</span>
+                <span style="font:500 9.5px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ c.civ }}</span>
                 <span style="font:600 8.5px 'Noto Sans';letter-spacing:.02em;color:{{ c.sc }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.sp }}</span>
               </div>
             </sc-for>
           </div>
-          <div style="padding:16px 18px;border-radius:14px;background:rgba(8,11,24,0.86);border:1px solid rgba(227,174,74,0.26);display:flex;flex-direction:column;gap:8px">
-            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#E3AE4A">Today at sunrise</div>
+          <div style="position:relative;padding:16px 18px;border-radius:14px;background:rgba(var(--pR,8,11,24),0.86);border:1px solid rgba(var(--gR,227,174,74),0.26);box-shadow:var(--tj,none);display:flex;flex-direction:column;gap:8px">
+            <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}">
+              <i style="position:absolute;left:7px;top:7px;width:8px;height:8px;transform:rotate(45deg);background:#C8102E;border:1px solid rgb(var(--gR,227,174,74))"></i>
+              <i style="position:absolute;right:7px;top:7px;width:8px;height:8px;transform:rotate(45deg);background:#1E8C5A;border:1px solid rgb(var(--gR,227,174,74))"></i>
+              <svg width="100%" height="28" viewBox="0 -12 300 42" preserveAspectRatio="xMidYMax meet" style="display:block;margin:-8px 0 -4px">
+                <path d="M0 30 L0 25 L34 25 L34 19 L66 19 L66 13 L98 13 L98 7 L124 7 L124 1 L176 1 L176 7 L202 7 L202 13 L234 13 L234 19 L266 19 L266 25 L300 25 L300 30 Z" style="fill:rgba(var(--gR,227,174,74),0.12);stroke:rgba(var(--gR,227,174,74),0.75)" stroke-width="1"></path>
+                <path d="M136 1 Q138 -5 142 -5 Q146 -5 148 1 Z M144 1 Q146 -8 150 -8 Q154 -8 156 1 Z M152 1 Q154 -5 158 -5 Q162 -5 164 1 Z" style="fill:rgb(var(--gR,227,174,74))"></path>
+              </svg>
+            </sc-if>
+            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--gR,227,174,74))">Today at sunrise</div>
             <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 14px">
               <sc-for list="{{ todayRows }}" as="r" hint-placeholder-count="3">
-                <span style="font:600 10.5px/22px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">{{ r.k }}</span>
+                <span style="font:600 10.5px/22px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">{{ r.k }}</span>
                 <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:17px;line-height:22px;text-align:right">{{ r.v }}</span>
               </sc-for>
             </div>
           </div>
           <div style="display:flex;flex-direction:column;gap:6px;padding:0 4px">
-            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#8A91B0">This month</div>
+            <div style="font:600 11px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">This month</div>
             <sc-for list="{{ specials }}" as="s" hint-placeholder-count="6">
-              <div style="display:flex;align-items:baseline;gap:12px;padding:6px 0;border-bottom:1px solid rgba(138,145,176,0.14)"><span style="font:500 12px 'IBM Plex Mono',monospace;color:#8A91B0;width:74px;flex:none">{{ s.d }}</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:16px;color:{{ s.c }}">{{ s.n }}</span><span style="margin-left:auto;font-size:12px;color:#8A91B0">{{ s.x }}</span></div>
+              <div style="display:flex;align-items:baseline;gap:12px;padding:6px 0;border-bottom:1px solid rgba(var(--mR,138,145,176),0.14)"><span style="font:500 12px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176));width:74px;flex:none">{{ s.d }}</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:16px;color:{{ s.c }}">{{ s.n }}</span><span style="margin-left:auto;font-size:12px;color:rgb(var(--mR,138,145,176))">{{ s.x }}</span></div>
             </sc-for>
           </div>
         </div>
-        <div style="position:absolute;left:0;right:0;bottom:0;height:76px;padding:10px 26px 22px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(138,145,176,0.22);background:rgba(4,6,13,0.95)">
+        <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:0;right:0;top:44px;height:34px;overflow:hidden;display:flex;pointer-events:none;padding-left:6px">
+            <div style="position:absolute;left:0;right:0;top:3px;height:2px;background:rgb(var(--gR,227,174,74))"></div>
+            <sc-for list="{{ leaves }}" as="lf" hint-placeholder-count="0">
+              <svg width="24" height="34" viewBox="0 0 34 46" style="flex:none;display:block;overflow:visible"><path d="M17 7 C 25 16, 24 31, 17 44 C 10 31, 9 16, 17 7 Z" style="fill:{{ lf.c }}"></path><circle cx="0" cy="6" r="5.5" fill="#F28A12"></circle><circle cx="0" cy="6" r="2.4" fill="#F9BE25"></circle></svg>
+            </sc-for>
+          </div>
+          <div style="position:absolute;left:0;right:0;bottom:78px;height:14px;overflow:hidden;display:flex;justify-content:center;pointer-events:none">
+            <sc-for list="{{ kolam }}" as="k" hint-placeholder-count="0">
+              <svg width="20" height="14" viewBox="0 0 24 16" style="flex:none;display:block"><path d="M0 8 Q6 -1 12 8 Q18 17 24 8" fill="none" stroke="rgba(255,248,236,0.75)" stroke-width="1.3"></path><path d="M0 8 Q6 17 12 8 Q18 -1 24 8" fill="none" stroke="rgba(255,248,236,0.75)" stroke-width="1.3"></path><circle cx="6" cy="8" r="1.8" fill="{{ k.a }}"></circle><circle cx="18" cy="8" r="1.8" fill="{{ k.b }}"></circle></svg>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:76px;padding:10px 26px 22px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(var(--mR,138,145,176),0.22);background:rgba(var(--bgR,4,6,13),0.95)">
           <sc-for list="{{ tabsMonth }}" as="t" hint-placeholder-count="4">
             <span style="display:flex;flex-direction:column;align-items:center;gap:5px;font:600 11px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:{{ t.fg }}"><i style="width:5px;height:5px;border-radius:50%;display:block;background:{{ t.dot }}"></i>{{ t.label }}</span>
           </sc-for>
@@ -150,17 +192,40 @@
   </div>
 </section>
 </x-dc>
-<script type="text/x-dc" data-dc-script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;night&quot;,&quot;festival&quot;],&quot;default&quot;:&quot;night&quot;,&quot;tsType&quot;:&quot;'night'|'festival'&quot;},&quot;mood&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;deepavali&quot;,&quot;pongal&quot;,&quot;temple&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;'auto'|'deepavali'|'pongal'|'temple'&quot;}}">
 const LOC = { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5 };
 const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const pad = (n) => String(n).padStart(2, '0');
 const HORA = ['Śani','Guru','Maṅgala','Sūrya','Śukra','Budha','Candra'];
-const HCOL = { 'Śani': '#6F7FB0', 'Guru': '#E0B040', 'Maṅgala': '#D0473A', 'Sūrya': '#FFD27A', 'Śukra': '#F4EFE6', 'Budha': '#57A872', 'Candra': '#CBD5DE' };
+const HCOL = { 'Śani': '#6F7FB0', 'Guru': '#E0B040', 'Maṅgala': '#D0473A', 'Sūrya': '#FFD27A', 'Śukra': '#F4EFE6', 'Budha': '#57A872', 'Candra': 'rgb(var(--moR,203,213,222))' };
 const WD_LORD = [3, 6, 2, 5, 1, 4, 0];
 const TABS = ['Now', 'Sky', 'Day', 'Month'];
+const PAL = {
+  night: { bg: '4,6,13', ink: '10,13,28', ink2: '16,21,43', g: '227,174,74', gs: '243,212,145', t: '239,232,216', m: '138,145,176', mo: '203,213,222', k: '217,72,62', p: '8,11,24', ac: '227,174,74', day: '107,77,20', night: '15,26,77', night2: '36,51,107' },
+  deepavali: { bg: '20,4,10', ink: '30,8,16', ink2: '44,11,23', g: '244,178,60', gs: '255,217,140', t: '255,241,222', m: '207,160,146', mo: '243,227,207', k: '238,75,43', p: '30,6,14', ac: '238,92,52', day: '138,78,12', night: '67,16,42', night2: '90,23,51' },
+  pongal: { bg: '42,16,9', ink: '54,21,9', ink2: '70,29,14', g: '245,185,10', gs: '255,221,102', t: '255,247,234', m: '226,180,152', mo: '255,243,220', k: '219,59,37', p: '52,21,11', ac: '140,198,63', day: '154,106,14', night: '90,36,18', night2: '110,47,23' },
+  temple: { bg: '13,12,11', ink: '22,20,18', ink2: '33,29,26', g: '207,162,74', gs: '234,203,134', t: '242,234,223', m: '166,157,145', mo: '230,222,210', k: '227,65,42', p: '22,19,17', ac: '232,78,52', day: '110,76,22', night: '43,37,34', night2: '58,50,44' },
+};
+const AUTO = ['temple','temple','temple','temple','temple','temple','deepavali','deepavali','pongal','pongal','temple','temple'];
+const MOODN = { deepavali: 'Deepavali', pongal: 'Pongal', temple: 'Temple' };
+const MOODS = ['auto', 'deepavali', 'pongal', 'temple'];
+const LEAVES = Array.from({ length: 20 }, (_, i) => ({ c: i % 2 ? '#5E9E36' : '#3E7B27' }));
+const KOLAM = Array.from({ length: 22 }, (_, i) => ({ a: i % 2 ? '#E8452E' : '#FFF8EC', b: i % 2 ? '#FFF8EC' : '#F5B90A' }));
 
 class Component extends DCLogic {
-  state = { d: null };
+  state = { d: null, theme: null, mood: null };
+  componentDidUpdate(pp) { if (pp.theme !== this.props.theme || pp.mood !== this.props.mood) this.setState({ theme: null, mood: null }); }
+  themeVals() {
+    const tn = this.state.theme ?? this.props.theme ?? 'night', ms = this.state.mood ?? this.props.mood ?? 'auto';
+    const tm = this.month ? this.month.today.tamilMonth : 5;
+    const mk = tn === 'festival' ? (MOODN[ms] ? ms : AUTO[tm]) : null, festive = !!mk, pal = PAL[mk || 'night'];
+    return {
+      th: { ...pal, tj: festive ? `inset 0 0 0 3px rgba(${pal.p},0.95), inset 0 0 0 4.5px rgba(${pal.g},0.55)` : 'none' }, festive, leaves: LEAVES, kolam: KOLAM,
+      cTop: festive ? '80px' : '44px', cBot: festive ? '94px' : '76px', themeP: tn, moodP: ms,
+      moodLabel: festive ? (ms === 'auto' ? `Auto · ${MOODN[mk]}${this.P ? ' · ' + this.P.N.monthTaLat[tm] : ''}` : MOODN[mk]) : '',
+      pageThemes: [['night', 'Night', '#CBD5DE'], ['festival', festive ? 'Festival ↻' : 'Festival', '#D9483E']].map(([id, label, dot]) => { const on = (id === 'festival') === festive; return { label, dot, bg: on ? 'rgba(227,174,74,0.18)' : 'transparent', fg: on ? '#F3D491' : '#8A91B0', onClick: () => { if (id === 'night') this.setState({ theme: 'night' }); else if (festive) this.setState({ theme: 'festival', mood: MOODS[(MOODS.indexOf(ms) + 1) % MOODS.length] }); else this.setState({ theme: 'festival' }); } }; }),
+    };
+  }
   componentDidMount() {
     const t0 = Date.now();
     const wait = () => { if (window.Panchanga) { this.P = window.Panchanga; this.month = this.buildMonth(); this.compute(); this.iv = setInterval(() => this.compute(), 20000); } else if (Date.now() - t0 < 20000) setTimeout(wait, 60); };
@@ -175,10 +240,10 @@ class Component extends DCLogic {
   }
   special(day) {
     const t = day.tithi[0].idx, n = day.nakshatra[0].idx; const o = [];
-    if (t === 14) o.push(['Pūrṇimā', '#F3D491']); if (t === 29) o.push(['Amāvāsyā', '#8A91B0']);
+    if (t === 14) o.push(['Pūrṇimā', 'rgb(var(--gsR,243,212,145))']); if (t === 29) o.push(['Amāvāsyā', 'rgb(var(--mR,138,145,176))']);
     if (t === 10 || t === 25) o.push(['Ekādaśī', '#63B8B2']); if (t === 5 || t === 20) o.push(['Ṣaṣṭhī', '#C07A43']);
-    if (t === 12 || t === 27) o.push(['Pradoṣam', '#8F6BB8']); if (t === 18) o.push(['Saṅkaṭahara Caturthī', '#D9483E']);
-    if (n === 2) o.push(['Kārttikai', '#E3AE4A']);
+    if (t === 12 || t === 27) o.push(['Pradoṣam', '#8F6BB8']); if (t === 18) o.push(['Saṅkaṭahara Caturthī', 'rgb(var(--kR,217,72,62))']);
+    if (n === 2) o.push(['Kārttikai', 'rgb(var(--gR,227,174,74))']);
     return o;
   }
   buildMonth() {
@@ -196,33 +261,33 @@ class Component extends DCLogic {
     const names = { tithi: tn, nakshatra: (i) => P.N.nakshatra[i], yoga: (i) => P.N.yoga[i], karana: (i) => P.karanaName(i) };
     const LBL = { tithi: 'Tithi', nakshatra: 'Nakṣatra', yoga: 'Yoga', karana: 'Karaṇa' };
     const ev = [];
-    ev.push({ t: day.sunrise, kind: 'Sunrise', kc: '#E3AE4A', title: 'Sūryodaya', sub: 'The day begins · nāḻigai 00:00', dot: '#E3AE4A' });
-    ev.push({ t: day.sunset, kind: 'Sunset', kc: '#E3AE4A', title: 'Sūryāsta', sub: `Daylight lasted ${nzOf(day.sunset)} nāḻigai`, dot: '#C07A43' });
-    ev.push({ t: day.nextSunrise, kind: 'Next sunrise', kc: '#E3AE4A', title: P.N.vara[(day.weekday + 1) % 7], sub: 'A new day begins', dot: '#E3AE4A' });
-    [['Rāhu kālam', '#D9483E', day.rahu], ['Yamagaṇḍam', '#8F6BB8', day.yama], ['Kuḷikai', '#C07A43', day.gulika], ['Abhijit muhūrta', '#63B8B2', day.abhijit]].forEach(([n, c, r]) => ev.push({ t: r[0], kind: n === 'Abhijit muhūrta' ? 'Auspicious window' : 'Kāla period', kc: c, title: n, sub: `${this.fmt12(r[0])} – ${this.fmt12(r[1])}`, dot: c }));
-    for (const k of ['tithi', 'nakshatra', 'yoga', 'karana']) { const arr = day[k] || []; arr.forEach((a, i) => { if (a.end < day.nextSunrise && arr[i + 1]) ev.push({ t: a.end, kind: `${LBL[k]} changes`, kc: '#8A91B0', title: names[k](arr[i + 1].idx), sub: `after ${names[k](a.idx)}`, dot: '#CBD5DE' }); }); }
+    ev.push({ t: day.sunrise, kind: 'Sunrise', kc: 'rgb(var(--gR,227,174,74))', title: 'Sūryodaya', sub: 'The day begins · nāḻigai 00:00', dot: 'rgb(var(--gR,227,174,74))' });
+    ev.push({ t: day.sunset, kind: 'Sunset', kc: 'rgb(var(--gR,227,174,74))', title: 'Sūryāsta', sub: `Daylight lasted ${nzOf(day.sunset)} nāḻigai`, dot: '#C07A43' });
+    ev.push({ t: day.nextSunrise, kind: 'Next sunrise', kc: 'rgb(var(--gR,227,174,74))', title: P.N.vara[(day.weekday + 1) % 7], sub: 'A new day begins', dot: 'rgb(var(--gR,227,174,74))' });
+    [['Rāhu kālam', 'rgb(var(--kR,217,72,62))', day.rahu], ['Yamagaṇḍam', '#8F6BB8', day.yama], ['Kuḷikai', '#C07A43', day.gulika], ['Abhijit muhūrta', '#63B8B2', day.abhijit]].forEach(([n, c, r]) => ev.push({ t: r[0], kind: n === 'Abhijit muhūrta' ? 'Auspicious window' : 'Kāla period', kc: c, title: n, sub: `${this.fmt12(r[0])} – ${this.fmt12(r[1])}`, dot: c }));
+    for (const k of ['tithi', 'nakshatra', 'yoga', 'karana']) { const arr = day[k] || []; arr.forEach((a, i) => { if (a.end < day.nextSunrise && arr[i + 1]) ev.push({ t: a.end, kind: `${LBL[k]} changes`, kc: 'rgb(var(--mR,138,145,176))', title: names[k](arr[i + 1].idx), sub: `after ${names[k](a.idx)}`, dot: 'rgb(var(--moR,203,213,222))' }); }); }
     ev.sort((a, b) => a.t - b.t);
     let nowDone = false; const events = [];
     ev.forEach((e) => {
-      if (!nowDone && e.t > jd) { nowDone = true; events.push({ time: this.fmt12(jd), nz: nzOf(jd), kind: 'Now', kc: '#F3D491', title: `${nzOf(jd)} nāḻigai`, sub: 'since sunrise', dot: '#F3D491', rail: jd < day.sunset ? '#6B4D14' : '#24336B', op: '1' }); }
-      events.push({ time: this.fmt12(e.t), nz: nzOf(e.t), kind: e.kind, kc: e.kc, title: e.title, sub: e.sub, dot: e.dot, rail: e.t < day.sunset ? '#6B4D14' : '#24336B', op: e.t < jd ? '0.5' : '1' });
+      if (!nowDone && e.t > jd) { nowDone = true; events.push({ time: this.fmt12(jd), nz: nzOf(jd), kind: 'Now', kc: 'rgb(var(--gsR,243,212,145))', title: `${nzOf(jd)} nāḻigai`, sub: 'since sunrise', dot: 'rgb(var(--gsR,243,212,145))', rail: jd < day.sunset ? 'rgb(var(--dayR,107,77,20))' : 'rgb(var(--night2R,36,51,107))', op: '1' }); }
+      events.push({ time: this.fmt12(e.t), nz: nzOf(e.t), kind: e.kind, kc: e.kc, title: e.title, sub: e.sub, dot: e.dot, rail: e.t < day.sunset ? 'rgb(var(--dayR,107,77,20))' : 'rgb(var(--night2R,36,51,107))', op: e.t < jd ? '0.5' : '1' });
     });
     const dh = (day.sunset - day.sunrise) / 12, nh = (day.nextSunrise - day.sunset) / 12; const horas = [];
-    for (let i = 0; i < 24; i++) { const s = i < 12 ? day.sunrise + i * dh : day.sunset + (i - 12) * nh, e = s + (i < 12 ? dh : nh); const lord = HORA[(WD_LORD[day.weekday] + i) % 7]; const on = jd >= s && jd < e; horas.push({ lord, c: HCOL[lord], t: this.fmt12(s), bd: on ? 'rgba(227,174,74,0.7)' : 'rgba(138,145,176,0.18)', bg: on ? 'rgba(227,174,74,0.12)' : 'rgba(8,11,24,0.72)', fg: on ? '#F3D491' : '#EFE8D8' }); }
-    const kalaBands = [['#C07A43', day.gulika], ['#D9483E', day.rahu], ['#8F6BB8', day.yama]].map(([c, r]) => ({ c, l: pct(r[0]), w: `${((r[1] - r[0]) / len * 100).toFixed(2)}%` }));
+    for (let i = 0; i < 24; i++) { const s = i < 12 ? day.sunrise + i * dh : day.sunset + (i - 12) * nh, e = s + (i < 12 ? dh : nh); const lord = HORA[(WD_LORD[day.weekday] + i) % 7]; const on = jd >= s && jd < e; horas.push({ lord, c: HCOL[lord], t: this.fmt12(s), bd: on ? 'rgba(var(--gR,227,174,74),0.7)' : 'rgba(var(--mR,138,145,176),0.18)', bg: on ? 'rgba(var(--gR,227,174,74),0.12)' : 'rgba(var(--pR,8,11,24),0.72)', fg: on ? 'rgb(var(--gsR,243,212,145))' : 'rgb(var(--tR,239,232,216))' }); }
+    const kalaBands = [['#C07A43', day.gulika], ['rgb(var(--kR,217,72,62))', day.rahu], ['#8F6BB8', day.yama]].map(([c, r]) => ({ c, l: pct(r[0]), w: `${((r[1] - r[0]) / len * 100).toFixed(2)}%` }));
     const v = Math.max(0, Math.floor((jd - day.sunrise) * 86400 / 24));
     // month
     const M = this.month, mt = M.today;
     const lead = M.days.length ? M.days[0].dt.getUTCDay() : 0; const cells = [];
-    for (let i = 0; i < lead; i++) cells.push({ td: '', civ: '', sp: '', bg: 'transparent', bd: 'transparent', fg: '#8A91B0', op: '1', moonBg: 'transparent', moonBd: 'transparent', sc: '#8A91B0' });
+    for (let i = 0; i < lead; i++) cells.push({ td: '', civ: '', sp: '', bg: 'transparent', bd: 'transparent', fg: 'rgb(var(--mR,138,145,176))', op: '1', moonBg: 'transparent', moonBd: 'transparent', sc: 'rgb(var(--mR,138,145,176))' });
     const specials = [];
     M.days.forEach(({ dt, p, isToday }) => {
       const sp = this.special(p); const t = p.tithi[0].idx;
-      cells.push({ td: String(p.tamilDay), civ: `${dt.getUTCDate()} ${MON[dt.getUTCMonth()]}`, sp: sp.length ? sp[0][0] : P.N.nakshatra[p.nakshatra[0].idx], sc: sp.length ? sp[0][1] : '#8A91B0', bg: isToday ? 'rgba(227,174,74,0.14)' : t < 15 ? '#10152B' : '#0A0D1C', bd: isToday ? '#E3AE4A' : 'rgba(138,145,176,0.14)', fg: isToday ? '#F3D491' : '#EFE8D8', op: '1', moonBg: t === 14 ? '#CBD5DE' : t === 29 ? '#04060D' : 'transparent', moonBd: t === 14 || t === 29 ? '#CBD5DE' : 'transparent' });
+      cells.push({ td: String(p.tamilDay), civ: `${dt.getUTCDate()} ${MON[dt.getUTCMonth()]}`, sp: sp.length ? sp[0][0] : P.N.nakshatra[p.nakshatra[0].idx], sc: sp.length ? sp[0][1] : 'rgb(var(--mR,138,145,176))', bg: isToday ? 'rgba(var(--gR,227,174,74),0.14)' : t < 15 ? 'rgb(var(--ink2R,16,21,43))' : 'rgb(var(--inkR,10,13,28))', bd: isToday ? 'rgb(var(--gR,227,174,74))' : 'rgba(var(--mR,138,145,176),0.14)', fg: isToday ? 'rgb(var(--gsR,243,212,145))' : 'rgb(var(--tR,239,232,216))', op: '1', moonBg: t === 14 ? 'rgb(var(--moR,203,213,222))' : t === 29 ? 'rgb(var(--bgR,4,6,13))' : 'transparent', moonBd: t === 14 || t === 29 ? 'rgb(var(--moR,203,213,222))' : 'transparent' });
       sp.forEach(([n, c]) => specials.push({ d: `${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt.getUTCDay()]} ${dt.getUTCDate()} ${MON[dt.getUTCMonth()]}`, n, c, x: `${P.N.monthTaLat[p.tamilMonth]} ${p.tamilDay}` }));
     });
     const first = M.days[0], last = M.days[M.days.length - 1];
-    const tabs = (a) => TABS.map((l) => ({ label: l, fg: l === a ? '#F3D491' : '#8A91B0', dot: l === a ? '#E3AE4A' : 'transparent' }));
+    const tabs = (a) => TABS.map((l) => ({ label: l, fg: l === a ? 'rgb(var(--gsR,243,212,145))' : 'rgb(var(--mR,138,145,176))', dot: l === a ? 'rgb(var(--gR,227,174,74))' : 'transparent' }));
     this.setState({ d: {
       statusTime: this.fmt12(jd).replace(/ (am|pm)/, ''), statusNz: `${pad(Math.floor(v / 60))}:${pad(v % 60)} nāḻ`,
       vara: P.N.vara[day.weekday], varaTa: P.N.varaTa[day.weekday], sub: `${day.civ.getUTCDate()} ${MON[day.civ.getUTCMonth()]} · ${P.N.monthTaLat[day.tamilMonth]} ${day.tamilDay} · ${LOC.name}`,
@@ -235,8 +300,8 @@ class Component extends DCLogic {
     } });
   }
   renderVals() {
-    const d = this.state.d; if (d) return d;
-    return { statusTime: '', statusNz: '', vara: '', varaTa: '', sub: '', dayPct: '0%', nowPct: '0%', kalaBands: [], srT: '', ssT: '', ssNz: '', horas: [], events: [], mYear: '', mName: '', mTa: '', mRange: '', wdh: [], cells: [], specials: [], todayRows: [], tabsDay: [], tabsMonth: [] };
+    const d = this.state.d; if (d) return { ...d, ...this.themeVals() };
+    return { ...this.themeVals(), statusTime: '', statusNz: '', vara: '', varaTa: '', sub: '', dayPct: '0%', nowPct: '0%', kalaBands: [], srT: '', ssT: '', ssNz: '', horas: [], events: [], mYear: '', mName: '', mTa: '', mRange: '', wdh: [], cells: [], specials: [], todayRows: [], tabsDay: [], tabsMonth: [] };
   }
 }
 </script>

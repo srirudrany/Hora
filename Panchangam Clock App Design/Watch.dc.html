@@ -14,49 +14,57 @@
 <script src="./panchanga.js"></script>
 <style>html,body{margin:0;background:#020308;color:#EFE8D8}*{box-sizing:border-box}a{color:#F3D491}a:hover{color:#E3AE4A}</style>
 </helmet>
-<section style="padding:64px 64px 96px;font-family:'Noto Sans',sans-serif;display:flex;flex-direction:column;gap:40px">
+<section style="padding:64px 64px 96px;font-family:'Noto Sans',sans-serif;display:flex;flex-direction:column;gap:40px;--faceR:{{ th.face }};--ink2R:{{ th.ink2 }};--gR:{{ th.g }};--gsR:{{ th.gs }};--tR:{{ th.t }};--mR:{{ th.m }};--moR:{{ th.mo }};--kR:{{ th.k }};--bgR:{{ th.bg }};--tj:{{ th.tj }};--dots:{{ th.dots }}">
   <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
-    <div style="font:600 12px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:#8A91B0">Turn 1 · Watch</div>
-    <div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:40px;color:#F3D491">Pañcāṅga Clock · watch</div>
-    <div style="font-size:15px;color:#8A91B0;line-height:1.5">Three 2D faces (no WebGL, per spec §4.4) and six complications, all live for Chennai. <a href="Phone Screens.dc.html">Phone screens</a> · <a href="Sky Navigator.dc.html">Sky Navigator</a></div>
+    <div style="font:600 12px 'Noto Sans';letter-spacing:.14em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Turn 1 · Watch</div>
+    <div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:40px;color:rgb(var(--gsR,243,212,145))">Pañcāṅga Clock · watch</div>
+    <div style="font-size:15px;color:rgb(var(--mR,138,145,176));line-height:1.5">Three 2D faces (no WebGL, per spec §4.4) and six complications, all live for Chennai. <a href="Phone Screens.dc.html">Phone screens</a> · <a href="Sky Navigator.dc.html">Sky Navigator</a></div>
+    <div style="display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(8,11,24,0.78);border:1px solid rgba(var(--mR,138,145,176),0.22);width:max-content;align-items:center;margin-top:8px">
+      <sc-for list="{{ pageThemes }}" as="t" hint-placeholder-count="2">
+        <button onClick="{{ t.onClick }}" style="appearance:none;border:0;cursor:pointer;padding:6px 14px;border-radius:999px;background:{{ t.bg }};color:{{ t.fg }};font:600 11px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;display:flex;gap:7px;align-items:center"><i style="width:7px;height:7px;border-radius:50%;display:block;background:{{ t.dot }}"></i>{{ t.label }}</button>
+      </sc-for>
+      <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}"><span style="font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176));padding:0 12px 0 4px;white-space:nowrap">{{ moodLabel }}</span></sc-if>
+    </div>
   </div>
 
   <div style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-end">
     <div id="1a" style="display:flex;flex-direction:column;gap:18px;align-items:flex-start">
-      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1a</span><span style="font-size:14px">Kālacakra mini</span><span style="font-size:13px;color:#8A91B0">round · the phone face, reduced</span></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1a</span><span style="font-size:14px">Kālacakra mini</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">round · the phone face, reduced</span></div>
       <div style="width:270px;height:270px;border-radius:50%;border:12px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 30px 60px rgba(0,0,0,.6);background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden">
         <svg width="246" height="246" viewBox="0 0 246 246" style="display:block">
-          <circle cx="123" cy="123" r="123" fill="#0A0D1C"></circle>
+          <circle cx="123" cy="123" r="123" style="fill:rgb(var(--faceR,10,13,28))"></circle>
           <sc-for list="{{ fA.arcs }}" as="p" hint-placeholder-count="0"><path d="{{ p.d }}" fill="{{ p.f }}"></path></sc-for>
           <sc-for list="{{ fA.ticks }}" as="l" hint-placeholder-count="0"><line x1="{{ l.x1 }}" y1="{{ l.y1 }}" x2="{{ l.x2 }}" y2="{{ l.y2 }}" stroke="{{ l.c }}" stroke-width="{{ l.w }}"></line></sc-for>
-          <sc-for list="{{ fA.nums }}" as="t" hint-placeholder-count="0"><text x="{{ t.x }}" y="{{ t.y }}" fill="{{ t.c }}" font-family="IBM Plex Mono" font-weight="600" font-size="11" text-anchor="middle" dominant-baseline="central">{{ t.t }}</text></sc-for>
-          <sc-for list="{{ fA.cells }}" as="p" hint-placeholder-count="0"><path d="{{ p.d }}" fill="{{ p.f }}" stroke="rgba(227,174,74,0.35)" stroke-width="0.5"></path></sc-for>
-          <circle cx="123" cy="123" r="{{ fA.mr }}" fill="#12141c" stroke="rgba(203,213,222,0.25)"></circle>
-          <path d="{{ fA.moon }}" fill="#CBD5DE"></path>
+          <sc-for list="{{ fA.nums }}" as="t" hint-placeholder-count="0"><foreignObject x="{{ t.fx }}" y="{{ t.fy }}" width="40" height="22"><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;font-style:normal;letter-spacing:normal;color:{{ t.c }};line-height:22px;white-space:nowrap;text-align:center">{{ t.t }}</div></foreignObject></sc-for>
+          <sc-for list="{{ fA.cells }}" as="p" hint-placeholder-count="0"><path d="{{ p.d }}" fill="{{ p.f }}" stroke-width="0.5" style="stroke:rgba(var(--gR,227,174,74),0.35)"></path></sc-for>
+          <circle cx="123" cy="123" r="{{ fA.mr }}" fill="#12141c" style="stroke:rgba(var(--moR,203,213,222),0.25)"></circle>
+          <path d="{{ fA.moon }}" style="fill:rgb(var(--moR,203,213,222))"></path>
+          <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ beadsA }}" as="k" hint-placeholder-count="0"><circle cx="{{ k.x }}" cy="{{ k.y }}" r="{{ k.r }}" fill="{{ k.c }}"></circle></sc-for></sc-if>
           <circle cx="{{ fA.sun.x }}" cy="{{ fA.sun.y }}" r="3.2" fill="#FFD27A"></circle>
-          <circle cx="{{ fA.mdot.x }}" cy="{{ fA.mdot.y }}" r="2.8" fill="#CBD5DE"></circle>
+          <circle cx="{{ fA.mdot.x }}" cy="{{ fA.mdot.y }}" r="2.8" style="fill:rgb(var(--moR,203,213,222))"></circle>
           <line x1="{{ fA.hand.x1 }}" y1="{{ fA.hand.y1 }}" x2="{{ fA.hand.x2 }}" y2="{{ fA.hand.y2 }}" stroke="#F0C56C" stroke-width="2.4" stroke-linecap="round"></line>
           <circle cx="{{ fA.hand.x2 }}" cy="{{ fA.hand.y2 }}" r="3" fill="#F0C56C"></circle>
-          <text x="123" y="72" fill="#EFE8D8" font-family="IBM Plex Mono" font-weight="500" font-size="17" text-anchor="middle" dominant-baseline="central">{{ nz }}</text>
-          <text x="123" y="176" fill="#F3D491" font-family="Tiro Devanagari Sanskrit" font-style="italic" font-size="13" text-anchor="middle" dominant-baseline="central">{{ tithiShort }}</text>
+          <foreignObject x="48" y="55" width="150" height="34"><div style="font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:500;font-style:normal;letter-spacing:normal;color:rgb(var(--tR,239,232,216));line-height:34px;white-space:nowrap;text-align:center">{{ nz }}</div></foreignObject>
+          <foreignObject x="48" y="163" width="150" height="26"><div style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:13px;font-weight:400;font-style:italic;letter-spacing:normal;color:rgb(var(--gsR,243,212,145));line-height:26px;white-space:nowrap;text-align:center">{{ tithiShort }}</div></foreignObject>
         </svg>
       </div>
     </div>
 
     <div id="1b" style="display:flex;flex-direction:column;gap:18px;align-items:flex-start">
-      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1b</span><span style="font-size:14px">Nāḻigai modular</span><span style="font-size:13px;color:#8A91B0">digital first, two limbs</span></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1b</span><span style="font-size:14px">Nāḻigai modular</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">digital first, two limbs</span></div>
       <div style="position:relative">
         <div style="width:212px;height:256px;border-radius:52px;border:12px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 30px 60px rgba(0,0,0,.6);background:#000;padding:14px 12px;display:flex;flex-direction:column;gap:6px;overflow:hidden">
-          <div style="display:flex;justify-content:space-between;font:600 11px 'Noto Sans';letter-spacing:.08em;text-transform:uppercase;color:#E3AE4A"><span>{{ varaShort }}</span><span style="font-family:'IBM Plex Mono',monospace;color:#EFE8D8;letter-spacing:0">{{ civil }}</span></div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;font-size:50px;line-height:1;color:#EFE8D8;letter-spacing:-.02em;margin-top:2px">{{ nzA }}<span style="color:#E3AE4A">:</span>{{ nzB }}</div>
-          <div style="font-size:10px;color:#8A91B0;margin-top:-2px">nāḻigai since sunrise</div>
-          <div style="display:flex;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:#10152B">
-            <svg width="22" height="22" viewBox="0 0 22 22" style="flex:none"><circle cx="11" cy="11" r="10" fill="#12141c"></circle><path d="{{ moon22 }}" fill="#CBD5DE"></path></svg>
-            <div style="display:flex;flex-direction:column;min-width:0;flex:1"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:13px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ tithiName }}</span><span style="font:500 9.5px 'IBM Plex Mono',monospace;color:#8A91B0">ends {{ tithiEnd }}</span></div>
+          <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:center;margin:-14px -12px -4px;height:22px;overflow:hidden;position:relative"><div style="position:absolute;left:0;right:0;top:2px;height:1.5px;background:rgb(var(--gR,227,174,74))"></div><sc-for list="{{ leaves }}" as="lf" hint-placeholder-count="0"><svg width="17" height="23" viewBox="0 0 34 46" style="flex:none;display:block;overflow:visible"><path d="M17 7 C 25 16, 24 31, 17 44 C 10 31, 9 16, 17 7 Z" style="fill:{{ lf.c }}"></path><circle cx="0" cy="5" r="5" fill="#F28A12"></circle></svg></sc-for></div></sc-if>
+          <div style="display:flex;justify-content:space-between;font:600 11px 'Noto Sans';letter-spacing:.08em;text-transform:uppercase;color:rgb(var(--gR,227,174,74))"><span>{{ varaShort }}</span><span style="font-family:'IBM Plex Mono',monospace;color:rgb(var(--tR,239,232,216));letter-spacing:0">{{ civil }}</span></div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;font-size:50px;line-height:1;color:rgb(var(--tR,239,232,216));letter-spacing:-.02em;margin-top:2px">{{ nzA }}<span style="color:rgb(var(--gR,227,174,74))">:</span>{{ nzB }}</div>
+          <div style="font-size:10px;color:rgb(var(--mR,138,145,176));margin-top:-2px">nāḻigai since sunrise</div>
+          <div style="display:flex;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:rgb(var(--ink2R,16,21,43))">
+            <svg width="22" height="22" viewBox="0 0 22 22" style="flex:none"><circle cx="11" cy="11" r="10" fill="#12141c"></circle><path d="{{ moon22 }}" style="fill:rgb(var(--moR,203,213,222))"></path></svg>
+            <div style="display:flex;flex-direction:column;min-width:0;flex:1"><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:13px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ tithiName }}</span><span style="font:500 9.5px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">ends {{ tithiEnd }}</span></div>
           </div>
           <div style="display:flex;flex-direction:column;gap:4px;padding:6px 8px;border-radius:10px;background:{{ rahuBg }}">
-            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 9px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#D9483E">Rāhu kālam</span><span style="font:500 10px 'IBM Plex Mono',monospace;color:#EFE8D8">{{ rahuShort }}</span></div>
-            <div style="height:3px;border-radius:2px;background:rgba(138,145,176,0.25);overflow:hidden"><i style="display:block;height:100%;background:#D9483E;width:{{ rahuPct }}"></i></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 9px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--kR,217,72,62))">Rāhu kālam</span><span style="font:500 10px 'IBM Plex Mono',monospace;color:rgb(var(--tR,239,232,216))">{{ rahuShort }}</span></div>
+            <div style="height:3px;border-radius:2px;background:rgba(var(--mR,138,145,176),0.25);overflow:hidden"><i style="display:block;height:100%;background:rgb(var(--kR,217,72,62));width:{{ rahuPct }}"></i></div>
           </div>
         </div>
         <div style="position:absolute;right:-5px;top:62px;width:6px;height:36px;border-radius:3px;background:#22252e"></div>
@@ -64,29 +72,30 @@
     </div>
 
     <div id="1c" style="display:flex;flex-direction:column;gap:18px;align-items:flex-start">
-      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1c</span><span style="font-size:14px">Sky arc</span><span style="font-size:13px;color:#8A91B0">sunrise to sunset, Moon in its nakṣatra</span></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1c</span><span style="font-size:14px">Sky arc</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">sunrise to sunset, Moon in its nakṣatra</span></div>
       <div style="position:relative">
         <div style="width:212px;height:256px;border-radius:52px;border:12px solid #15171E;box-shadow:0 0 0 1px #2a2d38,0 30px 60px rgba(0,0,0,.6);background:#000;overflow:hidden;position:relative">
           <svg width="188" height="232" viewBox="0 0 188 232" style="position:absolute;left:0;top:0">
-            <path d="M 14 86 A 80 64 0 0 1 174 86" fill="none" stroke="rgba(227,174,74,0.55)" stroke-width="1.5" stroke-dasharray="2 4"></path>
-            <line x1="8" y1="86" x2="180" y2="86" stroke="rgba(138,145,176,0.4)" stroke-width="1"></line>
+            <path d="M 14 86 A 80 64 0 0 1 174 86" fill="none" stroke-width="1.5" stroke-dasharray="2 4" style="stroke:rgba(var(--gR,227,174,74),0.55)"></path>
+            <line x1="8" y1="86" x2="180" y2="86" stroke-width="1" style="stroke:rgba(var(--mR,138,145,176),0.4)"></line>
+            <sc-if value="{{ festive }}" hint-placeholder-val="{{ false }}"><sc-for list="{{ beadsC }}" as="k" hint-placeholder-count="0"><circle cx="{{ k.x }}" cy="{{ k.y }}" r="{{ k.r }}" fill="{{ k.c }}"></circle></sc-for></sc-if>
             <circle cx="{{ arcSun.x }}" cy="{{ arcSun.y }}" r="7" fill="#FFD27A" opacity="{{ arcSun.op }}"></circle>
             <circle cx="{{ arcSun.x }}" cy="{{ arcSun.y }}" r="13" fill="rgba(255,210,122,0.18)" opacity="{{ arcSun.op }}"></circle>
-            <text x="14" y="100" fill="#8A91B0" font-family="IBM Plex Mono" font-size="9.5">{{ srShort }}</text>
-            <text x="174" y="100" fill="#8A91B0" font-family="IBM Plex Mono" font-size="9.5" text-anchor="end">{{ ssShort }}</text>
-            <circle cx="52" cy="152" r="30" fill="#12141c" stroke="rgba(203,213,222,0.2)"></circle>
-            <path d="{{ moon60 }}" fill="#CBD5DE"></path>
+            <foreignObject x="14" y="87.175" width="150" height="19"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:400;font-style:normal;letter-spacing:normal;color:rgb(var(--mR,138,145,176));line-height:19px;white-space:nowrap;text-align:left">{{ srShort }}</div></foreignObject>
+            <foreignObject x="24" y="87.175" width="150" height="19"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:400;font-style:normal;letter-spacing:normal;color:rgb(var(--mR,138,145,176));line-height:19px;white-space:nowrap;text-align:right">{{ ssShort }}</div></foreignObject>
+            <circle cx="52" cy="152" r="30" fill="#12141c" style="stroke:rgba(var(--moR,203,213,222),0.2)"></circle>
+            <path d="{{ moon60 }}" style="fill:rgb(var(--moR,203,213,222))"></path>
           </svg>
           <div style="position:absolute;left:92px;top:122px;right:10px;display:flex;flex-direction:column;gap:1px">
-            <span style="font:600 9px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">Tithi {{ tithiNum }}</span>
-            <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:15px;line-height:1.15;color:#F3D491">{{ tithiShort }}</span>
-            <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:12px;color:#EFE8D8;line-height:1.2">{{ nakName }}</span>
+            <span style="font:600 9px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Tithi {{ tithiNum }}</span>
+            <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:15px;line-height:1.15;color:rgb(var(--gsR,243,212,145))">{{ tithiShort }}</span>
+            <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-style:italic;font-size:12px;color:rgb(var(--tR,239,232,216));line-height:1.2">{{ nakName }}</span>
           </div>
           <div style="position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:space-between;align-items:baseline">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:30px;line-height:1;color:#EFE8D8">{{ nzA }}<span style="color:#E3AE4A">:</span>{{ nzB }}</span>
-            <span style="font:500 11px 'IBM Plex Mono',monospace;color:#8A91B0">{{ civil }}</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:30px;line-height:1;color:rgb(var(--tR,239,232,216))">{{ nzA }}<span style="color:rgb(var(--gR,227,174,74))">:</span>{{ nzB }}</span>
+            <span style="font:500 11px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ civil }}</span>
           </div>
-          <div style="position:absolute;left:14px;top:14px;font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#E3AE4A">{{ varaShort }}</div>
+          <div style="position:absolute;left:14px;top:14px;font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--gR,227,174,74))">{{ varaShort }}</div>
         </div>
         <div style="position:absolute;right:-5px;top:62px;width:6px;height:36px;border-radius:3px;background:#22252e"></div>
       </div>
@@ -94,94 +103,118 @@
   </div>
 
   <div id="1d" style="display:flex;flex-direction:column;gap:18px">
-    <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:#04060D;background:#E3AE4A;border-radius:6px;padding:3px 8px">1d</span><span style="font-size:14px">Complications</span><span style="font-size:13px;color:#8A91B0">circular, rectangular and inline families</span></div>
-    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;padding:28px;border-radius:20px;background:#07080f;border:1px solid rgba(138,145,176,0.14);max-width:1100px">
+    <div style="display:flex;gap:10px;align-items:center"><span style="font:600 12px 'IBM Plex Mono',monospace;color:rgb(var(--bgR,4,6,13));background:rgb(var(--gR,227,174,74));border-radius:6px;padding:3px 8px">1d</span><span style="font-size:14px">Complications</span><span style="font-size:13px;color:rgb(var(--mR,138,145,176))">circular, rectangular and inline families</span></div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;padding:28px;border-radius:20px;background-color:#07080f;background-image:var(--dots,none);background-size:18px 18px;border:1px solid rgba(var(--mR,138,145,176),0.14);box-shadow:var(--tj,none);max-width:1100px">
 
       <div style="display:flex;flex-direction:column;gap:10px;align-items:center;width:110px">
         <div style="width:72px;height:72px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center">
-          <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="rgba(138,145,176,0.25)" stroke-width="4"></circle><path d="{{ gNz }}" fill="none" stroke="#E3AE4A" stroke-width="4" stroke-linecap="round"></path><text x="32" y="30" fill="#EFE8D8" font-family="IBM Plex Mono" font-weight="500" font-size="18" text-anchor="middle" dominant-baseline="central">{{ nzA }}</text><text x="32" y="45" fill="#8A91B0" font-family="Noto Sans" font-weight="600" font-size="7" letter-spacing="1" text-anchor="middle">NĀḺ</text></svg>
+          <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke-width="4" style="stroke:rgba(var(--mR,138,145,176),0.25)"></circle><path d="{{ gNz }}" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:rgb(var(--gR,227,174,74))"></path><foreignObject x="-43" y="12" width="150" height="36"><div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500;font-style:normal;letter-spacing:normal;color:rgb(var(--tR,239,232,216));line-height:36px;white-space:nowrap;text-align:center">{{ nzA }}</div></foreignObject><text x="32" y="45" font-family="Noto Sans" font-weight="600" font-size="7" letter-spacing="1" text-anchor="middle" style="fill:rgb(var(--mR,138,145,176))">NĀḺ</text></svg>
         </div>
-        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0;text-align:center">Nāḻigai gauge</span>
+        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176));text-align:center">Nāḻigai gauge</span>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:10px;align-items:center;width:110px">
         <div style="width:72px;height:72px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center">
-          <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="27" r="15" fill="#12141c" stroke="rgba(203,213,222,0.25)"></circle><path d="{{ moon30 }}" fill="#CBD5DE"></path><text x="32" y="52" fill="#F3D491" font-family="IBM Plex Mono" font-weight="600" font-size="10" text-anchor="middle">{{ tithiCode }}</text></svg>
+          <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="27" r="15" fill="#12141c" style="stroke:rgba(var(--moR,203,213,222),0.25)"></circle><path d="{{ moon30 }}" style="fill:rgb(var(--moR,203,213,222))"></path><foreignObject x="-43" y="38.5" width="150" height="20"><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;font-style:normal;letter-spacing:normal;color:rgb(var(--gsR,243,212,145));line-height:20px;white-space:nowrap;text-align:center">{{ tithiCode }}</div></foreignObject></svg>
         </div>
-        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0;text-align:center">Moon phase + tithi</span>
+        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176));text-align:center">Moon phase + tithi</span>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:10px;align-items:center;width:110px">
         <div style="width:72px;height:72px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center">
-          <svg width="64" height="64" viewBox="0 0 64 64"><path d="M 9 40 A 25 25 0 0 1 55 40" fill="none" stroke="rgba(138,145,176,0.3)" stroke-width="3" stroke-linecap="round"></path><path d="{{ gSunArc }}" fill="none" stroke="#E3AE4A" stroke-width="3" stroke-linecap="round"></path><circle cx="{{ gSun.x }}" cy="{{ gSun.y }}" r="4" fill="#FFD27A"></circle><text x="32" y="36" fill="#EFE8D8" font-family="IBM Plex Mono" font-weight="500" font-size="11" text-anchor="middle">{{ toSunset }}</text><text x="32" y="50" fill="#8A91B0" font-family="Noto Sans" font-weight="600" font-size="6.5" letter-spacing="1" text-anchor="middle">{{ sunLbl }}</text></svg>
+          <svg width="64" height="64" viewBox="0 0 64 64"><path d="M 9 40 A 25 25 0 0 1 55 40" fill="none" stroke-width="3" stroke-linecap="round" style="stroke:rgba(var(--mR,138,145,176),0.3)"></path><path d="{{ gSunArc }}" fill="none" stroke-width="3" stroke-linecap="round" style="stroke:rgb(var(--gR,227,174,74))"></path><circle cx="{{ gSun.x }}" cy="{{ gSun.y }}" r="4" fill="#FFD27A"></circle><foreignObject x="-43" y="21.15" width="150" height="22"><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;font-style:normal;letter-spacing:normal;color:rgb(var(--tR,239,232,216));line-height:22px;white-space:nowrap;text-align:center">{{ toSunset }}</div></foreignObject><foreignObject x="-43" y="41.225" width="150" height="13"><div style="font-family:'Noto Sans',sans-serif;font-size:6.5px;font-weight:600;font-style:normal;letter-spacing:1px;color:rgb(var(--mR,138,145,176));line-height:13px;white-space:nowrap;text-align:center">{{ sunLbl }}</div></foreignObject></svg>
         </div>
-        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0;text-align:center">Sunrise → sunset</span>
+        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176));text-align:center">Sunrise → sunset</span>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:10px;align-items:center;width:110px">
         <div style="width:72px;height:72px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center">
-          <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="rgba(217,72,62,0.25)" stroke-width="4"></circle><path d="{{ gRahu }}" fill="none" stroke="#D9483E" stroke-width="4" stroke-linecap="round"></path><text x="32" y="30" fill="#EFE8D8" font-family="IBM Plex Mono" font-weight="500" font-size="13" text-anchor="middle" dominant-baseline="central">{{ rahuMini }}</text><text x="32" y="45" fill="#D9483E" font-family="Noto Sans" font-weight="600" font-size="7" letter-spacing="1" text-anchor="middle">RĀHU</text></svg>
+          <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke-width="4" style="stroke:rgba(var(--kR,217,72,62),0.25)"></circle><path d="{{ gRahu }}" fill="none" stroke-width="4" stroke-linecap="round" style="stroke:rgb(var(--kR,217,72,62))"></path><foreignObject x="-43" y="17" width="150" height="26"><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;font-style:normal;letter-spacing:normal;color:rgb(var(--tR,239,232,216));line-height:26px;white-space:nowrap;text-align:center">{{ rahuMini }}</div></foreignObject><text x="32" y="45" font-family="Noto Sans" font-weight="600" font-size="7" letter-spacing="1" text-anchor="middle" style="fill:rgb(var(--kR,217,72,62))">RĀHU</text></svg>
         </div>
-        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0;text-align:center">Rāhu countdown</span>
+        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176));text-align:center">Rāhu countdown</span>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:10px;width:200px">
         <div style="padding:10px 12px;border-radius:14px;background:#000;display:flex;flex-direction:column;gap:5px">
-          <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#D9483E">Rāhu kālam</span><span style="font:500 10px 'IBM Plex Mono',monospace;color:#8A91B0">{{ rahuRange }}</span></div>
-          <span style="font:500 15px 'IBM Plex Mono',monospace;color:#EFE8D8">{{ rahuLong }}</span>
-          <div style="height:3px;border-radius:2px;background:rgba(138,145,176,0.25);overflow:hidden"><i style="display:block;height:100%;background:#D9483E;width:{{ rahuPct }}"></i></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--kR,217,72,62))">Rāhu kālam</span><span style="font:500 10px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">{{ rahuRange }}</span></div>
+          <span style="font:500 15px 'IBM Plex Mono',monospace;color:rgb(var(--tR,239,232,216))">{{ rahuLong }}</span>
+          <div style="height:3px;border-radius:2px;background:rgba(var(--mR,138,145,176),0.25);overflow:hidden"><i style="display:block;height:100%;background:rgb(var(--kR,217,72,62));width:{{ rahuPct }}"></i></div>
         </div>
-        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0">Rāhu kālam · rectangular</span>
+        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Rāhu kālam · rectangular</span>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:10px;width:200px">
         <div style="padding:10px 12px;border-radius:14px;background:#000;display:flex;flex-direction:column;gap:3px">
-          <span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">Nakṣatra {{ nakNum }} · pada {{ pada }}</span>
+          <span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Nakṣatra {{ nakNum }} · pada {{ pada }}</span>
           <span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:17px;line-height:1.2">{{ nakName }}</span>
-          <span style="font:500 10px 'IBM Plex Mono',monospace;color:#8A91B0">ends {{ nakEnd }}</span>
+          <span style="font:500 10px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">ends {{ nakEnd }}</span>
         </div>
-        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0">Nakṣatra · rectangular</span>
+        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Nakṣatra · rectangular</span>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:10px;width:200px">
         <div style="padding:10px 12px;border-radius:14px;background:#000;display:grid;grid-template-columns:auto 1fr;gap:3px 10px;align-items:baseline">
-          <span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">Yoga</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:15px;color:{{ yogaCol }}">{{ yogaName }}</span>
-          <span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:#8A91B0">Karaṇa</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:15px;color:{{ karCol }}">{{ karName }}</span>
-          <span></span><span style="font:500 10px 'IBM Plex Mono',monospace;color:#8A91B0">karaṇa ends {{ karEnd }}</span>
+          <span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Yoga</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:15px;color:{{ yogaCol }}">{{ yogaName }}</span>
+          <span style="font:600 9.5px 'Noto Sans';letter-spacing:.12em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Karaṇa</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:15px;color:{{ karCol }}">{{ karName }}</span>
+          <span></span><span style="font:500 10px 'IBM Plex Mono',monospace;color:rgb(var(--mR,138,145,176))">karaṇa ends {{ karEnd }}</span>
         </div>
-        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0">Yoga / karaṇa · rectangular</span>
+        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Yoga / karaṇa · rectangular</span>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:10px;width:260px">
         <div style="padding:8px 12px;border-radius:999px;background:#000;display:flex;align-items:center;gap:8px;white-space:nowrap">
-          <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5.5" fill="#12141c"></circle><path d="{{ moon12 }}" fill="#CBD5DE"></path></svg>
-          <span style="font:500 12px 'IBM Plex Mono',monospace;color:#EFE8D8">{{ nz }}</span><span style="color:#8A91B0">·</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:13px;color:#F3D491;overflow:hidden;text-overflow:ellipsis">{{ tithiShort }}</span>
+          <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="6" cy="6" r="5.5" fill="#12141c"></circle><path d="{{ moon12 }}" style="fill:rgb(var(--moR,203,213,222))"></path></svg>
+          <span style="font:500 12px 'IBM Plex Mono',monospace;color:rgb(var(--tR,239,232,216))">{{ nz }}</span><span style="color:rgb(var(--mR,138,145,176))">·</span><span style="font-family:'Tiro Devanagari Sanskrit',serif;font-size:13px;color:rgb(var(--gsR,243,212,145));overflow:hidden;text-overflow:ellipsis">{{ tithiShort }}</span>
         </div>
-        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:#8A91B0">Inline · top of watch face</span>
+        <span style="font:600 10px 'Noto Sans';letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--mR,138,145,176))">Inline · top of watch face</span>
       </div>
     </div>
   </div>
 </section>
 </x-dc>
-<script type="text/x-dc" data-dc-script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;night&quot;,&quot;festival&quot;],&quot;default&quot;:&quot;night&quot;,&quot;tsType&quot;:&quot;'night'|'festival'&quot;},&quot;mood&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;deepavali&quot;,&quot;pongal&quot;,&quot;temple&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;'auto'|'deepavali'|'pongal'|'temple'&quot;}}">
 const LOC = { name: 'Chennai', lat: 13.0827, lon: 80.2707, tz: 5.5 };
 const pad = (n) => String(n).padStart(2, '0');
 const WDS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const ASUBHA = [1, 6, 9, 10, 13, 15, 17, 19, 27];
 const R2 = (n) => Math.round(n * 100) / 100;
+const WP = {
+  night: { face: '#0A0D1C', ink2: '#10152B', g: '#E3AE4A', gs: '#F3D491', t: '#EFE8D8', m: '#8A91B0', mo: '#CBD5DE', k: '#D9483E', bg: '#04060D', day: '#6B4D14', night: '#0F1A4D', tick: 'rgba(239,232,216,0.55)', bright: '#4E5E92', dark: '#141A3A' },
+  deepavali: { face: '#1E0810', ink2: '#2C0B17', g: '#F4B23C', gs: '#FFD98C', t: '#FFF1DE', m: '#CFA092', mo: '#F3E3CF', k: '#EE4B2B', bg: '#14040A', day: '#8A4E0C', night: '#43102A', tick: 'rgba(255,241,222,0.55)', bright: '#9A3A52', dark: '#3A0F1F' },
+  pongal: { face: '#361509', ink2: '#461D0E', g: '#F5B90A', gs: '#FFDD66', t: '#FFF7EA', m: '#E2B498', mo: '#FFF3DC', k: '#DB3B25', bg: '#2A1009', day: '#9A6A0E', night: '#5A2412', tick: 'rgba(255,247,234,0.55)', bright: '#B0582E', dark: '#4A1D0E' },
+  temple: { face: '#161412', ink2: '#211D1A', g: '#CFA24A', gs: '#EACB86', t: '#F2EADF', m: '#A69D91', mo: '#E6DED2', k: '#E3412A', bg: '#0D0C0B', day: '#6E4C16', night: '#2B2522', tick: 'rgba(242,234,223,0.55)', bright: '#6A5E54', dark: '#26211D' },
+};
+const AUTO = ['temple','temple','temple','temple','temple','temple','deepavali','deepavali','pongal','pongal','temple','temple'];
+const MOODN = { deepavali: 'Deepavali', pongal: 'Pongal', temple: 'Temple' };
+const MOODS = ['auto', 'deepavali', 'pongal', 'temple'];
+const rgbOf = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).join(',');
+const BEAD = ['#F08A12', '#F6B41F', '#F08A12', '#FFF4DE'];
+const LEAVES = Array.from({ length: 12 }, (_, i) => ({ c: i % 2 ? '#5E9E36' : '#3E7B27' }));
+const BEADS_A = Array.from({ length: 72 }, (_, i) => { const a = i * 5 * Math.PI / 180; return { x: R2(123 + 119.5 * Math.sin(a)), y: R2(123 - 119.5 * Math.cos(a)), r: i % 4 === 3 ? 1.3 : 1.8, c: BEAD[i % 4] }; });
+const BEADS_C = Array.from({ length: 23 }, (_, i) => { const a = Math.PI * (1 - i / 22); return { x: R2(94 + 80 * Math.cos(a)), y: R2(86 - 64 * Math.sin(a)), r: i % 4 === 3 ? 1.5 : 2.2, c: BEAD[i % 4] }; });
 function pol(cx, cy, r, a) { return [R2(cx + r * Math.sin(a * Math.PI / 180)), R2(cy - r * Math.cos(a * Math.PI / 180))]; }
 function sec(cx, cy, r0, r1, a0, a1) { const L = (a1 - a0) > 180 ? 1 : 0; const [x1, y1] = pol(cx, cy, r1, a0), [x2, y2] = pol(cx, cy, r1, a1), [x3, y3] = pol(cx, cy, r0, a1), [x4, y4] = pol(cx, cy, r0, a0); return `M${x1} ${y1}A${r1} ${r1} 0 ${L} 1 ${x2} ${y2}L${x3} ${y3}A${r0} ${r0} 0 ${L} 0 ${x4} ${y4}Z`; }
 function arc(cx, cy, r, a0, a1) { a1 = Math.max(a0 + 0.5, Math.min(a1, a0 + 359.5)); const L = (a1 - a0) > 180 ? 1 : 0; const [x1, y1] = pol(cx, cy, r, a0), [x2, y2] = pol(cx, cy, r, a1); return `M${x1} ${y1}A${r} ${r} 0 ${L} 1 ${x2} ${y2}`; }
 function moonD(cx, cy, r, e) { e = ((e % 360) + 360) % 360; const wax = e < 180, c = Math.cos(e * Math.PI / 180), rx = R2(Math.abs(c) * r); const s1 = wax ? 1 : 0; const s2 = wax ? (c > 0 ? 0 : 1) : (c > 0 ? 1 : 0); return `M${cx} ${cy - r}A${r} ${r} 0 0 ${s1} ${cx} ${cy + r}A${rx} ${r} 0 0 ${s2} ${cx} ${cy - r}Z`; }
 
 class Component extends DCLogic {
-  state = { d: null };
+  state = { d: null, theme: null, mood: null };
+  componentDidUpdate(pp) { if (pp && (pp.theme !== this.props.theme || pp.mood !== this.props.mood)) { this.setState({ theme: null, mood: null }); return; } const k = `${this.moodKey()}`; if (k !== this._tk && this.P) { this._tk = k; this.compute(); } }
+  moodKey() { const tn = this.state.theme ?? this.props.theme ?? 'night', ms = this.state.mood ?? this.props.mood ?? 'auto'; if (tn !== 'festival') return null; if (MOODN[ms]) return ms; return AUTO[this.tm ?? 5]; }
+  themeVals() {
+    const ms = this.state.mood ?? this.props.mood ?? 'auto', mk = this.moodKey(), festive = !!mk, W = WP[mk || 'night'];
+    const th = { face: rgbOf(W.face), ink2: rgbOf(W.ink2), g: rgbOf(W.g), gs: rgbOf(W.gs), t: rgbOf(W.t), m: rgbOf(W.m), mo: rgbOf(W.mo), k: rgbOf(W.k), bg: rgbOf(W.bg),
+      tj: festive ? `inset 0 0 0 3px #07080f, inset 0 0 0 4.5px rgba(${rgbOf(W.g)},0.5)` : 'none', dots: festive ? 'radial-gradient(rgba(255,248,236,0.13) 1.2px, transparent 1.7px)' : 'none' };
+    return { th, festive, leaves: LEAVES, beadsA: BEADS_A, beadsC: BEADS_C,
+      moodLabel: festive ? (ms === 'auto' ? `Auto · ${MOODN[mk]}${this.P && this.tm != null ? ' · ' + this.P.N.monthTaLat[this.tm] : ''}` : MOODN[mk]) : '',
+      pageThemes: [['night', 'Night', '#CBD5DE'], ['festival', festive ? 'Festival ↻' : 'Festival', '#D9483E']].map(([id, label, dot]) => { const on = (id === 'festival') === festive; return { label, dot, bg: on ? 'rgba(227,174,74,0.18)' : 'transparent', fg: on ? '#F3D491' : '#8A91B0', onClick: () => { if (id === 'night') this.setState({ theme: 'night' }); else if (festive) this.setState({ theme: 'festival', mood: MOODS[(MOODS.indexOf(ms) + 1) % MOODS.length] }); else this.setState({ theme: 'festival' }); } }; }) };
+  }
   componentDidMount() { const t0 = Date.now(); const wait = () => { if (window.Panchanga) { this.P = window.Panchanga; this.compute(); this.iv = setInterval(() => this.compute(), 15000); } else if (Date.now() - t0 < 20000) setTimeout(wait, 60); }; wait(); }
   componentWillUnmount() { clearInterval(this.iv); }
   fmt12(jd) { const d = this.P.dateFromJd(jd + LOC.tz / 24 + 1 / 86400); let h = d.getUTCHours() % 12; if (!h) h = 12; return `${h}:${pad(d.getUTCMinutes())} ${d.getUTCHours() < 12 ? 'am' : 'pm'}`; }
   dayFor(jd) { const P = this.P; const d = P.dateFromJd(jd + LOC.tz / 24); let p = P.panchanga(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), LOC); if (jd < p.sunrise) { const d2 = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - 1)); p = P.panchanga(d2.getUTCFullYear(), d2.getUTCMonth() + 1, d2.getUTCDate(), LOC); } p.civ = P.dateFromJd(p.sunrise + LOC.tz / 24 + 0.3); return p; }
   compute() {
-    const P = this.P, jd = P.jdFromDate(new Date()), day = this.dayFor(jd);
+    const P = this.P, jd = P.jdFromDate(new Date()), day = this.dayFor(jd); this.tm = day.tamilMonth; const W = WP[this.moodKey() || 'night'];
     const len = day.nextSunrise - day.sunrise, f = (jd - day.sunrise) / len;
     const ls = P.sidSun(jd), lm = P.sidMoon(jd), e = P.elong(jd);
     const A = (k) => ({ idx: P.angaAt(k, jd), e: P.angaEnd(k, jd) });
@@ -191,12 +224,12 @@ class Component extends DCLogic {
     // face A
     const cx = 123, cy = 123, s = 123 / 5.08, r = (x) => x * s;
     const dayA = (day.sunset - day.sunrise) / len * 360; const nz = (x) => (x - day.sunrise) / len * 360;
-    const arcs = [{ d: sec(cx, cy, r(4.3), r(5.0), 0, dayA), f: '#6B4D14' }, { d: sec(cx, cy, r(4.3), r(5.0), dayA, 359.99), f: '#0F1A4D' }];
-    [['#C07A43', day.gulika], ['#D9483E', day.rahu], ['#8F6BB8', day.yama]].forEach(([c, q]) => arcs.push({ d: sec(cx, cy, r(4.3), r(4.52), nz(q[0]), nz(q[1])), f: c }));
-    const ticks = []; for (let i = 0; i < 60; i++) { const a = i * 6, maj = i % 5 === 0; const [x1, y1] = pol(cx, cy, r(maj ? 4.6 : 4.78), a), [x2, y2] = pol(cx, cy, r(4.98), a); ticks.push({ x1, y1, x2, y2, c: maj ? '#F3D491' : 'rgba(239,232,216,0.55)', w: maj ? 1.6 : 0.8 }); }
-    const nums = [0, 15, 30, 45].map((n) => { const [x, y] = pol(cx, cy, r(4.05), n * 6); return { x, y, t: String(n), c: n === 0 ? '#E3AE4A' : '#EFE8D8' }; });
+    const arcs = [{ d: sec(cx, cy, r(4.3), r(5.0), 0, dayA), f: W.day }, { d: sec(cx, cy, r(4.3), r(5.0), dayA, 359.99), f: W.night }];
+    [['#C07A43', day.gulika], [W.k, day.rahu], ['#8F6BB8', day.yama]].forEach(([c, q]) => arcs.push({ d: sec(cx, cy, r(4.3), r(4.52), nz(q[0]), nz(q[1])), f: c }));
+    const ticks = []; for (let i = 0; i < 60; i++) { const a = i * 6, maj = i % 5 === 0; const [x1, y1] = pol(cx, cy, r(maj ? 4.6 : 4.78), a), [x2, y2] = pol(cx, cy, r(4.98), a); ticks.push({ x1, y1, x2, y2, c: maj ? W.gs : W.tick, w: maj ? 1.6 : 0.8 }); }
+    const nums = [0, 15, 30, 45].map((n) => { const [x, y] = pol(cx, cy, r(4.05), n * 6); return { x, y, fx: R2(x - 20), fy: R2(y - 11), t: String(n), c: n === 0 ? W.g : W.t }; });
     const cells = []; const ti = T.idx;
-    for (let j = 0; j < 30; j++) { const a0 = -(ls + 12 * (j + 1)), a1 = -(ls + 12 * j); cells.push({ d: sec(cx, cy, r(3.5), r(3.78), a0, a1), f: j === ti ? '#F3D491' : j < 15 ? '#4E5E92' : j === 29 ? '#000' : '#141A3A' }); }
+    for (let j = 0; j < 30; j++) { const a0 = -(ls + 12 * (j + 1)), a1 = -(ls + 12 * j); cells.push({ d: sec(cx, cy, r(3.5), r(3.78), a0, a1), f: j === ti ? W.gs : j < 15 ? W.bright : j === 29 ? '#000' : W.dark }); }
     const [hx1, hy1] = pol(cx, cy, r(2.55), f * 360), [hx2, hy2] = pol(cx, cy, r(4.92), f * 360);
     const [sx, sy] = pol(cx, cy, r(3.25), -ls), [mx, my] = pol(cx, cy, r(3.25), -lm);
     const mr = R2(r(1.55));
@@ -217,18 +250,18 @@ class Component extends DCLogic {
       varaShort: `${WDS[day.civ.getUTCDay()]} ${day.civ.getUTCDate()} · ${P.N.vara[day.weekday]}`,
       tithiName: `${tt.paksha} ${tt.name}`, tithiShort: tt.name, tithiNum: `${tt.num} · ${tt.paksha}`, tithiEnd: this.fmt12(T.e), tithiCode: `${tt.paksha[0] === 'Ś' ? 'Ś' : 'K'}${tt.num}`,
       moon22: moonD(11, 11, 10, e), moon60: moonD(52, 152, 30, e), moon30: moonD(32, 27, 15, e), moon12: moonD(6, 6, 5.5, e),
-      rahuBg: jd >= rs && jd < re ? 'rgba(217,72,62,0.18)' : '#10152B', rahuShort, rahuLong, rahuMini, rahuPct, rahuRange: `${this.fmt12(rs)}–${this.fmt12(re)}`,
+      rahuBg: jd >= rs && jd < re ? `rgba(${rgbOf(W.k)},0.2)` : W.ink2, rahuShort, rahuLong, rahuMini, rahuPct, rahuRange: `${this.fmt12(rs)}–${this.fmt12(re)}`,
       gRahu: arc(32, 32, 27, 0, 360 * Math.max(0.01, rahuFrac)), gNz: arc(32, 32, 27, 0, f * 360),
       gSunArc: arc(32, 40, 23, -90, gSunArcEnd), gSun: { x: gsx, y: gsy }, toSunset: `${tsH}h${pad(tsM)}`, sunLbl: isDay ? 'TO SUNSET' : 'TO SUNRISE',
       arcSun, srShort: this.fmt12(day.sunrise), ssShort: this.fmt12(day.sunset),
       nakName: P.N.nakshatra[N.idx], nakNum: N.idx + 1, pada: Math.floor((lm % (360 / 27)) / (360 / 108)) + 1, nakEnd: this.fmt12(N.e),
-      yogaName: P.N.yoga[Y.idx], yogaCol: ASUBHA.includes(Y.idx + 1) ? '#D9483E' : '#EFE8D8', karName, karCol: karName === 'Viṣṭi' ? '#D9483E' : '#EFE8D8', karEnd: this.fmt12(K.e),
+      yogaName: P.N.yoga[Y.idx], yogaCol: ASUBHA.includes(Y.idx + 1) ? W.k : W.t, karName, karCol: karName === 'Viṣṭi' ? W.k : W.t, karEnd: this.fmt12(K.e),
     } });
   }
   renderVals() {
-    if (this.state.d) return this.state.d;
+    if (this.state.d) return { ...this.state.d, ...this.themeVals() };
     const z = { x: 0, y: 0 };
-    return { fA: { arcs: [], ticks: [], nums: [], cells: [], moon: '', mr: 0, hand: { x1: 0, y1: 0, x2: 0, y2: 0 }, sun: z, mdot: z }, nz: '', nzA: '', nzB: '', civil: '', varaShort: '', tithiName: '', tithiShort: '', tithiNum: '', tithiEnd: '', tithiCode: '', moon22: '', moon60: '', moon30: '', moon12: '', rahuBg: '#10152B', rahuShort: '', rahuLong: '', rahuMini: '', rahuPct: '0%', rahuRange: '', gRahu: '', gNz: '', gSunArc: '', gSun: z, toSunset: '', sunLbl: '', arcSun: { x: 0, y: 0, op: '0' }, srShort: '', ssShort: '', nakName: '', nakNum: '', pada: '', nakEnd: '', yogaName: '', yogaCol: '#EFE8D8', karName: '', karCol: '#EFE8D8', karEnd: '' };
+    return { ...this.themeVals(), fA: { arcs: [], ticks: [], nums: [], cells: [], moon: '', mr: 0, hand: { x1: 0, y1: 0, x2: 0, y2: 0 }, sun: z, mdot: z }, nz: '', nzA: '', nzB: '', civil: '', varaShort: '', tithiName: '', tithiShort: '', tithiNum: '', tithiEnd: '', tithiCode: '', moon22: '', moon60: '', moon30: '', moon12: '', rahuBg: '#10152B', rahuShort: '', rahuLong: '', rahuMini: '', rahuPct: '0%', rahuRange: '', gRahu: '', gNz: '', gSunArc: '', gSun: z, toSunset: '', sunLbl: '', arcSun: { x: 0, y: 0, op: '0' }, srShort: '', ssShort: '', nakName: '', nakNum: '', pada: '', nakEnd: '', yogaName: '', yogaCol: '#EFE8D8', karName: '', karCol: '#EFE8D8', karEnd: '' };
   }
 }
 </script>
