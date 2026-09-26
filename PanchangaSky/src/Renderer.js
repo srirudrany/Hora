@@ -16,6 +16,7 @@ import { Starfield } from './Starfield.js';
 import { ZodiacWheel, R } from './ZodiacWheel.js';
 import { CelestialBodies } from './CelestialBodies.js';
 import { Planets, Constellations } from './Planets.js';
+import { Bodies, OUTER_KEYS } from './Bodies.js';   // agent C: bodies
 import { STARS, CONSTELLATIONS, NAKSHATRA_TABLE } from './PanchangamData.js';
 
 const D2R = Math.PI / 180;
@@ -50,7 +51,9 @@ export class Renderer {
     this.constellations = new Constellations(this.stars); this.equatorial.add(this.constellations.group);
     this.ground = this.makeGround(); this.scene.add(this.ground);
     this.scene.add(new THREE.PointLight(0xfff0d0, 2.5, 0, 0));   // lights the planets from the geocentre (stylized)
-    this.layers = { constellations: true, grahas: true, nakshatra: true, rashi: true };
+    this.layers = { constellations: true, grahas: true, nakshatra: true, rashi: true, deepsky: true };
+    // agent C: bodies — outer planets, dwarfs, extra moons (ecliptic) + deep-sky sprites (equatorial)
+    this.extra = new Bodies(this.planets); this.ecliptic.add(this.extra.group); this.equatorial.add(this.extra.sky);
     this.pov = { k: 0, dir: 0, az: 90, alt: 14, skyPos: new THREE.Vector3() };
     this.scene.add(new THREE.AmbientLight(0x3a4a8a, 0.4));
 
@@ -158,6 +161,7 @@ export class Renderer {
     this.planetLabels = Object.entries(this.planets.bodies).map(([k, b]) => this.addLabel(`<span class="dv">${{ budha: 'बुध', shukra: 'शुक्र', mangala: 'मङ्गल', guru: 'गुरु', shani: 'शनि' }[k]}</span>`, b.group, new THREE.Vector3(0, 0.75, 0), 'lbl-graha'));
     this.nodeLabels = ['rahu', 'ketu'].map((k) => this.addLabel(`<span class="dv">${k === 'rahu' ? 'राहु' : 'केतु'}</span>`, this.planets.nodes[k].group, new THREE.Vector3(0, 0.55, 0), 'lbl-node'));
     this.cardinals = ['N', 'E', 'S', 'W'].map((c) => this.addLabel(`<b>${c}</b>`, this.scene, new THREE.Vector3(), 'lbl-card'));
+    this.outerLabels = OUTER_KEYS.map((k) => this.addLabel(`<span class="on">${k[0].toUpperCase() + k.slice(1)}</span>`, this.extra.outer[k].group, new THREE.Vector3(0, 0.5, 0), 'lbl-outer'));   // agent C
     this.starLabels = STARS.filter((s) => s.mag < 1.4 || s.yogatara).map((s) => this.addLabel(`<span class="sn">${s.name}</span>`, this.stars.group, this.stars.starPosition(s.name, new THREE.Vector3()).clone(), 'lbl-star'));
   }
 
@@ -321,6 +325,7 @@ export class Renderer {
       case 'yoga': return P(s.pan.yogaSum, R.ecl);
       case 'budha': case 'shukra': case 'mangala': case 'guru': case 'shani': return this.planets.bodies[k].group.getWorldPosition(out);
       case 'rahu': case 'ketu': return this.planets.nodes[k].group.getWorldPosition(out);
+      case 'uranus': case 'neptune': case 'pluto': case 'ceres': return this.extra.outer[k].group.getWorldPosition(out);   // agent C
       default: return out.set(0, 0, 0);
     }
   }
@@ -330,10 +335,18 @@ export class Renderer {
     const rect = this.renderer.domElement.getBoundingClientRect();
     const ndc = new THREE.Vector2(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
     this.raycaster.setFromCamera(ndc, this.camera);
-    const pickables = [this.bodies.sun.children[0], this.bodies.moon, ...(this.layers.grahas ? this.planets.pickables : [])];
+    const pickables = [this.bodies.sun.children[0], this.bodies.moon, ...(this.layers.grahas ? [...this.planets.pickables, ...this.extra.pickables] : [])];
     if (this.pov.k < 0.5) pickables.push(this.earth);
     const hits = this.raycaster.intersectObjects(pickables, false);
     if (hits.length) return { kind: 'graha', key: hits[0].object.userData.pick, obj: hits[0].object };
+    if (this.layers.deepsky && this.w > 0.5) {   // agent C: deep-sky sprites (before stars: they're larger)
+      const d = this.extra.pickDso(this.raycaster);
+      if (d) {
+        const lp = this.ecliptic.worldToLocal(d.world.clone());
+        const lon = ((Math.atan2(-lp.z, lp.x) / D2R) + 360) % 360, lat = Math.asin(lp.y / lp.length()) / D2R;
+        return { kind: 'dso', dso: d.dso, lon, lat, nak: d.dso.nak || Math.min(27, Math.floor(lon / (40 / 3)) + 1), world: d.world };
+      }
+    }
     this.raycaster.params.Points.threshold = 2.4;
     const sh = this.raycaster.intersectObject(this.stars.named.points, false);
     if (sh.length) {
@@ -362,7 +375,7 @@ export class Renderer {
   /** Project a pick result to screen for anchoring the tooltip. */
   screenOf(hit) {
     const v = new THREE.Vector3();
-    if (hit.kind === 'star') v.copy(hit.world);
+    if (hit.kind === 'star' || hit.kind === 'dso') v.copy(hit.world);
     else if (hit.kind === 'graha' && hit.obj && !['surya', 'chandra', 'earth'].includes(hit.key)) hit.obj.getWorldPosition(v);
     else if (hit.kind === 'graha') {
       if (hit.key === 'surya') this.bodies.sun.getWorldPosition(v);
@@ -390,6 +403,8 @@ export class Renderer {
     this.wheel.update(state.sunLon, state.moonLon, state.pan, dt);
     this.planets.update(state.jd, state.sunLon, state.moonLon, t, state.dayLord);
     this.planets.group.visible = this.layers.grahas && this.w > 0.15;
+    this.extra.update(state.jd, t); this.extra.group.visible = this.planets.group.visible;   // agent C
+    this.extra.sky.visible = this.layers.deepsky && this.w > 0.3;
     this.constellations.group.visible = this.layers.constellations && this.w > 0.5;
     this.wheel.nakMesh.visible = this.layers.nakshatra; this.wheel.rashiMesh.visible = this.layers.rashi;
     this.bodies.update(state.sunLon, state.moonLon, t);
@@ -420,7 +435,7 @@ export class Renderer {
     if (this.mode === 'sky' && !this.anim && this.lock) {
       const target = this.lockTarget(this.lock, new THREE.Vector3());
       this.controls.target.lerp(target, 1 - Math.exp(-dt * 4));
-      if (this.planets.bodies[this.lock]) {
+      if (this.planets.bodies[this.lock] || this.extra.outer[this.lock]) {
         // grahas are lit from the geocentre: view them from the Earth side so the lit face shows
         const side = new THREE.Vector3().crossVectors(target, new THREE.Vector3(0, 1, 0)).setLength(2.6);
         const want = target.clone().multiplyScalar(1 - 4.2 / target.length()).add(side).add(new THREE.Vector3(0, 0.8, 0));
@@ -458,6 +473,7 @@ export class Renderer {
     this.dLLabel.local.set((R.moon - 0.6) * Math.cos(midLon * D2R), 0, -(R.moon - 0.6) * Math.sin(midLon * D2R));
     this.dLLabel.on = sci && state.pan.elongation > 8 && this.pov.k < 0.5;
     this.planetLabels.forEach((L) => { L.on = this.layers.grahas && this.w > 0.3; });
+    this.outerLabels.forEach((L) => { L.on = this.layers.grahas && this.w > 0.3; });   // agent C
     this.nodeLabels.forEach((L) => { L.on = this.layers.grahas && this.w > 0.3; });
     this.cardinals.forEach((L) => { L.on = this.pov.k > 0.6; });
     this.starLabels.forEach((L) => { L.on = this.layers.constellations && this.w > 0.6; });

@@ -2,6 +2,7 @@
 import { Renderer } from './Renderer.js';
 import { UI, SPEEDS } from './UI.js';
 import { CITIES, HORA_ORDER, VARA_TABLE, STARS } from './PanchangamData.js';
+import { OUTER_BODIES, MOONS, EXTRA_MOONS } from './PanchangamData.js';   // agent C
 import { Inset } from './Inset.js';
 import { scanMonth } from './HolyDays.js';
 import {
@@ -204,6 +205,9 @@ canvas.addEventListener('pointerup', (e) => {
   const hit = renderer.pick(e.clientX, e.clientY);
   if (!hit) { ui.hidePick(); return; }
   if (hit.kind === 'graha' && renderer.planets.lons[hit.key] !== undefined) hit.lon = renderer.planets.lons[hit.key];
+  // agent C: bodies beyond the navagraha
+  if (hit.kind === 'graha' && OUTER_BODIES[hit.key]) { hit.kind = 'outer'; hit.lon = renderer.extra.lons[hit.key]; }
+  else if (hit.kind === 'graha' && (MOONS[hit.key] || EXTRA_MOONS[hit.key])) hit.kind = 'moon';
   if (renderer.mode === 'clock' && hit.kind !== 'graha') {
     // a deep interaction on the face just lifts off and locks the target
     ui.showPick(hit, { x: e.clientX, y: e.clientY }, current);
@@ -283,3 +287,5 @@ ui.setActive('[data-speed]', 'speed', 'live');
 ui.setActive('[data-domain]', 'domain', 'day');
 ui.setActive('[data-mode]', 'mode', 'clock');
 requestAnimationFrame((t) => { lastT = t; $body.classList.add('ready'); tick(t); });
+// agent C: test hook — `?debug` exposes the renderer for headless verification
+if (new URLSearchParams(location.search).has('debug')) window.__sky = { renderer };

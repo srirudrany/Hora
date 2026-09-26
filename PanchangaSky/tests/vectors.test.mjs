@@ -95,5 +95,11 @@ for (const [nat, v] of Object.entries(RULES.nakshatra_natures)) for (const i of 
 const jdP = M.jdFromLocal(2026, 9, 26, 12, 0, 5.5);
 eq('rahu/ketu opposite', Math.round(M.norm360(M.rahuLon(jdP) + 180 - M.rahuLon(jdP))), 180);
 
+// agent C: outer planets — geocentric tropical longitudes on 2026-09-26 (loose ±5°, mean elements)
+const BM = await import('../src/BodiesMath.js');
+const near5 = (id, got, want) => { const d = Math.abs(((got - want + 540) % 360) - 180); if (d <= 5) pass++; else { fail++; console.log(`FAIL ${id}: got ${got.toFixed(1)}, want ~${want}`); } };
+near5('uranus tropical 2026-09-26', BM.outerTropicalLon('uranus', jdP), 61);
+near5('neptune tropical 2026-09-26', BM.outerTropicalLon('neptune', jdP), 2);
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

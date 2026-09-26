@@ -359,3 +359,8 @@ body.pov .dock-body { opacity: .94; }
 /* in the sky the geometry panel leads with locks, overlays and the inset */
 body.sky .presets, body.sky .geo .dl.sub, body.sky .geo > .fine { display: none; }
 body.sky .slider { margin: 6px 0 8px; }
+
+/* ===== agent C: bodies ===== */
+.lbl-outer .on { font-size: 11px; letter-spacing: .06em; color: rgba(159,214,210,.75); font-style: italic; }
+.lockrow.beyond button { opacity: .85; }
+.lockrow.beyond i { box-shadow: 0 0 0 1px rgba(239,232,216,.25); }

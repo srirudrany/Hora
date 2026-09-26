@@ -335,4 +335,58 @@ export const GLOSSARY = Object.freeze({
   eclipse: 'Grahaṇa: when the Sun or Moon stands near a node at new or full Moon.',
   sunrise: 'The Hindu day begins at sunrise (upper limb on the horizon, with refraction).',
   lahiri: 'Lahiri (Chitrapaksha) ayanamsha: puts Spica at 180°, the Government of India standard.',
+  // agent C: bodies
+  deepsky: 'Deep-sky object: a star cluster, nebula or galaxy far beyond the Solar System, fixed among the stars.',
+  dwarfplanet: 'Dwarf planet: a round body orbiting the Sun that has not cleared its orbit (Pluto, Ceres).',
+  outerplanet: 'Outer planet: Uranus and Neptune, found by telescope (1781, 1846) and so outside the classical navagraha.',
+  satellite: 'A natural moon orbiting a planet.',
 });
+
+// ===== agent C: bodies — beyond the navagraha (not classical grahas; data for Bodies.js) =====
+// Mean elements [a AU, e, L0, L1 (deg/century), ϖ0, ϖ1] — JPL approximate (Uranus, Neptune, Pluto);
+// Ceres from approximate osculating elements (labelled approximate in the UI).
+export const OUTER_BODIES = Object.freeze({
+  uranus: Object.freeze({ name: 'अरुण', nameNote: 'modern Hindi name', iast: 'Uranus', kind: 'outerplanet', color: '#9FD6D2', size: 0.3, r: 18.8, period: 30687,
+    el: [19.18916464, 0.04725744, 313.23810451, 428.48202785, 170.9542763, 0.40805281],
+    science: 'Ice giant tipped on its side; at magnitude 5.7 it sits at the very limit of naked-eye visibility.',
+    culture: 'Found by telescope in 1781 — not a classical graha and outside the navagraha.' }),
+  neptune: Object.freeze({ name: 'वरुण', nameNote: 'modern Hindi name', iast: 'Neptune', kind: 'outerplanet', color: '#5B7FD9', size: 0.29, r: 20.2, period: 60190,
+    el: [30.06992276, 0.00859048, -55.12002969, 218.45945325, 44.96476227, -0.32241464],
+    science: 'The windiest planet, found in 1846 from its pull on Uranus; invisible to the naked eye.',
+    culture: 'Not a classical graha — unknown to the Siddhantas and outside the navagraha.' }),
+  pluto: Object.freeze({ name: 'यम', nameNote: 'modern Hindi name', iast: 'Pluto', kind: 'dwarfplanet', color: '#C9B39A', size: 0.14, r: 21.6, period: 90560,
+    el: [39.48211675, 0.2488273, 238.92903833, 145.20780515, 224.06891629, -0.04062942],
+    science: 'Dwarf planet of the Kuiper belt, with a heart-shaped nitrogen-ice plain; far below naked-eye reach.',
+    culture: 'Not a classical graha — outside the navagraha.' }),
+  ceres: Object.freeze({ name: null, iast: 'Ceres', kind: 'dwarfplanet', color: '#A8A095', size: 0.11, r: 15.1, period: 1681,
+    el: [2.7675, 0.079, 160.6, 7826.0, 154.4, 0],
+    science: 'Largest body in the asteroid belt between Mangala and Guru; binoculars only, never naked-eye.',
+    culture: 'Not a classical graha — outside the navagraha.' }),
+});
+
+export const EXTRA_MOONS = Object.freeze({
+  titan: Object.freeze({ name: 'Titan', host: 'shani', period: 15.945, r: 0.95, science: 'The only moon with a thick atmosphere and lakes of liquid methane.' }),
+  phobos: Object.freeze({ name: 'Phobos', host: 'mangala', period: 0.319, r: 0.42, science: 'Mars\'s inner moon, spiralling slowly inward — it will break up in ~50 million years.' }),
+  deimos: Object.freeze({ name: 'Deimos', host: 'mangala', period: 1.263, r: 0.62, science: 'Mars\'s small outer moon, likely a captured asteroid.' }),
+});
+
+// Deep-sky objects: RA h, Dec °, apparent size (scene units on the star sphere), style
+export const DEEP_SKY = Object.freeze([
+  { key: 'm45', name: 'कृत्तिका', iast: 'Krittika · Pleiades (M45)', ra: 3.79, dec: 24.12, size: 7, style: 'cluster', nak: 3,
+    science: 'A young open cluster ~440 light-years away; six or seven stars are visible to the eye.',
+    culture: 'The six Krittikas, foster-mothers of Kartikeya — nakshatra 3, ruled by Agni.' },
+  { key: 'm42', name: null, iast: 'Orion Nebula (M42)', ra: 5.588, dec: -5.39, size: 6, style: 'nebula', color: [255, 120, 150],
+    science: 'A stellar nursery 1,340 light-years away, visible as the fuzzy middle "star" of Orion\'s sword.' },
+  { key: 'm31', name: null, iast: 'Andromeda Galaxy (M31)', ra: 0.712, dec: 41.27, size: 12, style: 'galaxy', color: [230, 220, 200],
+    science: 'Our nearest large spiral galaxy, 2.5 million light-years away — the farthest thing the naked eye can see.' },
+  { key: 'lmc', name: null, iast: 'Large Magellanic Cloud', ra: 5.392, dec: -69.76, size: 18, style: 'cloud', color: [210, 215, 235],
+    science: 'A satellite galaxy of the Milky Way, 160,000 light-years away; a southern-sky naked-eye patch.' },
+  { key: 'smc', name: null, iast: 'Small Magellanic Cloud', ra: 0.877, dec: -72.83, size: 10, style: 'cloud', color: [210, 215, 235],
+    science: 'A dwarf satellite galaxy, 200,000 light-years away, companion to the Large Cloud.' },
+  { key: 'm44', name: 'पुष्य', iast: 'Beehive (M44, Praesepe)', ra: 8.667, dec: 19.67, size: 5.5, style: 'cluster', nak: 8,
+    science: 'An open cluster ~600 light-years away, a faint glow to the eye in dark skies.',
+    culture: 'It lies within the Pushya nakshatra (Cancer), ruled by Brihaspati.' },
+  { key: 'omegacen', name: null, iast: 'Omega Centauri', ra: 13.447, dec: -47.48, size: 5, style: 'globular', color: [255, 235, 200],
+    science: 'The largest globular cluster of the Milky Way — ten million stars, 17,000 light-years away.' },
+].map((o) => Object.freeze(o)));
+
