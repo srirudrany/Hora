@@ -5,6 +5,9 @@ import { CITIES, HORA_ORDER, VARA_TABLE, STARS } from './PanchangamData.js';
 import { Inset } from './Inset.js';
 import { scanMonth } from './HolyDays.js';
 import { Places } from './Places.js';   // agent A: compare slot + globe pin
+// agent B: zoom ladder + script preference
+import { buildHour, buildYear, zoomDomain } from './Timeline.js';
+import { script, nameIn } from './Script.js';
 import {
   computePanchangam, liveSky, limbEnd, gmstDeg, obliquity, norm360, localParts, jdFromLocal, dayBounds, fmtTime, rahuLon,
 } from './PanchangamMath.js';
@@ -42,6 +45,8 @@ const ui = new UI(document.getElementById('app'), {
   },
   now: () => goNow(),
   domain: (d) => { S.domain = d; ui.setActive('[data-domain]', 'domain', d); },
+  zoom: (dir) => { const d = zoomDomain(S.domain, dir); if (d !== S.domain) { S.domain = d; ui.setActive('[data-domain]', 'domain', d); } },
+  script: (sc) => { script.current = sc; ui.setActive('[data-script]', 'script', sc); document.body.dataset.script = sc; renderer.relabelNames((k, rec) => nameIn(k, rec)); },
   lock: (k) => { renderer.setLock(k); ui.setActive('[data-lock]', 'lock', k); },
   place: (v) => {
     if (v === 'geo') {
@@ -150,6 +155,8 @@ function refreshEnds(s) {
 const win = { key: '', start: 0, end: 1, bands: [], ticks: [], marks: [] };
 function buildWindow(info) {
   const tz = S.loc.tz;
+  if (S.domain === 'hour') return buildHour(win, S.jd, S.loc, info.day);
+  if (S.domain === 'year') return buildYear(win, S.jd, S.loc);
   if (S.domain === 'day') {
     const d = info.day, key = `day|${info.key}`;
     if (win.key === key) return;
@@ -287,5 +294,6 @@ measureSafe();
 ui.setActive('[data-view]', 'view', 'both');
 ui.setActive('[data-speed]', 'speed', 'live');
 ui.setActive('[data-domain]', 'domain', 'day');
+ui.setActive('[data-script]', 'script', 'dev');
 ui.setActive('[data-mode]', 'mode', 'clock');
 requestAnimationFrame((t) => { lastT = t; $body.classList.add('ready'); tick(t); });

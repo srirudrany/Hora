@@ -161,6 +161,13 @@ export class Renderer {
     this.starLabels = STARS.filter((s) => s.mag < 1.4 || s.yogatara).map((s) => this.addLabel(`<span class="sn">${s.name}</span>`, this.stars.group, this.stars.starPosition(s.name, new THREE.Vector3()).clone(), 'lbl-star'));
   }
 
+  /** agent B: rewrite the scene's rashi/nakshatra names for the chosen script. fn(kind, rec) → {text, cls} */
+  relabelNames(fn) {
+    const a = this.wheel.labelAnchors();
+    a.rashi.forEach(({ rec }, i) => { const n = fn('rashi', rec); this.rashiLabels[i].el.innerHTML = `<span class="dv nm-${n.cls}">${n.text}</span><span class="ia">${rec.iast}</span>`; });
+    a.nakshatra.forEach(({ rec }, i) => { const n = fn('nakshatra', rec); this.nakLabels[i].el.innerHTML = `<span class="dv nm-${n.cls}">${n.text}</span>`; });
+  }
+
   updateLabels() {
     const v = new THREE.Vector3(), w = this.width, h = this.height, camDir = new THREE.Vector3();
     this.camera.getWorldDirection(camDir);

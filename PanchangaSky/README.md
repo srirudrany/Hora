@@ -42,7 +42,13 @@ node tests/vectors.test.mjs     # 48 checks: §2 unit vectors, preset parity, §
 
 Tests: `node tests/vectors.test.mjs` runs 79 checks. They add finder semantics, a check that every `rules.json` nakshatra nature matches the SPEC table, and a check that Rahu and Ketu stay opposite.
 
-**Still open:** the compare-two-places slot, globe pin-drop, a year-domain zoom ladder on the scrubber, and the Tamil-script option.
+### Zoom ladder and script
+
+- **Scrubber ladder:** Hour · Day · Month · Year. Shift+scroll, Ctrl+scroll or a trackpad pinch over the timeline steps one rung narrower or wider. **Hour** covers ±30 minutes around the cursor, with minute ticks, vināḻigai ticks and the nāḻigai boundaries; it re-centres only when the cursor nears an edge. **Year** runs from 1 January to 1 January, with month ticks, solar-month bands, saṅkrānti marks named with Hora's Tamil month names, and Pūrṇimā/Amāvāsyā dots. The year is sampled once per day at local noon and refined with `angaEnd` only at transitions. (`src/Timeline.js`)
+- **Script (geometry panel):** Devanagari · IAST · Tamil switches the primary name in the readout cards, the conditions rows, the pick tooltips and the scene's rashi/nakshatra labels. IAST stays as the secondary line. IAST mode uses Hora's diacritic tables. **Tamil comes from Hora's engine, which only has Tamil names for nakshatra, vara and the solar month. Tithi, yoga, karana and rashi therefore fall back to Devanagari in Tamil mode.** Tamil text uses Tiro Tamil. (`src/Script.js`)
+- Touch pinch on phones (two-finger gesture on the timeline) isn't handled yet. Use the segmented control.
+
+**Still open:** the compare-two-places slot and globe pin-drop.
 
 ## Files
 

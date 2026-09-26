@@ -2,6 +2,8 @@
 // the "Sky conditions" dock with the time scrubber, glossary hover and the pick tooltip.
 import { GLOSSARY, CITIES, GRAHAS, NAKSHATRA_TABLE, RASHI_TABLE, TITHI_TABLE, TITHI_CATEGORY_INFO, VARA_TABLE, HORA_ORDER, CONSTELLATIONS, STARS } from './PanchangamData.js';
 import { ACTIVITIES, scanMonth, DISCLAIMER } from './HolyDays.js';
+import { nameHTML } from './Script.js';   // agent B: primary names follow the script preference
+const nm = (kind, rec) => nameHTML(kind, rec);
 import { fmtTime, fmtDate, fmtDeg, localParts, jdFromLocal, pad2 } from './PanchangamMath.js';
 
 // Phosphor-style inline icons (no emoji anywhere)
@@ -111,6 +113,7 @@ export class UI {
 
     <aside class="geo" aria-label="Geometry">
       <div class="geo-head"><span class="cap">Two angles drive everything</span><span class="badge" data-f="srcbadge">Live sky</span></div>
+      <div class="scriptrow"><span class="cap">${g('script', 'Script')}</span><div class="seg small script" role="group" aria-label="Script"><button data-script="dev" class="sc-dv">देव</button><button data-script="iast">IAST</button><button data-script="ta" class="sc-ta">தமிழ்</button></div></div>
       <label class="slider sun">${I.sun}<span class="sl-name">${g('graha', 'Sūrya')} <i>L☉</i></span><span class="mono sl-val" data-f="sunval"></span>
         <input type="range" min="0" max="359.999" step="0.001" data-f="sun" aria-label="Sun sidereal longitude"></label>
       <label class="slider moon">${I.moon}<span class="sl-name">${g('graha', 'Candra')} <i>L☾</i></span><span class="mono sl-val" data-f="moonval"></span>
@@ -144,7 +147,7 @@ export class UI {
           </div>
           <div class="jump">
             <input type="datetime-local" data-f="dt" aria-label="Jump to date and time" />
-            <div class="seg small" role="group" aria-label="Timeline domain"><button data-domain="day">Day</button><button data-domain="month">Month</button></div>
+            <div class="seg small" role="group" aria-label="Timeline domain" title="Shift+scroll or pinch over the timeline to zoom"><button data-domain="hour">Hour</button><button data-domain="day">Day</button><button data-domain="month">Month</button><button data-domain="year">Year</button></div>
             <button class="nowbtn" data-act="now" title="Snap back to now (L)">Now</button>
           </div>
         </div>
@@ -183,6 +186,15 @@ export class UI {
     this.$$('[data-preset]').forEach((b) => b.addEventListener('click', () => h.preset(PRESETS.find((p) => p.key === b.dataset.preset).dL)));
     this.$$('[data-speed]').forEach((b) => b.addEventListener('click', () => h.speed(b.dataset.speed)));
     this.$$('[data-domain]').forEach((b) => b.addEventListener('click', () => h.domain(b.dataset.domain)));
+    this.$$('[data-script]').forEach((b) => b.addEventListener('click', () => h.script(b.dataset.script)));
+    // zoom ladder: shift/ctrl+wheel (trackpad pinch arrives as ctrl+wheel) steps hour ⇄ day ⇄ month ⇄ year
+    let zoomT = 0;
+    this.$('[data-f="timeline"]').addEventListener('wheel', (e) => {
+      if (!e.shiftKey && !e.ctrlKey) return;
+      e.preventDefault();
+      const now = performance.now(); if (now - zoomT < 280) return; zoomT = now;
+      const d = e.deltaY || e.deltaX; if (d) h.zoom(d > 0 ? 1 : -1);
+    }, { passive: false });
     this.$$('[data-lock]').forEach((b) => b.addEventListener('click', () => h.lock(b.dataset.lock)));
     this.$('[data-act="play"]').addEventListener('click', () => h.play());
     this.$('[data-act="now"]').addEventListener('click', () => h.now());
@@ -249,7 +261,7 @@ export class UI {
     const endTxt = (kind) => (manual || !ends[kind] ? '' : `ends ${endStamp(ends[kind], s)}`);
 
     this.setField('vara', 'idx', dev(p.vara.index));
-    this.setField('vara', 'dv', p.vara.name);
+    this.setField('vara', 'dv', nm('vara', p.vara));
     this.setField('vara', 'iast', `${p.vara.iast} · ${p.vara.day}`);
     this.setField('vara', 'meta', `Lord: ${p.vara.planet} <button class="xlink" data-chip="find" data-arg="${p.vara.graha}">find ${GRAHAS[p.vara.graha].iast} ${I.arrow}</button>`);
     this.setField('vara', 'ctx', p.vara.nature);
@@ -258,7 +270,7 @@ export class UI {
 
     const t = p.tithi, cat = TITHI_CATEGORY_INFO[t.category];
     this.setField('tithi', 'idx', dev(t.index));
-    this.setField('tithi', 'dv', `${t.name} ${moonPhaseSVG(p.elongation)}`);
+    this.setField('tithi', 'dv', `${nm('tithi', t)} ${moonPhaseSVG(p.elongation)}`);
     this.setField('tithi', 'iast', `${t.iast.replace(' (Krishna)', '')} · ${g(t.paksha.toLowerCase(), t.paksha)} ${g('paksha', 'pakṣa')}`);
     this.setField('tithi', 'meta', `<span class="chip fam-${t.category}">${cat.name} ${t.category}</span> ${cat.quality}`);
     this.setField('tithi', 'ctx', `Suits: ${t.auspiciousFor.join(', ')}`);
@@ -267,7 +279,7 @@ export class UI {
 
     const n = p.nakshatra;
     this.setField('nakshatra', 'idx', `${dev(n.index)} · ${g('pada', 'pada')} ${dev(p.pada)}`);
-    this.setField('nakshatra', 'dv', n.name);
+    this.setField('nakshatra', 'dv', nm('nakshatra', n));
     this.setField('nakshatra', 'iast', `${n.iast} · ${fmtDeg(n.start)}–${fmtDeg(n.end)}`);
     this.setField('nakshatra', 'meta', `<span class="chip nat-${n.nature}">${n.temperament}</span> ${g('temperament', 'nature')}`);
     this.setField('nakshatra', 'ctx', `${g('deity', 'Deity')}: ${n.deity}`);
@@ -276,7 +288,7 @@ export class UI {
 
     const y = p.yoga, sh = y.classification === 'Shubha';
     this.setField('yoga', 'idx', dev(y.index));
-    this.setField('yoga', 'dv', y.name);
+    this.setField('yoga', 'dv', nm('yoga', y));
     this.setField('yoga', 'iast', y.iast);
     this.setField('yoga', 'meta', `<span class="chip ${sh ? 'shubha' : 'ashubha'}">${g(sh ? 'shubha' : 'ashubha', y.classification)}</span>`);
     this.setField('yoga', 'ctx', y.nature);
@@ -285,7 +297,7 @@ export class UI {
 
     const k = p.karana;
     this.setField('karana', 'idx', dev(k.index));
-    this.setField('karana', 'dv', k.name);
+    this.setField('karana', 'dv', nm('karana', k));
     this.setField('karana', 'iast', `${k.iast} · ${k.animal}`);
     this.setField('karana', 'meta', `<span class="chip ${k.avoid ? 'ashubha' : ''}">${k.type === 'Fixed' ? g('sthira', 'Sthira · Fixed') : g('chara', 'Chara · Movable')}</span> ${k.avoid ? g('vishti', 'avoid') : k.nature}`);
     this.setField('karana', 'ctx', k.application);
@@ -351,11 +363,11 @@ export class UI {
     const row = (term, label, dv, name, end, chip = '') => `<div class="crow"><span class="cl">${g(term, label)}</span><span class="cd">${dv}</span><span class="cn">${name}</span><span class="ce mono">${end === null ? '' : `ends ${end}`}</span><span class="cc">${chip}</span></div>`;
     const phase = p.elongation < 3 || p.elongation > 357 ? 'New' : Math.abs(p.elongation - 180) < 3 ? 'Full' : p.elongation < 180 ? 'Waxing' : 'Waning';
     const html = [
-      row('tithi', 'Tithi', p.tithi.name, `${p.tithi.iast.replace(' (Krishna)', '')} · ${p.tithi.paksha}`, e('tithi')),
-      row('nakshatra', 'Nakṣatra', p.nakshatra.name, p.nakshatra.iast, e('nakshatra')),
-      row('yoga', 'Yoga', p.yoga.name, p.yoga.iast, e('yoga'), `<span class="chip ${p.yoga.classification === 'Shubha' ? 'shubha' : 'ashubha'}">${p.yoga.classification}</span>`),
-      row('karana', 'Karaṇa', p.karana.name, p.karana.iast, e('karana'), `<span class="chip ${p.karana.avoid ? 'ashubha' : ''}">${p.karana.type}</span>`),
-      row('vara', 'Vāra', p.vara.name, `${p.vara.iast} (${p.vara.day.slice(0, 3)})`, null),
+      row('tithi', 'Tithi', nm('tithi', p.tithi), `${p.tithi.iast.replace(' (Krishna)', '')} · ${p.tithi.paksha}`, e('tithi')),
+      row('nakshatra', 'Nakṣatra', nm('nakshatra', p.nakshatra), p.nakshatra.iast, e('nakshatra')),
+      row('yoga', 'Yoga', nm('yoga', p.yoga), p.yoga.iast, e('yoga'), `<span class="chip ${p.yoga.classification === 'Shubha' ? 'shubha' : 'ashubha'}">${p.yoga.classification}</span>`),
+      row('karana', 'Karaṇa', nm('karana', p.karana), p.karana.iast, e('karana'), `<span class="chip ${p.karana.avoid ? 'ashubha' : ''}">${p.karana.type}</span>`),
+      row('vara', 'Vāra', nm('vara', p.vara), `${p.vara.iast} (${p.vara.day.slice(0, 3)})`, null),
       `<div class="crow foot mono">${g('sunrise', 'Sunrise')} ${fmtTime(s.day.sunrise, tz)} · Sunset ${fmtTime(s.day.sunset, tz)} · Moon: ${phase} ·
         ${g('rahukalam', 'Rāhu kālam')} ${fmtTime(info.rahu[0], tz)}–${fmtTime(info.rahu[1], tz)} · ${g('yamagandam', 'Yamagaṇḍam')} ${fmtTime(info.yama[0], tz)}–${fmtTime(info.yama[1], tz)} ·
         ${g('abhijit', 'Abhijit')} ${fmtTime(info.abhijit[0], tz)}–${fmtTime(info.abhijit[1], tz)}</div>`,
@@ -388,16 +400,16 @@ export class UI {
       chip = `<button data-chip="constellation" data-arg="${C ? st.constellation : ''}|${hit.nak}">Part of ${n.iast}${C ? ` (${st.constellation})` : ''} — view ${I.arrow}</button>`;
     } else if (hit.kind === 'nakshatra') {
       const n = NAKSHATRA_TABLE[hit.index - 1];
-      h = `<h4><span class="dv">${n.name}</span> ${n.iast}</h4><p class="w">${g('nakshatra', 'Nakṣatra')} ${n.index} of 27</p>
+      h = `<h4><span class="dv">${nm('nakshatra', n)}</span> ${n.iast}</h4><p class="w">${g('nakshatra', 'Nakṣatra')} ${n.index} of 27</p>
         <p>${g('deity', 'Deity')}: ${n.deity} · ${g('temperament', 'Temperament')}: ${n.temperament}</p>
         <p class="co mono">${g('ecliptic', 'Ecliptic')} ${fmtDeg(n.start)}–${fmtDeg(n.end)} · ${RASHI_TABLE[Math.floor(n.start / 30)].iast}</p>`;
     } else if (hit.kind === 'rashi') {
       const r = RASHI_TABLE[hit.index - 1];
-      h = `<h4><span class="dv">${r.name}</span> ${r.iast}</h4><p class="w">${r.western} · ${g('rashi', 'Rāśi')} ${r.index} of 12</p>
+      h = `<h4><span class="dv">${nm('rashi', r)}</span> ${r.iast}</h4><p class="w">${r.western} · ${g('rashi', 'Rāśi')} ${r.index} of 12</p>
         <p>Ruled by ${r.lord}.</p><p class="co mono">${g('ecliptic', 'Ecliptic')} ${r.start}°–${r.start + 30}°</p>`;
     } else if (hit.kind === 'tithi') {
       const t = TITHI_TABLE[hit.index - 1];
-      h = `<h4><span class="dv">${t.name}</span> ${t.iast}</h4><p class="w">${g('tithi', 'Tithi')} ${t.index} · ${t.paksha} · ${t.category}</p>
+      h = `<h4><span class="dv">${nm('tithi', t)}</span> ${t.iast}</h4><p class="w">${g('tithi', 'Tithi')} ${t.index} · ${t.paksha} · ${t.category}</p>
         <p>Traditionally suits ${t.auspiciousFor.join(', ').toLowerCase()}.</p><p class="co mono">${g('elongation', 'ΔL')} ${(t.index - 1) * 12}°–${t.index * 12}°</p>`;
     }
     const box = this.$('[data-f="pick"]');
