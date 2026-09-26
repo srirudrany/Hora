@@ -107,7 +107,7 @@ Result: Integer 1..30
 Tithi 1 (Shukla Pratipada):    ΔL ∈ [0°,   12°)
 Tithi 2 (Shukla Dwitiya):      ΔL ∈ [12°,  24°)
 ...
-Tithi 15 (Purnima):            ΔL ∈ [168°, 180°]
+Tithi 15 (Purnima):            ΔL ∈ [168°, 180°)
 Tithi 16 (Krishna Pratipada):  ΔL ∈ [180°, 192°)
 ...
 Tithi 30 (Amavasya):           ΔL ∈ [348°, 360°)
@@ -261,14 +261,20 @@ Karana 60: Naga (Fixed #3) — 2nd half of Amavasya
 
 **Formula (from Julian Day Number):**
 ```
-JDN = floor(365.25 * (Y + 4716)) + floor(30.6001 * (M + 1)) + D + B - 1524.5
-Vara Index (0-based) = (JDN + 1) mod 7   // 0=Sunday (Ravi), 1=Monday (Soma)... 6=Saturday (Shani)
-Vara Index (1-based) = ((JDN + 1) mod 7) + 1  // 1=Sunday (Ravi)... 7=Saturday (Shani)
+if M <= 2: Y = Y - 1, M = M + 12
+A   = floor(Y / 100),  B = 2 - A + floor(A / 4)
+JD  = floor(365.25 * (Y + 4716)) + floor(30.6001 * (M + 1)) + D + B - 1524.5   // JD at 0h UT, ends in .5
+JDN = JD + 0.5                                  // integer day number
+Vara Index (0-based) = (JDN + 1) mod 7          // 0=Sunday (Ravi), 1=Monday (Soma)... 6=Saturday (Shani)
+Vara Index (1-based) = ((JDN + 1) mod 7) + 1    // 1=Sunday (Ravi)... 7=Saturday (Shani)
 ```
 Where:
 - Y, M, D = Gregorian year, month, day
-- B = correction for Gregorian calendar (0 for Julian)
+- B = Gregorian calendar correction (use B = 0 for Julian-calendar dates)
 - Result: 0=Sunday..6=Saturday (Hora engine/JavaScript convention) or 1=Sunday..7=Saturday (table convention below)
+- Use the integer JDN, not the `.5` midnight JD: `(JD + 1) mod 7` on the midnight
+  value floors to the previous day's Vara.
+- Check: 2026-09-26 → JD 2461309.5, JDN 2461310, (2461310 + 1) mod 7 = 6 → Saturday (Shani).
 
 **Simplified (if date is known):**
 ```js
@@ -1156,9 +1162,9 @@ Each layer independent, with sensible group presets ("Religious view",
 
 ## What Hora is
 
-A teammate's (srirudrany) Panchanga project, local at
-`C:/Users/traps/Downloads/ResumeProjects/CC_BuildEvent/Hora`
-(remote: https://github.com/srirudrany/Hora). It is a **verified computation
+A teammate's (srirudrany) Panchanga project, which now shares this repo
+(https://github.com/srirudrany/Hora): its assets live at the repo root
+(`engine/`, `data/`, `design/`, `reference/`) alongside these docs. It is a **verified computation
 core + data bundle + design system**, complementary to Panchanga Sky's
 visualization goal. **Updated 2026-09-26: commit 269a3ac "Exported Claude
 design" added a full app-design pass — a working three.js sky scene and three
@@ -1216,7 +1222,21 @@ formalized as vector V-YOGA-01 in test-vectors.md
 
 ### 5. Cross-validation of our data tables
 Checked against Hora's `names.json` and CLAUDE.md (2026-09-26):
-- Nakshatra order and Devanagari spellings: consistent with our §3 tables.
+- Nakshatra order: consistent with our §3 tables.
+- Nakshatra Devanagari spellings: 21 of 27 match. Six differ, all valid
+  orthographic variants (see the §3 orthography caveat):
+
+  | # | Our §3 table | Hora `names.json` |
+  |---|---|---|
+  | 5 | मृगशिरा | मृगशीर्ष |
+  | 11 | पूर्व फाल्गुनी | पूर्वफल्गुनी |
+  | 12 | उत्तर फाल्गुनी | उत्तरफल्गुनी |
+  | 24 | शतभिषा | शतभिषक् |
+  | 25 | पूर्व भाद्रपदा | पूर्वभाद्रपदा |
+  | 26 | उत्तर भाद्रपदा | उत्तरभाद्रपदा |
+
+  Hora is the source of truth for naming (§10.1), so UI strings should come
+  from `data/names.json`; don't mix the two spellings in one build.
 - Yoga order and the Ashubha set {1,6,9,10,13,15,17,19,27}: consistent.
 - Karana cycle and the four fixed positions (1, 58, 59, 60): consistent.
 - Tithi categories by `((t − 1) mod 5)`: consistent.
@@ -1238,8 +1258,10 @@ pipeline matches verified astronomical ephemeris outputs.
 
 - Credit Hora (srirudrany) in the README and any submission; the engine and
   name tables are their work.
-- Do not fork-patch Hora's engine inside our repo; consume it (file copy with
-  provenance header, or import), so their verification stays meaningful.
+- Do not patch `engine/panchanga.js` from the Panchanga Sky build; consume it
+  (import it, or copy it with a provenance header), so its verification stays
+  meaningful. Engine fixes go to `engine/` itself and must keep
+  `data/test-vectors.json` passing.
 - Any number our docs assert must survive `data/test-vectors.json` and
   `test-vectors.md` simultaneously; if the two ever disagree, the
   discrepancy is a finding — stop and reconcile, never pick one silently.
